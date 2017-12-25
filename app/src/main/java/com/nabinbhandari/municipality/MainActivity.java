@@ -1,10 +1,10 @@
 package com.nabinbhandari.municipality;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,6 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.nabinbhandari.retrofit.Image;
+import com.nabinbhandari.retrofit.ImageUtils;
+import com.nabinbhandari.retrofit.PhotoService;
+import com.nabinbhandari.retrofit.PreviewActivity;
+import com.nabinbhandari.retrofit.RetrofitUtils;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +49,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        PhotoService service = RetrofitUtils.getRetrofit().create(PhotoService.class);
+        ImageUtils.init(this, service);
     }
 
     @Override
@@ -91,7 +103,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            ArrayList<Image> images = new ArrayList<>();
+            images.add(new Image("image1.jpg", "Image1"));
+            images.add(new Image("image2.jpg", "Image2"));
+            images.add(new Image("image3.jpg", "Image3"));
+            images.add(new Image("image4.jpg", "Image4"));
+            images.add(new Image("image5.jpg", "Image5"));
+            images.add(new Image("image6.jpg", "Image6"));
+            startActivity(new Intent(this, PreviewActivity.class)
+                    .putExtra(PreviewActivity.EXTRA_IMAGES, images));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

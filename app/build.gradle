@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
         applicationId "com.nabinbhandari.municipality"
-        minSdkVersion 14
-        targetSdkVersion 26
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -20,7 +20,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project (':retrofit-utils')
 
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
-    compile 'com.android.support:design:26.0.0-alpha1'
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibVersion"
+
 }
