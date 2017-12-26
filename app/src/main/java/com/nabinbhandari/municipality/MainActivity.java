@@ -1,7 +1,7 @@
 package com.nabinbhandari.municipality;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -14,13 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.nabinbhandari.retrofit.Image;
+import com.nabinbhandari.municipality.gallery.GalleryFragment;
 import com.nabinbhandari.retrofit.ImageUtils;
 import com.nabinbhandari.retrofit.PhotoService;
-import com.nabinbhandari.retrofit.PreviewActivity;
 import com.nabinbhandari.retrofit.RetrofitUtils;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -88,14 +85,15 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            GalleryFragment galleryFragment = GalleryFragment.newInstance(GalleryFragment.getSampleJSON(this));
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, galleryFragment).commit();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -103,15 +101,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-            ArrayList<Image> images = new ArrayList<>();
-            images.add(new Image("image1.jpg", "Image1"));
-            images.add(new Image("image2.jpg", "Image2"));
-            images.add(new Image("image3.jpg", "Image3"));
-            images.add(new Image("image4.jpg", "Image4"));
-            images.add(new Image("image5.jpg", "Image5"));
-            images.add(new Image("image6.jpg", "Image6"));
-            startActivity(new Intent(this, PreviewActivity.class)
-                    .putExtra(PreviewActivity.EXTRA_IMAGES, images));
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
