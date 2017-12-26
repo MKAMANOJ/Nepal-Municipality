@@ -2,6 +2,7 @@ package com.nabinbhandari.municipality.gallery;
 
 import com.nabinbhandari.ErrorTracker;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +12,11 @@ import java.util.List;
  * @author bnabin51@gmail.com
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class GalleryGroup {
+public class GalleryGroup implements Serializable {
 
     private String group_desc_en;
     private String group_desc_np;
-    private List<PhotoItem> photos;
+    private ArrayList<PhotoItem> photos;
 
     public String getDescription() {
         String sizeString = " (" + getPhotos().size() + ")";
@@ -27,7 +28,7 @@ public class GalleryGroup {
             ErrorTracker.track();
             return "error.jpg";
         }
-        return photos.get(0).getFileName();
+        return photos.get(0).getThumbFileName();
     }
 
     public List<PhotoItem> getPhotos() {

@@ -20,11 +20,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.nabinbhandari.AssetReader;
 import com.nabinbhandari.municipality.R;
-import com.nabinbhandari.retrofit.Image;
 import com.nabinbhandari.retrofit.ImageUtils;
-import com.nabinbhandari.retrofit.PreviewActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +55,7 @@ public class GalleryFragment extends Fragment {
         GridView gridView = new GridView(getContext());
         gridView.setBackgroundColor(Color.BLACK);
         gridView.setNumColumns(2);
-        gridView.setAdapter(new GalleryGroupAdapter(getContext(), R.layout.gallery_group,
+        gridView.setAdapter(new GalleryGroupAdapter(getContext(), R.layout.item_gallery,
                 gallery.getGroups()));
         return gridView;
     }
@@ -76,7 +73,7 @@ public class GalleryFragment extends Fragment {
             final GalleryGroup group = getItem(position);
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                convertView = inflater.inflate(R.layout.gallery_group, parent, false);
+                convertView = inflater.inflate(R.layout.item_gallery, parent, false);
                 final View rootView = convertView;
                 convertView.post(new Runnable() {
                     @Override
@@ -87,19 +84,15 @@ public class GalleryFragment extends Fragment {
                 });
             }
             if (group == null) return convertView;
-            TextView group_desc = convertView.findViewById(R.id.groupNameTextView);
-            group_desc.setText(group.getDescription());
+            TextView descTextView = convertView.findViewById(R.id.descTextView);
+            descTextView.setText(group.getDescription());
             ImageView imageView = convertView.findViewById(R.id.imagePreview);
             ImageUtils.loadImageAsync(imageView, group.getFirstPhotoName(), false);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ArrayList<Image> images = new ArrayList<>();
-                    for (PhotoItem photoItem : group.getPhotos()) {
-                        images.add(new Image(photoItem.getFileName(), photoItem.getDescription()));
-                    }
-                    Intent intent = new Intent(v.getContext(), PreviewActivity.class)
-                            .putExtra(PreviewActivity.EXTRA_IMAGES, images);
+                    Intent intent = new Intent(v.getContext(), GalleryGroupActivity.class)
+                            .putExtra(GalleryGroupActivity.EXTRA_GALLERY_GROUP, group);
                     v.getContext().startActivity(intent);
                 }
             });

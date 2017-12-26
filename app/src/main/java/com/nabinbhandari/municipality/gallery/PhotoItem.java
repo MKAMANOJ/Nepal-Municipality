@@ -2,6 +2,8 @@ package com.nabinbhandari.municipality.gallery;
 
 import com.nabinbhandari.ErrorTracker;
 
+import java.io.Serializable;
+
 /**
  * Created at 7:42 PM on 12/26/2017.
  *
@@ -9,7 +11,7 @@ import com.nabinbhandari.ErrorTracker;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class PhotoItem {
+public class PhotoItem implements Serializable {
 
     private String desc_en;
     private String desc_np;
@@ -28,6 +30,10 @@ public class PhotoItem {
             file_name = "error.jpg";
         }
         return file_name;
+    }
+
+    public String getThumbFileName() {
+        return "thumb_" + getFileName();
     }
 
 }
