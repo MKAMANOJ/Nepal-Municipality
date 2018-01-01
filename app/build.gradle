@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+
     defaultConfig {
         applicationId "com.nabinbhandari.municipality"
         minSdkVersion rootProject.minSdkVersion
@@ -24,5 +24,4 @@ dependencies {
 
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
     compile "com.android.support:design:$rootProject.ext.supportLibVersion"
-
 }
