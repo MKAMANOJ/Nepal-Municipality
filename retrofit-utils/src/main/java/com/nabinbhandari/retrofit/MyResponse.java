@@ -6,5 +6,6 @@ package com.nabinbhandari.retrofit;
 public class MyResponse {
 
     public String message;
+    public int code;
 
 }

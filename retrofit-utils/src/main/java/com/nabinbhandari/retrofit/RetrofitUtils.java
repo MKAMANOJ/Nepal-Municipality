@@ -13,7 +13,8 @@ public class RetrofitUtils {
 
     private static Retrofit retrofit;
 
-    private static final String BASE_URL = "http://nabinbhandari.com/palika/";
+//    private static final String BASE_URL = "http://nabinbhandari.com/palika/";
+    private static final String BASE_URL = "http://manoj.engineeringinnepal.com/palika/api/";
 
     public static Retrofit getRetrofit() {
         if (retrofit == null) {

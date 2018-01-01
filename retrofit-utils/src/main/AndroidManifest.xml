@@ -5,7 +5,6 @@
 
         <activity
             android:name=".PreviewActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.FullScreen" />
 
     </application>

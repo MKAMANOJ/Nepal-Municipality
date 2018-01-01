@@ -1,6 +1,7 @@
 package com.nabinbhandari.municipality.gallery;
 
 import com.nabinbhandari.ErrorTracker;
+import com.nabinbhandari.retrofit.MyResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,18 +13,16 @@ import java.util.List;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class Gallery {
+public class Gallery extends MyResponse {
 
-    public int status;
-    public String message;
-    private List<GalleryGroup> groups;
+    private List<GalleryGroup> data;
 
     public List<GalleryGroup> getGroups() {
-        if (groups == null) {
+        if (data == null) {
             ErrorTracker.track();
-            groups = new ArrayList<>();
+            data = new ArrayList<>();
         }
-        return groups;
+        return data;
     }
 
 }

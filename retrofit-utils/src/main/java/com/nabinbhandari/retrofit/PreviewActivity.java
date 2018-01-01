@@ -1,10 +1,13 @@
 package com.nabinbhandari.retrofit;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -20,7 +23,7 @@ public class PreviewActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_preview);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        ViewPager viewPager = findViewById(R.id.viewPager);
 
         try {
             @SuppressWarnings("unchecked")
@@ -36,6 +39,14 @@ public class PreviewActivity extends AppCompatActivity {
             Toast.makeText(this, t.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }
+    }
+
+    @SuppressLint("CheckResult")
+    public static RequestOptions getRequestOptions() {
+        RequestOptions opts = new RequestOptions();
+        opts.placeholder(R.drawable.placeholder_waiting);
+        opts.error(R.drawable.placeholder_warning);
+        return opts;
     }
 
 }

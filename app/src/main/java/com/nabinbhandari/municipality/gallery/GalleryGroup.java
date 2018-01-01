@@ -4,7 +4,6 @@ import com.nabinbhandari.ErrorTracker;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created at 7:42 PM on 12/26/2017.
@@ -14,29 +13,39 @@ import java.util.List;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class GalleryGroup implements Serializable {
 
-    private String group_desc_en;
-    private String group_desc_np;
-    private ArrayList<PhotoItem> photos;
+    public boolean isLoaded = false;
+    public boolean loadError = false;
+
+    public int id;
+    public String name;
+
+    //private String group_desc_en;
+    //private String group_desc_np;
+    private ArrayList<PhotoItem> data;
 
     public String getDescription() {
         String sizeString = " (" + getPhotos().size() + ")";
-        return group_desc_en + sizeString;
+        return name + sizeString;
     }
 
-    public String getFirstPhotoName() {
+    public String getFirstPhotoUrl() {
         if (getPhotos().size() == 0) {
             ErrorTracker.track();
             return "error.jpg";
         }
-        return photos.get(0).getThumbFileName();
+        return data.get(0).getThumbUrl();
     }
 
-    public List<PhotoItem> getPhotos() {
-        if (photos == null) {
+    public void setPhotos(ArrayList<PhotoItem> data) {
+        this.data = data;
+    }
+
+    public ArrayList<PhotoItem> getPhotos() {
+        if (data == null) {
             ErrorTracker.track();
-            photos = new ArrayList<>();
+            data = new ArrayList<>();
         }
-        return photos;
+        return data;
     }
 
 }
