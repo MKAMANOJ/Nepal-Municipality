@@ -1,10 +1,6 @@
 package com.nabinbhandari.municipality.gallery;
 
-import com.nabinbhandari.ErrorTracker;
-
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +9,7 @@ import java.util.ArrayList;
  * @author bnabin51@gmail.com
  */
 
-@SuppressWarnings({"WeakerAccess", "unused", "DeprecatedIsStillUsed"})
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class PhotoItem implements Serializable {
 
     class ImageLink implements Serializable {
@@ -22,10 +18,13 @@ public class PhotoItem implements Serializable {
 
     public int id;
     private String title;
+    private String url, thumbUrl;
 
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection") //will update from retrofit.
     private ArrayList<ImageLink> links;
 
     public String getUrl() {
+        if (links == null) return "NULL";
         if (url == null) {
             url = links.get(0).image;
         }
@@ -33,46 +32,15 @@ public class PhotoItem implements Serializable {
     }
 
     public String getThumbUrl() {
+        if (links == null) return "NULL";
         if (thumbUrl == null) {
             thumbUrl = links.get(0).thumbnail;
         }
         return thumbUrl;
     }
 
-    // private String desc_np;
-    // private String file_name;
-
-    private String url, thumbUrl;
-
     public String getDescription() {
         return title;
-    }
-
-    @Deprecated
-    public String getFileName() {
-        if (url == null) {
-            ErrorTracker.track();
-            return "error.jpg";
-        }
-        return getMD5(url);
-    }
-
-    @Deprecated
-    public String getThumbFileName() {
-        if (thumbUrl == null) {
-            ErrorTracker.track();
-            return "error.jpg";
-        }
-        return getMD5(thumbUrl);
-    }
-
-    public static String getMD5(String input) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            return new String(digest.digest(input.getBytes()));
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }

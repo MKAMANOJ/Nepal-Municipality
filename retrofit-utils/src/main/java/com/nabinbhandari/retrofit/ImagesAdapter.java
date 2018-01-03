@@ -24,7 +24,7 @@ class ImagesAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Image image = images.get(position);
-        return ImageFragment.newInstance(image.fileName, image.description);
+        return ImageFragment.newInstance(image.url, image.description);
     }
 
     @Override

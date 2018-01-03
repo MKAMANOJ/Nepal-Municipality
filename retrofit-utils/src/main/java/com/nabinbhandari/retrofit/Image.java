@@ -8,11 +8,11 @@ import java.io.Serializable;
 
 public class Image implements Serializable {
 
-    final String fileName;
+    final String url;
     final String description;
 
-    public Image(String fileName, String description) {
-        this.fileName = fileName;
+    public Image(String url, String description) {
+        this.url = url;
         this.description = description;
     }
 

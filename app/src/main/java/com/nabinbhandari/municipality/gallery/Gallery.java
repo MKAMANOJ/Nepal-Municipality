@@ -12,7 +12,7 @@ import java.util.List;
  * @author bnabin51@gmail.com
  */
 
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings("WeakerAccess")
 public class Gallery extends MyResponse {
 
     private List<GalleryGroup> data;
