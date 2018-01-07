@@ -12,13 +12,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.nabinbhandari.LanguageHelper;
 import com.nabinbhandari.municipality.gallery.GalleryFragment;
 import com.nabinbhandari.municipality.menu.Category;
@@ -36,24 +38,99 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager fragmentManager;
     private long backPressedTime;
 
+    private DrawerLayout drawer;
+    private MaterialMenuDrawable menu;
+    private boolean isDrawerOpened;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LanguageHelper.refreshLanguage(this);
-
         setContentView(R.layout.activity_main);
+
+        fragmentManager = getSupportFragmentManager();
+        MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList(), this);
+        fragmentManager.beginTransaction().replace(R.id.fragment_holder, menuFragment).commit();
+
+        initDrawer();
+        initNavigationItems();
+
+        PhotoService service = RetrofitUtils.getRetrofit().create(PhotoService.class);
+        ImageUtils.init(this, service);
+    }
+
+    private void initDrawer() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        menu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int backStackCount = fragmentManager.getBackStackEntryCount();
+                if (backStackCount == 0) {
+                    drawer.openDrawer(Gravity.START);
+                } else {
+                    fragmentManager.popBackStack();
+                }
+            }
+        });
 
+        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (fragmentManager.getBackStackEntryCount() > 0) {
+                    menu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                } else {
+                    menu.animateIconState(MaterialMenuDrawable.IconState.BURGER);
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                }
+            }
+        });
+
+        toolbar.setNavigationIcon(menu);
+
+        drawer = findViewById(R.id.drawer_layout);
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                menu.setTransformationOffset(
+                        MaterialMenuDrawable.AnimationState.BURGER_ARROW,
+                        isDrawerOpened ? 2 - slideOffset : slideOffset
+                );
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                isDrawerOpened = true;
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                isDrawerOpened = false;
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                if (newState == DrawerLayout.STATE_IDLE) {
+                    if (isDrawerOpened) {
+                        menu.setIconState(MaterialMenuDrawable.IconState.ARROW);
+                    } else {
+                        if (fragmentManager.getBackStackEntryCount() > 0) {
+                            menu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
+                        } else {
+                            menu.setIconState(MaterialMenuDrawable.IconState.BURGER);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private void initNavigationItems() {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         Menu menu = navigationView.getMenu();
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_home);
         if (drawable != null) drawable.setColorFilter(NAV_ICON_COLOR, PorterDuff.Mode.SRC_IN);
@@ -64,13 +141,6 @@ public class MainActivity extends AppCompatActivity
             if (drawable != null) drawable.setColorFilter(NAV_ICON_COLOR, PorterDuff.Mode.SRC_IN);
             menu.findItem(category.id).setCheckable(true).setIcon(drawable);
         }
-
-        PhotoService service = RetrofitUtils.getRetrofit().create(PhotoService.class);
-        ImageUtils.init(this, service);
-
-        fragmentManager = getSupportFragmentManager();
-        MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList(), this);
-        fragmentManager.beginTransaction().replace(R.id.fragment_holder, menuFragment).commit();
     }
 
     @Override
