@@ -5,13 +5,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -68,6 +72,25 @@ public class StaffsFragment extends Fragment {
                 staffs.add(staff);
                 staffsAdapter.notifyDataSetChanged();
             }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Staff staff = Staff.from(dataSnapshot);
+                if (staff == null) return;
+                int index = staffs.indexOf(staff);
+                if (index < 0) return;
+                staffs.get(index).set(staff);
+                staffsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Staff staff = Staff.from(dataSnapshot);
+                if (staff == null) return;
+                if (staffs.remove(staff)) {
+                    staffsAdapter.notifyDataSetChanged();
+                }
+            }
         };
         dbReference.addChildEventListener(staffsListener);
     }
@@ -80,8 +103,13 @@ public class StaffsFragment extends Fragment {
 
     private static class StaffsAdapter extends ArrayAdapter<Staff> {
 
+        private static final String BASE = "http://manoj.engineeringinnepal.com/palika/storage/";
+
+        private List<Staff> staffs;
+
         StaffsAdapter(@NonNull Context context, @NonNull List<Staff> staffs) {
             super(context, R.layout.item_staff, staffs);
+            this.staffs = staffs;
         }
 
         @NonNull
@@ -94,10 +122,83 @@ public class StaffsFragment extends Fragment {
                 view = inflater.inflate(R.layout.item_staff, parent, false);
             }
 
-            Staff staff = getItem(position);
+            final Staff staff = getItem(position);
             if (staff == null) return view;
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean selected = staff.selected;
+                    for (Staff otherStaff : staffs) {
+                        otherStaff.selected = false;
+                    }
+                    staff.selected = !selected;
+                    notifyDataSetChanged();
+                }
+            });
+
             TextView nameTextView = view.findViewById(R.id.nameTextView);
             nameTextView.setText(staff.name);
+            TextView designationTextView = view.findViewById(R.id.designationTextView);
+            designationTextView.setText(staff.designation);
+
+            ImageView imageView = view.findViewById(R.id.imagePreview);
+            if (TextUtils.isEmpty(staff.image)) {
+                imageView.setImageDrawable(ContextCompat.getDrawable(context,
+                        R.drawable.placeholder_warning));
+            } else {
+                Glide.with(imageView).load(BASE + staff.image).into(imageView);
+            }
+
+            TextView addressTextView = view.findViewById(R.id.addressTextView);
+            TextView emailTextView = view.findViewById(R.id.emailTextView);
+            TextView officePhoneTextView = view.findViewById(R.id.officePhoneTextView);
+            TextView personalPhoneTextView = view.findViewById(R.id.personalPhoneTextView);
+            TextView appointmentDateTextView = view.findViewById(R.id.appointmentDateTextView);
+
+            if (TextUtils.isEmpty(staff.address)) {
+                addressTextView.setVisibility(View.GONE);
+            } else {
+                addressTextView.setText(String.format(context.getString(R.string.format_address),
+                        staff.address));
+                addressTextView.setVisibility(View.VISIBLE);
+            }
+
+            if (TextUtils.isEmpty(staff.email)) {
+                emailTextView.setVisibility(View.GONE);
+            } else {
+                emailTextView.setText(String.format(context.getString(R.string.format_email),
+                        staff.email));
+                emailTextView.setVisibility(View.VISIBLE);
+            }
+
+            if (TextUtils.isEmpty(staff.office_phone)) {
+                officePhoneTextView.setVisibility(View.GONE);
+            } else {
+                officePhoneTextView.setText(String.format(context
+                        .getString(R.string.format_office_phone), staff.office_phone));
+                officePhoneTextView.setVisibility(View.VISIBLE);
+            }
+
+            if (TextUtils.isEmpty(staff.personal_phone)) {
+                personalPhoneTextView.setVisibility(View.GONE);
+            } else {
+                personalPhoneTextView.setText(String.format(context
+                        .getString(R.string.format_personal_phone), staff.personal_phone));
+                personalPhoneTextView.setVisibility(View.VISIBLE);
+            }
+
+            if (TextUtils.isEmpty(staff.appointment_date)) {
+                appointmentDateTextView.setVisibility(View.GONE);
+            } else {
+                appointmentDateTextView.setText(String.format(context
+                        .getString(R.string.format_appointment_date), staff.appointment_date));
+                appointmentDateTextView.setVisibility(View.VISIBLE);
+            }
+
+            view.findViewById(R.id.detailsLayout)
+                    .setVisibility(staff.selected ? View.VISIBLE : View.GONE);
+
             return view;
         }
 

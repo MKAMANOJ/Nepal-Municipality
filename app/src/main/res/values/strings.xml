@@ -12,4 +12,10 @@
     <string name="nepali">Nepali</string>
     <string name="press_back_again_to_exit">Press back again to exit.</string>
 
+    <string name="format_address">Address: %s</string>
+    <string name="format_email">Email: %s</string>
+    <string name="format_office_phone">Office Phone: %s</string>
+    <string name="format_personal_phone">Personal Phone: %s</string>
+    <string name="format_appointment_date">Appointment Date: %s</string>
+
 </resources>
