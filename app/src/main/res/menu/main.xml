@@ -6,4 +6,12 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/nepali"
+        android:checkable="true"
+        android:checked="false"
+        android:title="@string/nepali"
+        app:showAsAction="never" />
+
 </menu>

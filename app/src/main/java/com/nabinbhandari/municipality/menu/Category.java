@@ -2,10 +2,12 @@ package com.nabinbhandari.municipality.menu;
 
 import android.support.annotation.DrawableRes;
 
+import com.nabinbhandari.LanguageHelper;
 import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created at 7:40 PM on 1/6/2018.
@@ -30,7 +32,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return title_en;
+        return Locale.getDefault().equals(LanguageHelper.NP) ? title_np : title_en;
     }
 
     public static List<Category> getDummyList() {

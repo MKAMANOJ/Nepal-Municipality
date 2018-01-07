@@ -1,5 +1,6 @@
 package com.nabinbhandari.municipality;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -14,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.nabinbhandari.LanguageHelper;
+import com.nabinbhandari.municipality.gallery.GalleryFragment;
 import com.nabinbhandari.municipality.menu.Category;
 import com.nabinbhandari.municipality.menu.MenuFragment;
 import com.nabinbhandari.retrofit.ImageUtils;
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LanguageHelper.refreshLanguage(this);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,23 +69,25 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem item = menu.findItem(R.id.nepali);
+        item.setChecked(LanguageHelper.isNepali(this));
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.nepali) {
+            item.setChecked(!item.isChecked());
+            LanguageHelper.updatePrefs(this, item.isChecked());
+            LanguageHelper.refreshLanguage(this);
+            finish();
+            startActivity(new Intent(this, MainActivity.class));
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -93,10 +100,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList());
             setFragment(menuFragment, R.string.app_name);
+        } else if (id == 7) {
+            setFragment(GalleryFragment.newInstance(), R.string.app_name);
         } else {
             Toast.makeText(this, "id: " + id, Toast.LENGTH_SHORT).show();
         }
-        // setFragment(GalleryFragment.newInstance(), R.string.introduction);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

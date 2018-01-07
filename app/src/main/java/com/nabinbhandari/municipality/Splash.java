@@ -1,5 +1,6 @@
 package com.nabinbhandari.municipality;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import com.nabinbhandari.LanguageHelper;
 
 /**
  * Created at 9:01 PM on 1/3/2018.
@@ -30,6 +33,7 @@ public class Splash extends AppCompatActivity {
         if (actionBar != null) {
             getSupportActionBar().hide();
         }
+        LanguageHelper.refreshLanguage(this);
         setContentView(R.layout.layout_splash);
     }
 
