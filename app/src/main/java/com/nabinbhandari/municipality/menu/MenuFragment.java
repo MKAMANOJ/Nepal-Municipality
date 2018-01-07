@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -33,14 +34,22 @@ import java.util.List;
 
 public class MenuFragment extends Fragment {
 
+    public interface OnCategoryClickListener {
+        void onCategoryClick(@NonNull Category category);
+    }
+
+    private OnCategoryClickListener onCategoryClickListener;
+
     private List<Category> categories;
 
     public MenuFragment() {
     }
 
-    public static MenuFragment newInstance(List<Category> categories) {
+    public static MenuFragment newInstance(@NonNull List<Category> categories,
+                                           @NonNull OnCategoryClickListener categoryClickListener) {
         MenuFragment fragment = new MenuFragment();
         fragment.categories = categories;
+        fragment.onCategoryClickListener = categoryClickListener;
         return fragment;
     }
 
@@ -51,6 +60,14 @@ public class MenuFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         GridView gridView = view.findViewById(R.id.gridView);
         gridView.setAdapter(new CategoriesAdapter(inflater.getContext(), categories));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Category category = categories.get(position);
+                if (category == null) return;
+                onCategoryClickListener.onCategoryClick(category);
+            }
+        });
         return view;
     }
 
@@ -84,8 +101,8 @@ public class MenuFragment extends Fragment {
                 }
 
                 @Override
-                public boolean onResourceReady(Drawable resource, Object model,
-                                               Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> t,
+                                               DataSource dataSource, boolean isFirstResource) {
                     resource.setColorFilter(ICON_COLOR, PorterDuff.Mode.SRC_IN);
                     return false;
                 }

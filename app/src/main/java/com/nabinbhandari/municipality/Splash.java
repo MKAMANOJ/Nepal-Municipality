@@ -22,7 +22,11 @@ import com.nabinbhandari.LanguageHelper;
 public class Splash extends AppCompatActivity {
 
     static {
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        try {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
     }
 
     private static final int SPLASH_DELAY = 2000;
@@ -39,6 +43,12 @@ public class Splash extends AppCompatActivity {
         }
         LanguageHelper.refreshLanguage(this);
         setContentView(R.layout.layout_splash);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        findViewById(R.id.splashImageView).removeCallbacks(splashRunnable);
     }
 
     @Override
@@ -67,12 +77,6 @@ public class Splash extends AppCompatActivity {
             }
         };
         findViewById(R.id.welcomeTextView).postDelayed(splashRunnable, SPLASH_DELAY);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        findViewById(R.id.splashImageView).removeCallbacks(splashRunnable);
     }
 
 }

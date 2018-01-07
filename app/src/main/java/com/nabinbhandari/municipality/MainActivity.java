@@ -6,9 +6,9 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,22 +19,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.nabinbhandari.LanguageHelper;
 import com.nabinbhandari.municipality.gallery.GalleryFragment;
 import com.nabinbhandari.municipality.menu.Category;
 import com.nabinbhandari.municipality.menu.MenuFragment;
+import com.nabinbhandari.municipality.staffs.StaffsFragment;
 import com.nabinbhandari.retrofit.ImageUtils;
 import com.nabinbhandari.retrofit.PhotoService;
 import com.nabinbhandari.retrofit.RetrofitUtils;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MenuFragment.OnCategoryClickListener {
 
     private static final int NAV_ICON_COLOR = Color.BLUE;
+
+    private FragmentManager fragmentManager;
+    private long backPressedTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +68,9 @@ public class MainActivity extends AppCompatActivity
         PhotoService service = RetrofitUtils.getRetrofit().create(PhotoService.class);
         ImageUtils.init(this, service);
 
-        MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList());
-        setFragment(menuFragment, R.string.app_name);
+        fragmentManager = getSupportFragmentManager();
+        MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList(), this);
+        fragmentManager.beginTransaction().replace(R.id.fragment_holder, menuFragment).commit();
     }
 
     @Override
@@ -77,6 +78,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+        } else if (System.currentTimeMillis() > backPressedTime + 2000) {
+            backPressedTime = System.currentTimeMillis();
+            Toast.makeText(this, R.string.press_back_again_to_exit, Toast.LENGTH_SHORT).show();
         } else {
             super.onBackPressed();
         }
@@ -93,7 +99,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.nepali) {
@@ -106,49 +111,43 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_home) {
-            MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList());
-            setFragment(menuFragment, R.string.app_name);
-        } else if (id == 3) {
-            testFirebaseDatabase();
-        } else if (id == 7) {
-            setFragment(GalleryFragment.newInstance(), R.string.app_name);
-        } else {
-            Toast.makeText(this, "id: " + id, Toast.LENGTH_SHORT).show();
-        }
+            while (fragmentManager.getBackStackEntryCount() > 0) {
+                fragmentManager.popBackStack();
+            }
+        } else openCategory(id, item.getTitle().toString());
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void testFirebaseDatabase() {
-        FirebaseDatabase.getInstance().getReference("tbl_staffs")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        System.err.println("value: " + dataSnapshot.getValue());
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        System.err.println("error");
-                    }
-                });
+    @Override
+    public void onCategoryClick(@NonNull Category category) {
+        openCategory(category.id, category.toString());
     }
 
-    private void setFragment(Fragment fragment, @StringRes int title) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment)
-                .commit();
-        if (title != 0 && getActionBar() != null) {
-            getActionBar().setTitle(title);
+    private void openCategory(int categoryId, String title) {
+        if (title != null) setTitle(title);
+        switch (categoryId) {
+            case 3:
+                setFragment(StaffsFragment.newInstance());
+                break;
+            case 7:
+                setFragment(GalleryFragment.newInstance());
+                break;
+            default:
+                Toast.makeText(this, "id: " + categoryId, Toast.LENGTH_SHORT).show();
+                break;
         }
+    }
+
+    private void setFragment(Fragment fragment) {
+        fragmentManager.beginTransaction().replace(R.id.fragment_holder, fragment)
+                .addToBackStack(null).commit();
     }
 
 }
