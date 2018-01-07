@@ -11,7 +11,7 @@ import com.nabinbhandari.retrofit.BuildConfig;
 public class ErrorTracker {
 
     public static void track() {
-        if (BuildConfig.DEBUG) return;
+        if (!BuildConfig.DEBUG) return;
         try {
             throw new Exception("Here");
         } catch (Exception e) {

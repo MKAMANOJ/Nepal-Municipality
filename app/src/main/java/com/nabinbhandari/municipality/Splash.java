@@ -1,6 +1,5 @@
 package com.nabinbhandari.municipality;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +10,7 @@ import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.nabinbhandari.LanguageHelper;
 
 /**
@@ -20,6 +20,10 @@ import com.nabinbhandari.LanguageHelper;
  */
 
 public class Splash extends AppCompatActivity {
+
+    static {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+    }
 
     private static final int SPLASH_DELAY = 2000;
 

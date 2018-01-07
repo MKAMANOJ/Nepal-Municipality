@@ -19,6 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.nabinbhandari.LanguageHelper;
 import com.nabinbhandari.municipality.gallery.GalleryFragment;
 import com.nabinbhandari.municipality.menu.Category;
@@ -111,6 +115,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList());
             setFragment(menuFragment, R.string.app_name);
+        } else if (id == 3) {
+            testFirebaseDatabase();
         } else if (id == 7) {
             setFragment(GalleryFragment.newInstance(), R.string.app_name);
         } else {
@@ -120,6 +126,21 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void testFirebaseDatabase() {
+        FirebaseDatabase.getInstance().getReference("tbl_staffs")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        System.err.println("value: " + dataSnapshot.getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        System.err.println("error");
+                    }
+                });
     }
 
     private void setFragment(Fragment fragment, @StringRes int title) {
