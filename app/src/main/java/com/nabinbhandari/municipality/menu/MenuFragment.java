@@ -1,6 +1,9 @@
 package com.nabinbhandari.municipality.menu;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.nabinbhandari.municipality.R;
 
 import java.util.List;
@@ -49,6 +56,8 @@ public class MenuFragment extends Fragment {
 
     private class CategoriesAdapter extends ArrayAdapter<Category> {
 
+        private static final int ICON_COLOR = Color.BLUE;
+
         private CategoriesAdapter(@NonNull Context context, @NonNull List<Category> categories) {
             super(context, R.layout.item_category, categories);
         }
@@ -67,7 +76,20 @@ public class MenuFragment extends Fragment {
             TextView nameTextView = view.findViewById(R.id.nameTextView);
             nameTextView.setText(category.toString());
             ImageView imageView = view.findViewById(R.id.imagePreview);
-            Glide.with(imageView).load(category.resId).into(imageView);
+            Glide.with(imageView).load(category.resId).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model,
+                                            Target<Drawable> target, boolean isFirstResource) {
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model,
+                                               Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    resource.setColorFilter(ICON_COLOR, PorterDuff.Mode.SRC_IN);
+                    return false;
+                }
+            }).into(imageView);
             return view;
         }
 

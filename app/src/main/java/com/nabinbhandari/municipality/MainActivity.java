@@ -1,11 +1,15 @@
 package com.nabinbhandari.municipality;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,6 +30,8 @@ import com.nabinbhandari.retrofit.RetrofitUtils;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int NAV_ICON_COLOR = Color.BLUE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +51,14 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Menu menu = navigationView.getMenu();
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_home);
+        if (drawable != null) drawable.setColorFilter(NAV_ICON_COLOR, PorterDuff.Mode.SRC_IN);
+        menu.findItem(R.id.nav_home).setIcon(drawable);
         for (Category category : Category.getDummyList()) {
             menu.add(R.id.menuGroup, category.id, Menu.FIRST, category.toString());
-            menu.findItem(category.id).setCheckable(true).setIcon(category.resId);
+            drawable = ContextCompat.getDrawable(this, category.resId);
+            if (drawable != null) drawable.setColorFilter(NAV_ICON_COLOR, PorterDuff.Mode.SRC_IN);
+            menu.findItem(category.id).setCheckable(true).setIcon(drawable);
         }
 
         PhotoService service = RetrofitUtils.getRetrofit().create(PhotoService.class);
