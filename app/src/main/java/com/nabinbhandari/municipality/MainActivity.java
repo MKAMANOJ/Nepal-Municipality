@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.nabinbhandari.LanguageHelper;
+import com.nabinbhandari.municipality.content.ContentFragment;
 import com.nabinbhandari.municipality.gallery.GalleryFragment;
 import com.nabinbhandari.municipality.menu.Category;
 import com.nabinbhandari.municipality.menu.MenuFragment;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     menu.animateIconState(MaterialMenuDrawable.IconState.BURGER);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                    setTitle(R.string.app_name);
                 }
             }
         });
@@ -210,7 +212,13 @@ public class MainActivity extends AppCompatActivity
                 setFragment(GalleryFragment.newInstance());
                 break;
             default:
-                Toast.makeText(this, "id: " + categoryId, Toast.LENGTH_SHORT).show();
+                if (categoryId == 4) {
+                    setFragment(ContentFragment.newInstance(1));
+                } else if (categoryId == 5) {
+                    setFragment(ContentFragment.newInstance(3));
+                } else {
+                    Toast.makeText(this, "id: " + categoryId, Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
