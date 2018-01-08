@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.nabinbhandari.municipality.R;
 import com.nabinbhandari.retrofit.Image;
 import com.nabinbhandari.retrofit.PreviewActivity;
@@ -34,10 +33,11 @@ import java.util.List;
  * @author bnabin51@gmail.com
  */
 
-public class GalleryGroupActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity {
 
-    public static final String EXTRA_GALLERY_GROUP = "gallery_group";
-    GalleryGroup galleryGroup;
+    public static final String EXTRA_CATEGORY_ID = "gallery_group_id";
+    public static final String EXTRA_CATEGORY_TITLE = "group_title";
+    int groupId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,20 +47,27 @@ public class GalleryGroupActivity extends AppCompatActivity {
             gridView.setBackgroundColor(Color.BLACK);
             gridView.setNumColumns(2);
             setContentView(gridView);
-            galleryGroup = (GalleryGroup) getIntent().getSerializableExtra(EXTRA_GALLERY_GROUP);
-            gridView.setAdapter(new GalleryGroupAdapter(this, R.layout.item_gallery,
-                    galleryGroup.getPhotos()));
+            groupId = getIntent().getIntExtra(EXTRA_CATEGORY_ID, 0);
+            if (groupId == 0) {
+                throw new RuntimeException("Invalid group id");
+            }
+
+            /*gridView.setAdapter(new GroupAdapter(this, R.layout.item_gallery,
+                    galleryGroup.getPhotos()));*/
+
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
-                String title = galleryGroup.getDescription();
-                if (title != null) actionBar.setTitle(title);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                if (getIntent().hasExtra(EXTRA_CATEGORY_TITLE)) {
+                    String title = getIntent().getStringExtra(EXTRA_CATEGORY_TITLE);
+                    if (title != null) actionBar.setTitle(title);
+                }
             }
         } catch (Throwable t) {
             t.printStackTrace();
             Toast.makeText(this, t.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -72,12 +79,12 @@ public class GalleryGroupActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private static class GalleryGroupAdapter extends ArrayAdapter<PhotoItem> {
+    private static class GroupAdapter extends ArrayAdapter<PhotoItem> {
 
         private final List<PhotoItem> photos;
 
-        private GalleryGroupAdapter(@NonNull Context context, @LayoutRes int resource,
-                                    @NonNull List<PhotoItem> photos) {
+        private GroupAdapter(@NonNull Context context, @LayoutRes int resource,
+                             @NonNull List<PhotoItem> photos) {
             super(context, resource, photos);
             this.photos = photos;
         }
@@ -102,8 +109,7 @@ public class GalleryGroupActivity extends AppCompatActivity {
             TextView descTextView = convertView.findViewById(R.id.descTextView);
             descTextView.setText(photoItem.getDescription());
             ImageView imageView = convertView.findViewById(R.id.imagePreview);
-            Glide.with(imageView).load(photoItem.getThumbUrl()).into(imageView);
-            //ImageUtils.loadImageAsync(imageView, photoItem.getThumbFileName(), false);
+            //Glide.with(imageView).load(photoItem.getThumbUrl()).into(imageView);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

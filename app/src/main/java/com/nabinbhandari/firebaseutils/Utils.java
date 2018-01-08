@@ -22,6 +22,7 @@ public class Utils {
             message = error.getMessage() + "\n" + error.getCode() + ": " + error.getDetails();
             error.toException().printStackTrace();
         }
+        if (context == null) return;
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 

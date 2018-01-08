@@ -1,7 +1,11 @@
 package com.nabinbhandari.municipality.gallery;
 
+import android.support.annotation.Nullable;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created at 7:42 PM on 12/26/2017.
@@ -10,37 +14,38 @@ import java.util.ArrayList;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
+@IgnoreExtraProperties
 public class PhotoItem implements Serializable {
 
-    class ImageLink implements Serializable {
-        public String image, thumbnail;
-    }
+    private static final String BASE_URL = "http://manoj.engineeringinnepal.com/palika/storage/";
 
     public int id;
-    private String title;
-    private String url, thumbUrl;
+    public int gallery_category_id;
 
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection") //will update from retrofit.
-    private ArrayList<ImageLink> links;
+    public String name; // relative url
+    public String title;
+    public String description;
+    public String original_filename;
+
+    public String key;
 
     public String getUrl() {
-        if (links == null) return "NULL";
-        if (url == null) {
-            url = links.get(0).image;
-        }
-        return url;
+        if (name == null) return null;
+        return BASE_URL + name;
     }
 
-    public String getThumbUrl() {
-        if (links == null) return "NULL";
-        if (thumbUrl == null) {
-            thumbUrl = links.get(0).thumbnail;
+    @Nullable
+    public static PhotoItem from(DataSnapshot dataSnapshot) {
+        if (dataSnapshot == null) return null;
+        PhotoItem photoItem = dataSnapshot.getValue(PhotoItem.class);
+        if (photoItem != null) {
+            photoItem.key = dataSnapshot.getKey();
         }
-        return thumbUrl;
+        return photoItem;
     }
 
     public String getDescription() {
-        return title;
+        return description;
     }
 
 }

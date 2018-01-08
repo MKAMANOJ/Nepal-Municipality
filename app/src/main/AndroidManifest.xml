@@ -28,7 +28,7 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".gallery.GalleryGroupActivity" />
+        <activity android:name=".gallery.CategoryActivity" />
     </application>
 
 </manifest>
