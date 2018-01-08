@@ -205,17 +205,15 @@ public class MainActivity extends AppCompatActivity
     private void openCategory(int categoryId, String title) {
         if (title != null) setTitle(title);
         switch (categoryId) {
-            case 3:
+            case 10:
                 setFragment(StaffsFragment.newInstance());
                 break;
-            case 7:
+            case 11:
                 setFragment(GalleryFragment.newInstance());
                 break;
             default:
-                if (categoryId == 4) {
-                    setFragment(ContentFragment.newInstance(1));
-                } else if (categoryId == 5) {
-                    setFragment(ContentFragment.newInstance(3));
+                if (categoryId >= 1 && categoryId <= 8) {
+                    setFragment(ContentFragment.newInstance(categoryId));
                 } else {
                     Toast.makeText(this, "id: " + categoryId, Toast.LENGTH_SHORT).show();
                 }

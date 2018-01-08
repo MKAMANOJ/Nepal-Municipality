@@ -8,8 +8,13 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.nabinbhandari.municipality.R;
+
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * Created at 11:32 PM on 1/8/2018.
@@ -43,7 +48,32 @@ public class ContentActivity extends AppCompatActivity {
             contentHolder.addView(photoView);
             Glide.with(photoView).load(content.getUrl()).into(photoView);
         } else if (content.content_type.equals("pdf")) {
-            Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
+            final PDFView pdfView = new PDFView(this, null);
+            contentHolder.addView(pdfView);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        URL url = new URL(content.getUrl());
+                        pdfView.fromStream(url.openStream())
+                                .enableAntialiasing(true)
+                                .onError(new OnErrorListener() {
+                                    @Override
+                                    public void onError(final Throwable t) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(ContentActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                })
+                                .load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         } else {
             Toast.makeText(this, "Unsupported content type!", Toast.LENGTH_SHORT).show();
             finish();
