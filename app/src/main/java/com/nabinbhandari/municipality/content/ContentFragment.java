@@ -1,6 +1,7 @@
 package com.nabinbhandari.municipality.content;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -62,7 +63,8 @@ public class ContentFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Content content = contentAdapter.getItem(position);
                 if (content == null) return;
-                Toast.makeText(parent.getContext(), content.title, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(parent.getContext(), ContentActivity.class)
+                        .putExtra(ContentActivity.EXTRA_CONTENT, content));
             }
         });
         return listView;

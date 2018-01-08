@@ -3,6 +3,8 @@ package com.nabinbhandari.municipality.content;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created at 10:48 PM on 1/8/2018.
  *
@@ -11,7 +13,9 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @SuppressWarnings("WeakerAccess")
 @IgnoreExtraProperties
-public class Content {
+public class Content implements Serializable {
+
+    private static final String BASE_URL = "http://manoj.engineeringinnepal.com/palika/storage/";
 
     public String content_type;
     public String created_at;
@@ -52,6 +56,11 @@ public class Content {
             content.key = dataSnapshot.getKey();
         }
         return content;
+    }
+
+    public String getUrl() {
+        if (file_name == null) return null;
+        return BASE_URL + file_name;
     }
 
 }
