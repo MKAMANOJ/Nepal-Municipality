@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author bnabin51@gmail.com
  */
 
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings("WeakerAccess")
 @IgnoreExtraProperties
 public class PhotoItem implements Serializable {
 
@@ -46,6 +46,21 @@ public class PhotoItem implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public void set(PhotoItem item) {
+        id = item.id;
+        gallery_category_id = item.gallery_category_id;
+        name = item.name;
+        title = item.title;
+        description = item.description;
+        original_filename = item.original_filename;
+        key = item.key;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof PhotoItem && ((PhotoItem) obj).id == id;
     }
 
 }

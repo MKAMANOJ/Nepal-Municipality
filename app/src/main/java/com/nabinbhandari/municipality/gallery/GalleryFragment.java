@@ -114,9 +114,8 @@ public class GalleryFragment extends Fragment {
     }
 
     private void loadGroupPhotoUrl(final GalleryCategory group, final Runnable runnable) {
-        System.err.println("processing: " + group.name);
-
-        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("tbl_gallery_images");
+        final DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference("tbl_gallery_images");
 
         // this may cause memory leak if there are no items for the group.
         final ChildEventAdapter listener = new ChildEventAdapter(getContext()) {
