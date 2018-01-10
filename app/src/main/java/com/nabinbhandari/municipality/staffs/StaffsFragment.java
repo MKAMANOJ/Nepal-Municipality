@@ -24,7 +24,6 @@ import com.nabinbhandari.firebaseutils.ChildEventAdapter;
 import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created at 8:19 PM on 1/7/2018.
@@ -34,9 +33,7 @@ import java.util.List;
 
 public class StaffsFragment extends Fragment {
 
-    private List<Staff> staffs = new ArrayList<>();
     private StaffsAdapter staffsAdapter;
-
     private DatabaseReference dbReference;
     private ChildEventListener staffsListener;
 
@@ -56,7 +53,7 @@ public class StaffsFragment extends Fragment {
         int padding = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         listView.setPadding(padding, padding, padding, padding);
         listView.setDivider(null);
-        staffsAdapter = new StaffsAdapter(context, staffs);
+        staffsAdapter = new StaffsAdapter(context);
         listView.setAdapter(staffsAdapter);
         loadStaffs(context);
         return listView;
@@ -69,27 +66,23 @@ public class StaffsFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Staff staff = Staff.from(dataSnapshot);
                 if (staff == null) return;
-                staffs.add(staff);
-                staffsAdapter.notifyDataSetChanged();
+                staffsAdapter.add(staff);
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Staff staff = Staff.from(dataSnapshot);
                 if (staff == null) return;
-                int index = staffs.indexOf(staff);
+                int index = staffsAdapter.getPosition(staff);
                 if (index < 0) return;
-                staffs.get(index).set(staff);
-                staffsAdapter.notifyDataSetChanged();
+                Staff existing = staffsAdapter.getItem(index);
+                if (existing != null) existing.set(staff);
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Staff staff = Staff.from(dataSnapshot);
-                if (staff == null) return;
-                if (staffs.remove(staff)) {
-                    staffsAdapter.notifyDataSetChanged();
-                }
+                staffsAdapter.remove(staff);
             }
         };
         dbReference.addChildEventListener(staffsListener);
@@ -105,11 +98,8 @@ public class StaffsFragment extends Fragment {
 
         private static final String BASE = "http://manoj.engineeringinnepal.com/palika/storage/";
 
-        private List<Staff> staffs;
-
-        StaffsAdapter(@NonNull Context context, @NonNull List<Staff> staffs) {
-            super(context, R.layout.item_staff, staffs);
-            this.staffs = staffs;
+        StaffsAdapter(@NonNull Context context) {
+            super(context, R.layout.item_staff, new ArrayList<Staff>());
         }
 
         @NonNull
@@ -129,8 +119,10 @@ public class StaffsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     boolean selected = staff.selected;
-                    for (Staff otherStaff : staffs) {
-                        otherStaff.selected = false;
+                    int count = getCount();
+                    for (int i = 0; i < count; i++) {
+                        Staff otherStaff = getItem(i);
+                        if (otherStaff != null) otherStaff.selected = false;
                     }
                     staff.selected = !selected;
                     notifyDataSetChanged();
