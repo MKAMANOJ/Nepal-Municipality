@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.nabinbhandari.municipality">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -30,7 +28,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".gallery.CategoryActivity" />
-        <activity android:name=".content.ContentActivity" />
+        <activity
+            android:name=".content.ContentActivity"
+            android:hardwareAccelerated="false" />
     </application>
 
 </manifest>

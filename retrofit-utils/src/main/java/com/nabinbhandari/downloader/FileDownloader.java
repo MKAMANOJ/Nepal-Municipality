@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.nabinbhandari.Logger;
 import com.nabinbhandari.retrofit.Utils;
 
 import java.io.File;
@@ -30,11 +29,9 @@ import retrofit2.Response;
  * @author bnabin51@gmail.com
  */
 
+@SuppressWarnings("WeakerAccess")
 public class FileDownloader {
 
-    private static final String TAG = FileDownloader.class.getSimpleName();
-
-    //private final Context mContext;
     private final File cacheDir;
 
     /**
@@ -44,7 +41,6 @@ public class FileDownloader {
      * @throws IOException if the cache dir does not exist and cannot be created.
      */
     public FileDownloader(@NonNull Context context) throws IOException {
-        //mContext = context;
         cacheDir = new File(context.getCacheDir(), ".file_downloader");
         initCacheDir();
     }
@@ -56,11 +52,10 @@ public class FileDownloader {
      *                 //@param context  the Context.
      * @throws IOException if the cache dir does not exist and cannot be created.
      */
-    public FileDownloader(/*@NonNull Context context, */@NonNull File cacheDir) throws IOException {
-        //mContext = context;
+    @SuppressWarnings("unused")
+    public FileDownloader(@NonNull File cacheDir) throws IOException {
         this.cacheDir = cacheDir;
         initCacheDir();
-        double random = Math.random();
     }
 
     /**
@@ -87,8 +82,7 @@ public class FileDownloader {
     }
 
     @Nullable
-    public Call<ResponseBody> loadFile(@NonNull String url, boolean forceDownload,
-                                       @NonNull final LoadCallback<File> callback) {
+    public Call<ResponseBody> loadFile(@NonNull String url, @NonNull final LoadCallback<File> callback) {
         File cacheFile;
         try {
             cacheFile = getCacheFile(url);
@@ -96,7 +90,7 @@ public class FileDownloader {
             callback.onError(e, e.getMessage());
             return null;
         }
-        if (forceDownload || !cacheFile.exists()) {
+        if (!cacheFile.exists()) {
             return downloadFile(url, cacheFile, callback);
         } else {
             callback.onComplete(cacheFile, null, null);
@@ -105,16 +99,8 @@ public class FileDownloader {
     }
 
     /**
-     * A class which holds a reference of any type of object.
-     *
-     * @param <T> any class type.
-     */
-    public static class ReferenceHolder<T> {
-        public T reference;
-    }
-
-    /**
-     * WHAT DID I JUST WRITE??
+     * This method is first searches the cached image for the url, if not found caches it,
+     * then forwards the image to the callback.
      *
      * @param url      the url of the image.
      * @param options  the optional bitmap loading options.
@@ -123,39 +109,25 @@ public class FileDownloader {
      * or the retrofit call object if downloading from network.
      */
     @Nullable
-    public ReferenceHolder<Call<ResponseBody>> loadBitmap(@NonNull final String url,
-                                                          @Nullable final BitmapFactory.Options options,
-                                                          @NonNull final LoadCallback<Bitmap> callback) {
-        final ReferenceHolder<Call<ResponseBody>> callHolder = new ReferenceHolder<>();
-        final ReferenceHolder<LoadCallback<File>> bitmapCallbackHolder = new ReferenceHolder<>();
-
-        bitmapCallbackHolder.reference = new LoadCallback<File>() {
+    public Call<ResponseBody> loadBitmap(@NonNull final String url,
+                                         @Nullable final BitmapFactory.Options options,
+                                         @NonNull final LoadCallback<Bitmap> callback) {
+        LoadCallback<File> downloadCallback = new LoadCallback<File>() {
             @Override
             public void onComplete(@Nullable File output, @Nullable Throwable t,
                                    @Nullable String message) {
                 if (t != null) {
                     callback.onError(t, message);
                 } else if (output != null) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(output.getAbsolutePath(), options);
+                    Bitmap bitmap;
+                    try {
+                        bitmap = BitmapFactory.decodeFile(output.getAbsolutePath(), options);
+                    } catch (Throwable thr) {
+                        callback.onError(thr, "Unable to decode bitmap!");
+                        return;
+                    }
                     if (bitmap != null) {
                         callback.onComplete(bitmap, null, null);
-                        Logger.log(TAG, "Bitmap obtained for " + url);
-                    } else if (callHolder.reference == null) {
-                        Logger.log(TAG, "tried from cache but failed. for " + url);
-                        // tried file from cache; retry by forcefully downloading.
-                        if (bitmapCallbackHolder.reference != null) {
-                            // this reference will be null after one failed attempt.
-                            Logger.log(TAG, "Retrying " + url);
-                            callHolder.reference = loadFile(url, true,
-                                    bitmapCallbackHolder.reference);
-                            if (callHolder.reference == null) {
-                                Logger.log(TAG, "disabling next retry for " + url);
-                                // this value will be null only if there is error getting cache file.
-                                // so clear the reference of callback holder so that it won't try
-                                // downloading again.
-                                bitmapCallbackHolder.reference = null;
-                            }
-                        }
                     } else {
                         callback.onError(new Exception(
                                 "Unable to decode bitmap from given source."), message);
@@ -167,8 +139,7 @@ public class FileDownloader {
                 }
             }
         };
-        callHolder.reference = loadFile(url, false, bitmapCallbackHolder.reference);
-        return callHolder;
+        return loadFile(url, downloadCallback);
     }
 
     /**
@@ -183,7 +154,6 @@ public class FileDownloader {
     public Call<ResponseBody> downloadFile(@NonNull String url, @NonNull final File outFile,
                                            @NonNull final LoadCallback<File> callback) {
         Call<ResponseBody> call = RetrofitHelper.getDownloader(url);
-        Logger.log(TAG, "downloading from " + url);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -191,29 +161,24 @@ public class FileDownloader {
                     final ResponseBody body = response.body();
                     if (body == null) {
                         String errorMessage = "Empty response received from the server!";
-                        Logger.log(TAG, errorMessage);
                         callback.onError(new IOException(errorMessage), errorMessage);
                     } else {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
-                                    Logger.log(TAG, "saving stream to " + outFile.getAbsolutePath());
                                     saveStream(body.byteStream(), outFile);
                                 } catch (Throwable t) {
-                                    Logger.log(TAG, "save error");
                                     callback.onError(t, t.getMessage());
                                     return;
                                 }
                                 callback.onComplete(outFile, null, "Download complete.");
-                                Logger.log(TAG, "complete");
                             }
                         }).start();
                     }
                 } else {
                     callback.onError(new IOException("Failed to download file: " + response.code()),
                             Utils.getErrorMessage(response));
-                    Logger.log(TAG, "unsuccessful");
                 }
             }
 
@@ -251,7 +216,7 @@ public class FileDownloader {
     @NonNull
     private String getMD5Hash(@NonNull String input) {
         try {
-            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] array = md.digest(input.getBytes());
             StringBuilder sb = new StringBuilder();
             for (byte anArray : array) {
