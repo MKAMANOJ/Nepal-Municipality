@@ -76,7 +76,7 @@ public class FileDownloader {
     }
 
     @NonNull
-    private File getCacheFile(@NonNull String url) throws IOException {
+    public File getCacheFile(@NonNull String url) throws IOException {
         String hash = getMD5Hash(url);
         return new File(getCacheDir(), hash);
     }
@@ -192,7 +192,7 @@ public class FileDownloader {
         return call;
     }
 
-    private void saveStream(InputStream inputStream, File outFile) throws IOException {
+    public static void saveStream(InputStream inputStream, File outFile) throws IOException {
         if (outFile.exists() && !outFile.delete()) {
             throw new IOException("File already exists and cannot be deleted!");
         }
@@ -205,7 +205,7 @@ public class FileDownloader {
         out.close();
     }
 
-    private void copyStream(InputStream in, OutputStream out) throws IOException {
+    private static void copyStream(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[4096];
         int read;
         while ((read = in.read(buffer)) != -1) {
