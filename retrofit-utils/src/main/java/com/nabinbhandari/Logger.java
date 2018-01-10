@@ -14,7 +14,7 @@ import com.nabinbhandari.retrofit.BuildConfig;
 @SuppressWarnings("unused")
 public class Logger {
 
-    private static final boolean LOG_DISABLED = BuildConfig.DEBUG;
+    private static final boolean LOG_DISABLED = !BuildConfig.DEBUG;
 
     /**
      * Helper method for logging.
