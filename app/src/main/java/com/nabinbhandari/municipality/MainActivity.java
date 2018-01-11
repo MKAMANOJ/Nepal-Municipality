@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.nabinbhandari.LanguageHelper;
+import com.nabinbhandari.municipality.contact.ContactFragment;
 import com.nabinbhandari.municipality.content.ContentFragment;
 import com.nabinbhandari.municipality.gallery.GalleryFragment;
 import com.nabinbhandari.municipality.menu.Category;
@@ -210,6 +211,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case 11:
                 setFragment(GalleryFragment.newInstance());
+                break;
+            case 14:
+                setFragment(ContactFragment.newInstance());
                 break;
             default:
                 if (categoryId >= 1 && categoryId <= 8) {

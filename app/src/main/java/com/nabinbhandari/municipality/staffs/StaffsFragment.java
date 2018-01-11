@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
+import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
@@ -161,22 +163,25 @@ public class StaffsFragment extends Fragment {
             } else {
                 emailTextView.setText(String.format(context.getString(R.string.format_email),
                         staff.email));
+                emailTextView.setAutoLinkMask(Linkify.EMAIL_ADDRESSES);
                 emailTextView.setVisibility(View.VISIBLE);
             }
 
             if (TextUtils.isEmpty(staff.office_phone)) {
                 officePhoneTextView.setVisibility(View.GONE);
             } else {
-                officePhoneTextView.setText(String.format(context
-                        .getString(R.string.format_office_phone), staff.office_phone));
+                String text = String.format(context
+                        .getString(R.string.format_office_phone), staff.office_phone);
+                AppUtils.setPhoneNumber(officePhoneTextView, text, staff.office_phone);
                 officePhoneTextView.setVisibility(View.VISIBLE);
             }
 
             if (TextUtils.isEmpty(staff.personal_phone)) {
                 personalPhoneTextView.setVisibility(View.GONE);
             } else {
-                personalPhoneTextView.setText(String.format(context
-                        .getString(R.string.format_personal_phone), staff.personal_phone));
+                String text = String.format(context
+                        .getString(R.string.format_personal_phone), staff.personal_phone);
+                AppUtils.setPhoneNumber(personalPhoneTextView, text, staff.personal_phone);
                 personalPhoneTextView.setVisibility(View.VISIBLE);
             }
 

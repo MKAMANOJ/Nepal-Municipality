@@ -17,5 +17,19 @@
     <string name="format_office_phone">Office Phone: %s</string>
     <string name="format_personal_phone">Personal Phone: %s</string>
     <string name="format_appointment_date">Appointment Date: %s</string>
+    <string name="phone_label">Phone:</string>
+    <string name="fax_label">Fax:</string>
+    <string name="email_label">Email:</string>
+    <string name="website_label">Website:</string>
+    <string name="facebook_label">Facebook:</string>
+    <string name="google_plus_label">Google Plus:</string>
+    <string name="twitter_label">Twitter:</string>
+    <string name="contact_form_header">For any suggestions, fill out the form below, we will be happy to accept feedback.</string>
+    <string name="send">Send</string>
+    <string name="message_star">Message *</string>
+    <string name="email_star">Email *</string>
+    <string name="contact_number_star">Contact Number *</string>
+    <string name="address_star">Address *</string>
+    <string name="full_name_star">Full Name *</string>
 
 </resources>
