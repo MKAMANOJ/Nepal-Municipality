@@ -73,6 +73,7 @@
                 android:id="@+id/emailTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
                 android:text="@string/format_email"
                 android:textColor="@color/textPrimary" />
 
@@ -80,6 +81,7 @@
                 android:id="@+id/officePhoneTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
                 android:text="@string/format_office_phone"
                 android:textColor="@color/textPrimary" />
 
@@ -87,6 +89,7 @@
                 android:id="@+id/personalPhoneTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
                 android:text="@string/format_personal_phone"
                 android:textColor="@color/textPrimary" />
 

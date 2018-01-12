@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/activity_horizontal_margin">
@@ -55,12 +56,14 @@
                     android:id="@+id/contact_phone1_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/contact_phone2_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -87,7 +90,7 @@
                 android:id="@+id/contact_fax_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:background="?selectableItemBackground"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -114,6 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="email"
+                android:background="?selectableItemBackground"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -139,6 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
+                android:background="?selectableItemBackground"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -164,6 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
+                android:background="?selectableItemBackground"
                 android:linksClickable="true"
                 android:textSize="16sp" />
 
@@ -190,6 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
+                android:background="?selectableItemBackground"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -215,6 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
+                android:background="?selectableItemBackground"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -229,80 +237,82 @@
             android:textSize="18sp"
             android:textStyle="italic" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
-            android:labelFor="@+id/contact_full_name_edit_text"
-            android:text="@string/full_name_star"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/contact_full_name_edit_text"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/nameInoutLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
-            android:labelFor="@+id/contact_address_edit_text"
-            android:text="@string/address_star"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp" />
+            app:errorEnabled="true">
 
-        <EditText
-            android:id="@+id/contact_address_edit_text"
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/contact_full_name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/full_name_star"
+                android:inputType="text" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addressInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            app:errorEnabled="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
-            android:labelFor="@+id/contact_contact_number_edit_text"
-            android:text="@string/contact_number_star"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp" />
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/contact_address_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/address_star"
+                android:inputType="text" />
 
-        <EditText
-            android:id="@+id/contact_contact_number_edit_text"
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/numberInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone" />
+            app:errorEnabled="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
-            android:labelFor="@+id/contact_email_edit_text"
-            android:text="@string/email_star"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp" />
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/contact_contact_number_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/contact_number_star"
+                android:inputType="phone" />
 
-        <EditText
-            android:id="@+id/contact_email_edit_text"
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/emailInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            app:errorEnabled="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
-            android:labelFor="@+id/contact_message_edit_text"
-            android:text="@string/message_star"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp" />
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/contact_email_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email_star"
+                android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/contact_message_edit_text"
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/messageInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/contact_message_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/message_star"
+                android:inputType="text" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/contact_send_button"

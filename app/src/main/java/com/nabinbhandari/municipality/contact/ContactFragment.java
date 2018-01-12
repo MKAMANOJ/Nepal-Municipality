@@ -3,6 +3,7 @@ package com.nabinbhandari.municipality.contact;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -16,11 +17,14 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.nabinbhandari.firebaseutils.ValueEventAdapter;
 import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created at 8:49 PM on 1/11/2018.
@@ -28,7 +32,13 @@ import java.util.HashMap;
  * @author bnabin51@gmail.com
  */
 
-public class ContactFragment extends Fragment {
+public class ContactFragment extends Fragment implements Runnable {
+
+    private List<FormValidator> validators = new ArrayList<>();
+    private Button sendButton;
+
+    private DatabaseReference reference;
+    private ValueEventListener listener;
 
     public ContactFragment() {
     }
@@ -41,21 +51,24 @@ public class ContactFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.layout_contact, container, false);
-        updateInfo(view);
+        final View rootView = inflater.inflate(R.layout.layout_contact, container, false);
+        updateInfo(rootView);
 
-        Button sendButton = view.findViewById(R.id.contact_send_button);
+        sendButton = rootView.findViewById(R.id.contact_send_button);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendFeedback(view);
+                sendFeedback(rootView);
             }
         });
+        sendButton.setEnabled(false);
 
-        EditText messageEditText = view.findViewById(R.id.contact_message_edit_text);
+        initValidators(rootView);
+
+        EditText messageEditText = rootView.findViewById(R.id.contact_message_edit_text);
         messageEditText.setHorizontallyScrolling(false);
         messageEditText.setMaxLines(Integer.MAX_VALUE);
-        return view;
+        return rootView;
     }
 
     private void updateInfo(View rootView) {
@@ -77,90 +90,127 @@ public class ContactFragment extends Fragment {
         final View googlePlusHolder = rootView.findViewById(R.id.contact_google_plus_holder);
         final TextView googlePlusTextView = rootView.findViewById(R.id.contact_google_plus_text);
 
-        FirebaseDatabase.getInstance().getReference("tbl_contact_us_info/1")
-                .addListenerForSingleValueEvent(new ValueEventAdapter(getContext()) {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Contact contact = dataSnapshot.getValue(Contact.class);
-                        if (contact == null) return;
+        listener = new ValueEventAdapter(getContext()) {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Contact contact = dataSnapshot.getValue(Contact.class);
+                if (contact == null) return;
 
-                        titleTextView.setText(contact.title);
-                        addressTextView.setText(contact.address);
+                titleTextView.setText(contact.title);
+                addressTextView.setText(contact.address);
 
-                        if (contact.phone1 == null && contact.phone2 == null)
-                            phoneHolder.setVisibility(View.GONE);
-                        else {
-                            if (contact.phone1 == null) phone1TextView.setVisibility(View.GONE);
-                            else
-                                AppUtils.setPhoneNumber(phone1TextView, contact.phone1, contact.phone1);
-
-                            if (contact.phone2 == null) phone2TextView.setVisibility(View.GONE);
-                            else
-                                AppUtils.setPhoneNumber(phone2TextView, contact.phone2, contact.phone2);
-                        }
-
-                        if (contact.fax == null) faxHolder.setVisibility(View.GONE);
-                        else AppUtils.setPhoneNumber(faxTextView, contact.fax, contact.fax);
-
-                        if (contact.email == null) emailHolder.setVisibility(View.GONE);
-                        else emailTextView.setText(contact.email);
-
-                        if (contact.website == null) websiteHolder.setVisibility(View.GONE);
-                        else websiteTextView.setText(contact.website);
-
-                        if (contact.facebook == null) facebookHolder.setVisibility(View.GONE);
-                        else facebookTextView.setText(contact.facebook);
-
-                        if (contact.twitter == null) twitterHolder.setVisibility(View.GONE);
-                        else twitterTextView.setText(contact.twitter);
-
-                        if (contact.google_plus == null) googlePlusHolder.setVisibility(View.GONE);
-                        else googlePlusTextView.setText(contact.google_plus);
+                if (contact.phone1 == null && contact.phone2 == null)
+                    phoneHolder.setVisibility(View.GONE);
+                else {
+                    phoneHolder.setVisibility(View.VISIBLE);
+                    if (contact.phone1 == null) phone1TextView.setVisibility(View.GONE);
+                    else {
+                        phone1TextView.setVisibility(View.VISIBLE);
+                        AppUtils.setPhoneNumber(phone1TextView, contact.phone1, contact.phone1);
                     }
-                });
+
+                    if (contact.phone2 == null) phone2TextView.setVisibility(View.GONE);
+                    else {
+                        phone2TextView.setVisibility(View.VISIBLE);
+                        AppUtils.setPhoneNumber(phone2TextView, contact.phone2, contact.phone2);
+                    }
+                }
+
+                if (contact.fax == null) faxHolder.setVisibility(View.GONE);
+                else {
+                    faxHolder.setVisibility(View.VISIBLE);
+                    AppUtils.setPhoneNumber(faxTextView, contact.fax, contact.fax);
+                }
+
+                if (contact.email == null) emailHolder.setVisibility(View.GONE);
+                else {
+                    emailHolder.setVisibility(View.VISIBLE);
+                    emailTextView.setText(contact.email);
+                }
+
+                if (contact.website == null) websiteHolder.setVisibility(View.GONE);
+                else {
+                    websiteHolder.setVisibility(View.VISIBLE);
+                    websiteTextView.setText(contact.website);
+                }
+
+                if (contact.facebook == null) facebookHolder.setVisibility(View.GONE);
+                else {
+                    facebookHolder.setVisibility(View.VISIBLE);
+                    facebookTextView.setText(contact.facebook);
+                }
+
+                if (contact.twitter == null) twitterHolder.setVisibility(View.GONE);
+                else {
+                    twitterHolder.setVisibility(View.VISIBLE);
+                    twitterTextView.setText(contact.twitter);
+                }
+
+                if (contact.google_plus == null) googlePlusHolder.setVisibility(View.GONE);
+                else {
+                    googlePlusHolder.setVisibility(View.VISIBLE);
+                    googlePlusTextView.setText(contact.google_plus);
+                }
+            }
+        };
+
+        reference = FirebaseDatabase.getInstance().getReference("tbl_contact_us_info/1");
+        reference.addValueEventListener(listener);
     }
 
-    private void sendFeedback(View view) {
-        EditText fullNameEditText = view.findViewById(R.id.contact_full_name_edit_text);
+    @Override
+    public void onDestroy() {
+        if (reference != null) reference.removeEventListener(listener);
+        super.onDestroy();
+    }
+
+    private void initValidators(View rootView) {
+        validators.clear();
+        validators.add(new FormValidator((TextInputLayout) rootView.findViewById(R.id.nameInoutLayout), this) {
+            @Override
+            String getError(String input) {
+                return input.equals("") ? "Enter your name." : null;
+            }
+        });
+        validators.add(new FormValidator((TextInputLayout) rootView.findViewById(R.id.addressInputLayout), this) {
+            @Override
+            String getError(String input) {
+                return input.equals("") ? "Enter your address." : null;
+            }
+        });
+        validators.add(new FormValidator((TextInputLayout) rootView.findViewById(R.id.numberInputLayout), this) {
+            @Override
+            String getError(String input) {
+                return input.equals("") ? "Enter your number." : null;
+            }
+        });
+        validators.add(new FormValidator((TextInputLayout) rootView.findViewById(R.id.emailInputLayout), this) {
+            @Override
+            String getError(String input) {
+                if (input.equals("")) return "Enter your email.";
+                return Patterns.EMAIL_ADDRESS.matcher(input).matches() ? null : "Enter a valid email address.";
+            }
+        });
+        validators.add(new FormValidator((TextInputLayout) rootView.findViewById(R.id.messageInputLayout), this) {
+            @Override
+            String getError(String input) {
+                return input.equals("") ? "Enter message to send." : null;
+            }
+        });
+    }
+
+    private void sendFeedback(View rootView) {
+        EditText fullNameEditText = rootView.findViewById(R.id.contact_full_name_edit_text);
+        EditText addressEditText = rootView.findViewById(R.id.contact_address_edit_text);
+        EditText numberEditText = rootView.findViewById(R.id.contact_contact_number_edit_text);
+        EditText emailEditText = rootView.findViewById(R.id.contact_email_edit_text);
+        EditText messageEditText = rootView.findViewById(R.id.contact_message_edit_text);
+
         String fullName = fullNameEditText.getText().toString().trim();
-        if (fullName.equals("")) {
-            fullNameEditText.requestFocus();
-            fullNameEditText.setError("Please enter your name.");
-            return;
-        }
-
-        EditText addressEditText = view.findViewById(R.id.contact_address_edit_text);
         String address = addressEditText.getText().toString().trim();
-        if (address.equals("")) {
-            addressEditText.requestFocus();
-            addressEditText.setError("Please enter your address.");
-            return;
-        }
-
-        EditText numberEditText = view.findViewById(R.id.contact_contact_number_edit_text);
         String contactNumber = numberEditText.getText().toString().trim();
-        if (contactNumber.equals("")) {
-            numberEditText.requestFocus();
-            numberEditText.setError("Please enter your number.");
-            return;
-        }
-
-        EditText emailEditText = view.findViewById(R.id.contact_email_edit_text);
         String email = emailEditText.getText().toString();
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailEditText.requestFocus();
-            emailEditText.setError("Please enter a valid email address.");
-            return;
-        }
-
-        EditText messageEditText = view.findViewById(R.id.contact_message_edit_text);
         String message = messageEditText.getText().toString();
-        if (message.equals("")) {
-            messageEditText.requestFocus();
-            messageEditText.setError("Please enter a message to send.");
-            return;
-        }
-
         addFeedback(fullName, address, contactNumber, email, message);
 
         fullNameEditText.getText().clear();
@@ -182,6 +232,19 @@ public class ContactFragment extends Fragment {
         feedback.put("email", email);
         feedback.put("message", message);
         reference.push().setValue(feedback);
+    }
+
+    @Override
+    public void run() {
+        if (sendButton == null) return;
+        boolean valid = true;
+        for (FormValidator validator : validators) {
+            if (validator.isInvalid()) {
+                valid = false;
+                break;
+            }
+        }
+        sendButton.setEnabled(valid);
     }
 
 }
