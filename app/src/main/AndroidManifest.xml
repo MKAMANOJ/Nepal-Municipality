@@ -30,9 +30,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".gallery.CategoryActivity" />
+
         <activity
             android:name=".content.ContentActivity"
             android:hardwareAccelerated="false" />
+
+        <activity android:name=".impcontacts.ContactCategoryActivity" />
+
     </application>
 
 </manifest>

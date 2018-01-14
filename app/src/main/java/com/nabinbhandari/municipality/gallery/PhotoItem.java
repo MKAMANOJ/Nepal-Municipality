@@ -17,7 +17,7 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class PhotoItem implements Serializable {
 
-    private static final String BASE_URL = "http://manoj.engineeringinnepal.com/palika/storage/";
+    private static final String BASE_URL = "http://palika.engineeringinnepal.com/palika/storage/";
 
     public int id;
     public int gallery_category_id;

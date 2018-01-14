@@ -1,4 +1,4 @@
-package com.nabinbhandari.municipality.staffs;
+package com.nabinbhandari.municipality.impcontacts;
 
 import android.support.annotation.Nullable;
 
@@ -15,7 +15,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @SuppressWarnings("WeakerAccess")
 @IgnoreExtraProperties
-public class Staff {
+public class ImpContact {
 
     public int id;
     public String name;
@@ -23,29 +23,30 @@ public class Staff {
     public String image;
     public String address;
     public String designation;
-    public String office_phone;
-    public String personal_phone;
-    public String appointment_date;
+    public String phone;
+    public String mobile;
+    public String fax;
+    public String service;
 
     public String key;
     public boolean selected;
 
     @Nullable
-    public static Staff from(DataSnapshot dataSnapshot) {
+    public static ImpContact from(DataSnapshot dataSnapshot) {
         if (dataSnapshot == null) return null;
-        Staff staff = dataSnapshot.getValue(Staff.class);
-        if (staff != null) {
-            staff.key = dataSnapshot.getKey();
+        ImpContact contact = dataSnapshot.getValue(ImpContact.class);
+        if (contact != null) {
+            contact.key = dataSnapshot.getKey();
         }
-        return staff;
+        return contact;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Staff && ((Staff) obj).id == this.id;
+        return obj instanceof ImpContact && ((ImpContact) obj).id == this.id;
     }
 
-    public void set(Staff staff) {
+    public void set(ImpContact staff) {
         this.id = staff.id;
         this.key = staff.key;
         this.name = staff.name;
@@ -54,9 +55,10 @@ public class Staff {
         this.address = staff.address;
         //this.selected = staff.selected;
         this.designation = staff.designation;
-        this.office_phone = staff.office_phone;
-        this.personal_phone = staff.personal_phone;
-        this.appointment_date = staff.appointment_date;
+        this.phone = staff.phone;
+        this.mobile = staff.mobile;
+        this.fax = staff.fax;
+        this.service = staff.service;
     }
 
 }

@@ -57,7 +57,8 @@ public class CategoryActivity extends AppCompatActivity {
             setContentView(gridView);
             categoryId = getIntent().getIntExtra(EXTRA_CATEGORY_ID, 0);
             if (categoryId == 0) {
-                throw new RuntimeException("Invalid group id");
+                finish();
+                return;
             }
 
             ActionBar actionBar = getSupportActionBar();

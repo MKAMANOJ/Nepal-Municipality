@@ -1,6 +1,7 @@
 package com.nabinbhandari.municipality.impcontacts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,9 +47,22 @@ public class ImpContactsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_imp_contacts, container, false);
         ListView categoriesListView = rootView.findViewById(R.id.contact_categories_list);
-        Context context = getContext() == null ? inflater.getContext() : getContext();
+        final Context context = getContext() == null ? inflater.getContext() : getContext();
+
         adapter = new ContactCategoriesAdapter(context);
         categoriesListView.setAdapter(adapter);
+        categoriesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ContactCategory category = adapter.getItem(position);
+                if (category != null) {
+                    startActivity(new Intent(context, ContactCategoryActivity.class)
+                            .putExtra(ContactCategoryActivity.EXTRA_CATEGORY_ID, category.id)
+                            .putExtra(ContactCategoryActivity.EXTRA_CATEGORY_TITLE, category.name));
+                }
+            }
+        });
+
         loadCategories(context);
         return rootView;
     }
@@ -73,9 +88,11 @@ public class ImpContactsFragment extends Fragment {
                 ContactCategory category = ContactCategory.from(dataSnapshot);
                 if (category == null) return;
                 int index = adapter.getPosition(category);
+                if (index < 0) return;
                 ContactCategory existing = adapter.getItem(index);
                 if (existing == null) return;
                 existing.set(category);
+                adapter.notifyDataSetChanged();
             }
         };
         reference = FirebaseDatabase.getInstance().getReference("tbl_important_contact_categories");

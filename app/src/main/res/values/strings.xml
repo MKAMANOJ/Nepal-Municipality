@@ -17,6 +17,10 @@
     <string name="format_office_phone">Office Phone: %s</string>
     <string name="format_personal_phone">Personal Phone: %s</string>
     <string name="format_appointment_date">Appointment Date: %s</string>
+    <string name="format_phone">Phone: %s</string>
+    <string name="format_mobile">Mobile: %s</string>
+    <string name="format_fax">Fax: %s</string>
+    <string name="format_services">Services: %s</string>
     <string name="phone_label">Phone:</string>
     <string name="fax_label">Fax:</string>
     <string name="email_label">Email:</string>

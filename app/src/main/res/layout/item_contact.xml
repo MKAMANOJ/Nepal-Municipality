@@ -82,29 +82,38 @@
                 android:textColor="@color/textPrimary" />
 
             <TextView
-                android:id="@+id/officePhoneTextView"
+                android:id="@+id/phoneTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
                 android:padding="4dp"
-                android:text="@string/format_office_phone"
+                android:text="@string/format_phone"
                 android:textColor="@color/textPrimary" />
 
             <TextView
-                android:id="@+id/personalPhoneTextView"
+                android:id="@+id/mobileTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
                 android:padding="4dp"
-                android:text="@string/format_personal_phone"
+                android:text="@string/format_mobile"
                 android:textColor="@color/textPrimary" />
 
             <TextView
-                android:id="@+id/appointmentDateTextView"
+                android:id="@+id/faxTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:padding="4dp"
+                android:text="@string/format_fax"
+                android:textColor="@color/textPrimary" />
+
+            <TextView
+                android:id="@+id/servicesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:text="@string/format_appointment_date"
+                android:text="@string/format_services"
                 android:textColor="@color/textPrimary" />
 
         </LinearLayout>

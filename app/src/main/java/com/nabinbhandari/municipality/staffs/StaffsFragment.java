@@ -98,7 +98,7 @@ public class StaffsFragment extends Fragment {
 
     private static class StaffsAdapter extends ArrayAdapter<Staff> {
 
-        private static final String BASE = "http://manoj.engineeringinnepal.com/palika/storage/";
+        private static final String BASE = "http://palika.engineeringinnepal.com/palika/storage/";
 
         StaffsAdapter(@NonNull Context context) {
             super(context, R.layout.item_staff, new ArrayList<Staff>());
