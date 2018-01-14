@@ -25,6 +25,7 @@ import com.nabinbhandari.LanguageHelper;
 import com.nabinbhandari.municipality.contact.ContactFragment;
 import com.nabinbhandari.municipality.content.ContentFragment;
 import com.nabinbhandari.municipality.gallery.GalleryFragment;
+import com.nabinbhandari.municipality.impcontacts.ImpContactsFragment;
 import com.nabinbhandari.municipality.menu.Category;
 import com.nabinbhandari.municipality.menu.MenuFragment;
 import com.nabinbhandari.municipality.staffs.StaffsFragment;
@@ -211,6 +212,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case 11:
                 setFragment(GalleryFragment.newInstance());
+                break;
+            case 12:
+                setFragment(ImpContactsFragment.newInstance());
                 break;
             case 14:
                 setFragment(ContactFragment.newInstance());

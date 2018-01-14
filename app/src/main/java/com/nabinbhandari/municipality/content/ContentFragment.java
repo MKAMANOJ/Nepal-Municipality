@@ -51,6 +51,7 @@ public class ContentFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         Context context = getContext() == null ? inflater.getContext() : getContext();
         ListView listView = new ListView(context);
+        listView.setSelector(android.R.color.transparent);
         int padding = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         listView.setPadding(padding / 2, padding, padding / 2, padding);
         listView.setDivider(null);

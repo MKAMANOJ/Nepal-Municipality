@@ -3,12 +3,6 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/activity_horizontal_margin">
 
-    <!--<ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />-->
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -21,13 +15,14 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
-    <GridView
-        android:id="@+id/gridView"
+    <ListView
+        android:id="@+id/contact_categories_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:divider="@null"
         android:horizontalSpacing="4dp"
         android:listSelector="@android:color/transparent"
-        android:numColumns="2"
         android:scrollbars="none"
         android:verticalSpacing="4dp" />
 
