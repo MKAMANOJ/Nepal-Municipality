@@ -205,8 +205,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void openCategory(int categoryId, String title) {
-        if (title != null) setTitle(title);
         switch (categoryId) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                setFragment(ContentFragment.newInstance(categoryId));
+                break;
+            case 9:
+                setFragment(CKEditorFragment.newInstance("tbl_introduction/1/content"));
+                break;
             case 10:
                 setFragment(StaffsFragment.newInstance());
                 break;
@@ -220,13 +232,10 @@ public class MainActivity extends AppCompatActivity
                 setFragment(ContactFragment.newInstance());
                 break;
             default:
-                if (categoryId >= 1 && categoryId <= 8) {
-                    setFragment(ContentFragment.newInstance(categoryId));
-                } else {
-                    Toast.makeText(this, "id: " + categoryId, Toast.LENGTH_SHORT).show();
-                }
-                break;
+                Toast.makeText(this, "id: " + categoryId, Toast.LENGTH_SHORT).show();
+                return;
         }
+        if (title != null) setTitle(title);
     }
 
     private void setFragment(Fragment fragment) {
