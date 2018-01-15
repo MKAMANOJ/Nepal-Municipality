@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.nabinbhandari.municipality.AppConstants;
 
 import java.io.Serializable;
 
@@ -17,8 +18,6 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class PhotoItem implements Serializable {
 
-    private static final String BASE_URL = "http://palika.engineeringinnepal.com/palika/storage/";
-
     public int id;
     public int gallery_category_id;
 
@@ -31,7 +30,7 @@ public class PhotoItem implements Serializable {
 
     public String getUrl() {
         if (name == null) return null;
-        return BASE_URL + name;
+        return AppConstants.BASE_URL + name;
     }
 
     @Nullable

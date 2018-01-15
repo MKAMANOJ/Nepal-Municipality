@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
+import com.nabinbhandari.municipality.AppConstants;
 import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.R;
 
@@ -123,8 +124,6 @@ public class ContactCategoryActivity extends AppCompatActivity {
 
     private static class ContactAdapter extends ArrayAdapter<ImpContact> {
 
-        private static final String BASE = "http://palika.engineeringinnepal.com/palika/storage/";
-
         ContactAdapter(@NonNull Context context) {
             super(context, 0, new ArrayList<ImpContact>());
         }
@@ -166,7 +165,7 @@ public class ContactCategoryActivity extends AppCompatActivity {
                 imageView.setImageDrawable(ContextCompat.getDrawable(context,
                         R.drawable.placeholder_warning));
             } else {
-                Glide.with(imageView).load(BASE + contact.image).into(imageView);
+                Glide.with(imageView).load(AppConstants.BASE_URL + contact.image).into(imageView);
             }
 
             TextView addressTextView = view.findViewById(R.id.addressTextView);

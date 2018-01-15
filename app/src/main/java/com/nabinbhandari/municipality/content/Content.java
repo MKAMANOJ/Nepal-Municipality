@@ -2,6 +2,7 @@ package com.nabinbhandari.municipality.content;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.nabinbhandari.municipality.AppConstants;
 
 import java.io.Serializable;
 
@@ -14,8 +15,6 @@ import java.io.Serializable;
 @SuppressWarnings("WeakerAccess")
 @IgnoreExtraProperties
 public class Content implements Serializable {
-
-    private static final String BASE_URL = "http://manoj.engineeringinnepal.com/palika/storage/";
 
     public String content_type;
     public String created_at;
@@ -60,7 +59,7 @@ public class Content implements Serializable {
 
     public String getUrl() {
         if (file_name == null) return null;
-        return BASE_URL + file_name;
+        return AppConstants.BASE_URL + file_name;
     }
 
 }

@@ -94,13 +94,17 @@ public class ContentActivity extends AppCompatActivity {
         downloadButton.setVisibility(View.GONE);
         progressDialog.show();
         String type = content.content_type.toLowerCase();
-        if (type.contains("png") || type.contains("jpg") || type.contains("jpeg")) {
-            handleImage();
-        } else if (content.content_type.equals("pdf")) {
-            handlePDF();
-        } else {
-            Toast.makeText(this, "Unsupported content type!", Toast.LENGTH_SHORT).show();
-            finish();
+        switch (type) {
+            case "image":
+                handleImage();
+                break;
+            case "pdf":
+                handlePDF();
+                break;
+            default:
+                Toast.makeText(this, "Unsupported content type!", Toast.LENGTH_SHORT).show();
+                finish();
+                break;
         }
     }
 

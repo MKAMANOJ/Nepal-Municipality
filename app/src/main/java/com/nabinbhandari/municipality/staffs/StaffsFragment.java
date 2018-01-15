@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
+import com.nabinbhandari.municipality.AppConstants;
 import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.R;
 
@@ -98,8 +99,6 @@ public class StaffsFragment extends Fragment {
 
     private static class StaffsAdapter extends ArrayAdapter<Staff> {
 
-        private static final String BASE = "http://palika.engineeringinnepal.com/palika/storage/";
-
         StaffsAdapter(@NonNull Context context) {
             super(context, R.layout.item_staff, new ArrayList<Staff>());
         }
@@ -141,7 +140,7 @@ public class StaffsFragment extends Fragment {
                 imageView.setImageDrawable(ContextCompat.getDrawable(context,
                         R.drawable.placeholder_warning));
             } else {
-                Glide.with(imageView).load(BASE + staff.image).into(imageView);
+                Glide.with(imageView).load(AppConstants.BASE_URL + staff.image).into(imageView);
             }
 
             TextView addressTextView = view.findViewById(R.id.addressTextView);
