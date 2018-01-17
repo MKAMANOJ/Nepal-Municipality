@@ -1,5 +1,6 @@
 package com.nabinbhandari.municipality;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,14 +39,18 @@ public class CKEditorFragment extends Fragment {
         return fragment;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         Context context = getContext() == null ? inflater.getContext() : getContext();
         WebView rootView = new WebView(context);
+        int padding = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        rootView.setPadding(padding, padding, padding, padding);
         rootView.getSettings().setBuiltInZoomControls(true);
         rootView.getSettings().setDisplayZoomControls(false);
+        rootView.getSettings().setJavaScriptEnabled(true);
         loadData(context, rootView);
         return rootView;
     }
