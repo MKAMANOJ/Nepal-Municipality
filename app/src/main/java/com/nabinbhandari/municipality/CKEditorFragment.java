@@ -46,8 +46,11 @@ public class CKEditorFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         Context context = getContext() == null ? inflater.getContext() : getContext();
         WebView rootView = new WebView(context);
-        int padding = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
-        rootView.setPadding(padding, padding, padding, padding);
+        int margin = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.setMargins(margin, margin, margin, margin);
+        rootView.setLayoutParams(params);
         rootView.getSettings().setBuiltInZoomControls(true);
         rootView.getSettings().setDisplayZoomControls(false);
         rootView.getSettings().setJavaScriptEnabled(true);
@@ -66,7 +69,7 @@ public class CKEditorFragment extends Fragment {
                     data = "<strong>Invalid data!</strong>";
                 }
                 if (data == null) data = "<strong>Data currently unavailable!</strong>";
-                webView.loadData(data, "text/html", "UTF-8");
+                webView.loadDataWithBaseURL(null, data, "text/html", "UTF-8", null);
             }
         };
         reference = FirebaseDatabase.getInstance().getReference(dbLocation);

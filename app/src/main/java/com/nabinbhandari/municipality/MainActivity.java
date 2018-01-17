@@ -82,14 +82,20 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                if (fragmentManager.getBackStackEntryCount() > 0) {
-                    menu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
+                int backStackEntryCount = fragmentManager.getBackStackEntryCount();
+                if (backStackEntryCount > 1) {
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 } else {
-                    menu.animateIconState(MaterialMenuDrawable.IconState.BURGER);
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                }
+                if (backStackEntryCount > 0) {
+                    menu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
+                } else {
+                    ((NavigationView) (findViewById(R.id.nav_view))).setCheckedItem(R.id.nav_home);
+                    menu.animateIconState(MaterialMenuDrawable.IconState.BURGER);
                     setTitle(R.string.app_name);
                 }
+                invalidateOptionsMenu();
             }
         });
 
@@ -167,15 +173,14 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.nepali);
         item.setChecked(LanguageHelper.isNepali(this));
+        item.setVisible(fragmentManager.getBackStackEntryCount() == 0);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.nepali) {
+        if (id == R.id.nepali) {
             item.setChecked(!item.isChecked());
             LanguageHelper.updatePrefs(this, item.isChecked());
             LanguageHelper.refreshLanguage(this);
@@ -190,7 +195,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_home) {
             while (fragmentManager.getBackStackEntryCount() > 0) {
-                fragmentManager.popBackStack();
+                fragmentManager.popBackStackImmediate();
             }
         } else openCategory(id, item.getTitle().toString());
 
@@ -201,6 +206,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCategoryClick(@NonNull Category category) {
+        ((NavigationView) (findViewById(R.id.nav_view))).setCheckedItem(category.id);
         openCategory(category.id, category.toString());
     }
 
@@ -239,6 +245,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setFragment(Fragment fragment) {
+        while (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStackImmediate();
+        }
         fragmentManager.beginTransaction().replace(R.id.fragment_holder, fragment)
                 .addToBackStack(null).commit();
     }
