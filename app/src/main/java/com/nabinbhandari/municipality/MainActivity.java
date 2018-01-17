@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 int backStackCount = fragmentManager.getBackStackEntryCount();
-                if (backStackCount == 0) {
+                if (backStackCount <= 1) {
                     drawer.openDrawer(Gravity.START);
                 } else {
                     fragmentManager.popBackStack();
@@ -79,14 +79,13 @@ public class MainActivity extends AppCompatActivity
                 int backStackEntryCount = fragmentManager.getBackStackEntryCount();
                 if (backStackEntryCount > 1) {
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                } else {
-                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                }
-                if (backStackEntryCount > 0) {
                     menu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
                 } else {
+                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     ((NavigationView) (findViewById(R.id.nav_view))).setCheckedItem(R.id.nav_home);
                     menu.animateIconState(MaterialMenuDrawable.IconState.BURGER);
+                }
+                if (backStackEntryCount == 0) {
                     setTitle(R.string.app_name);
                 }
                 invalidateOptionsMenu();
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity
                     if (isDrawerOpened) {
                         menu.setIconState(MaterialMenuDrawable.IconState.ARROW);
                     } else {
-                        if (fragmentManager.getBackStackEntryCount() > 0) {
+                        if (fragmentManager.getBackStackEntryCount() > 1) {
                             menu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
                         } else {
                             menu.setIconState(MaterialMenuDrawable.IconState.BURGER);
