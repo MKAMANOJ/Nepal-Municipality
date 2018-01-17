@@ -24,7 +24,6 @@ import com.nabinbhandari.android.permissions.Permissions;
 import com.nabinbhandari.downloader.FileDownloader;
 import com.nabinbhandari.downloader.LoadCallback;
 import com.nabinbhandari.municipality.R;
-import com.nabinbhandari.retrofit.ImageUtils;
 import com.nabinbhandari.retrofit.Utils;
 
 import java.io.File;
@@ -122,7 +121,7 @@ public class ContentActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@Nullable final Bitmap output, @Nullable final Throwable t,
                                        @Nullable final String message) {
-                    if (output != null) ImageUtils.setBitmapOnUi(photoView, output);
+                    if (output != null) Utils.setBitmapOnUi(photoView, output);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

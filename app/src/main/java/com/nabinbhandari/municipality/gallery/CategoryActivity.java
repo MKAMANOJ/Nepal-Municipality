@@ -27,6 +27,7 @@ import com.nabinbhandari.firebaseutils.ChildEventAdapter;
 import com.nabinbhandari.municipality.R;
 import com.nabinbhandari.retrofit.Image;
 import com.nabinbhandari.retrofit.PreviewActivity;
+import com.nabinbhandari.retrofit.Utils;
 
 import java.util.ArrayList;
 
@@ -160,7 +161,8 @@ public class CategoryActivity extends AppCompatActivity {
             TextView descTextView = convertView.findViewById(R.id.descTextView);
             descTextView.setText(photoItem.getDescription());
             ImageView imageView = convertView.findViewById(R.id.imagePreview);
-            Glide.with(imageView).load(photoItem.getUrl()).into(imageView);
+            Glide.with(imageView).setDefaultRequestOptions(Utils.getPlaceholderOptions())
+                    .load(photoItem.getUrl()).into(imageView);
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override

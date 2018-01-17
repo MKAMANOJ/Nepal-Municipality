@@ -1,5 +1,6 @@
 package com.nabinbhandari.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -21,6 +22,7 @@ public class PhotoViewPager extends android.support.v4.view.ViewPager {
     }
 
     @Override
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouchEvent(MotionEvent ev) {
         try {
             return super.onTouchEvent(ev);

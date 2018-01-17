@@ -26,6 +26,7 @@ import com.nabinbhandari.firebaseutils.ChildEventAdapter;
 import com.nabinbhandari.municipality.AppConstants;
 import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.R;
+import com.nabinbhandari.retrofit.Utils;
 
 import java.util.ArrayList;
 
@@ -165,7 +166,8 @@ public class ContactCategoryActivity extends AppCompatActivity {
                 imageView.setImageDrawable(ContextCompat.getDrawable(context,
                         R.drawable.placeholder_warning));
             } else {
-                Glide.with(imageView).load(AppConstants.BASE_URL + contact.image).into(imageView);
+                Glide.with(imageView).setDefaultRequestOptions(Utils.getPlaceholderOptions())
+                        .load(AppConstants.BASE_URL + contact.image).into(imageView);
             }
 
             TextView addressTextView = view.findViewById(R.id.addressTextView);

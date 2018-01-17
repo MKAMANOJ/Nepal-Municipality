@@ -1,12 +1,16 @@
 package com.nabinbhandari.retrofit;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -80,41 +84,31 @@ public class Utils {
         }
     }
 
-    public static void showProgress(Activity activity, final ProgressDialog progressDialog,
-                                    final String message) {
-        activity.runOnUiThread(new Runnable() {
+    public static void setBitmapOnUi(final ImageView target, final Bitmap image) {
+        target.post(new Runnable() {
             @Override
             public void run() {
-                progressDialog.setMessage(message);
-                progressDialog.show();
-            }
-        });
-    }
-
-    public static void hideProgress(final Activity activity, final ProgressDialog progressDialog,
-                                    final String message) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.hide();
-                if (message != null) {
-                    showToastOnUI(activity.getWindow().getDecorView(), message);
+                Drawable error = ContextCompat.getDrawable(target.getContext(),
+                        R.drawable.placeholder_warning);
+                if (image == null || image.isRecycled()) {
+                    target.setImageDrawable(error);
+                } else {
+                    target.setImageBitmap(image);
                 }
             }
         });
     }
 
-    public static void dismissProgress(final Activity activity, final ProgressDialog progressDialog,
-                                       final String message) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.dismiss();
-                if (message != null) {
-                    showToastOnUI(activity.getWindow().getDecorView(), message);
-                }
-            }
-        });
+    private static RequestOptions placeholderOpts;
+
+    @SuppressLint("CheckResult")
+    public static RequestOptions getPlaceholderOptions() {
+        if (placeholderOpts == null) {
+            placeholderOpts = new RequestOptions();
+            placeholderOpts.placeholder(R.drawable.placeholder_waiting);
+            placeholderOpts.error(R.drawable.placeholder_warning);
+        }
+        return placeholderOpts;
     }
 
 }

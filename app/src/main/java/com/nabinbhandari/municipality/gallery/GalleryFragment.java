@@ -26,7 +26,7 @@ import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
 
-import static com.nabinbhandari.retrofit.PreviewActivity.getRequestOptions;
+import static com.nabinbhandari.retrofit.Utils.getPlaceholderOptions;
 
 /**
  * Created at 7:15 PM on 12/26/2017.
@@ -165,7 +165,7 @@ public class GalleryFragment extends Fragment {
             descTextView.setText(group.getDescription());
 
             final ImageView imageView = convertView.findViewById(R.id.imagePreview);
-            Glide.with(imageView).setDefaultRequestOptions(getRequestOptions())
+            Glide.with(imageView).setDefaultRequestOptions(getPlaceholderOptions())
                     .load(group.getFirstPhotoUrl()).into(imageView);
 
             convertView.setOnClickListener(new View.OnClickListener() {

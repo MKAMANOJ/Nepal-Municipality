@@ -54,7 +54,7 @@ public class ImageFragment extends Fragment {
         descTextView.setText(description);
         progressBar.setVisibility(View.GONE);
 
-        Glide.with(imagePreview).setDefaultRequestOptions(PreviewActivity.getRequestOptions())
+        Glide.with(imagePreview).setDefaultRequestOptions(Utils.getPlaceholderOptions())
                 .load(url).into(imagePreview);
 
         return view;

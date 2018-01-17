@@ -29,9 +29,6 @@ import com.nabinbhandari.municipality.impcontacts.ImpContactsFragment;
 import com.nabinbhandari.municipality.menu.Category;
 import com.nabinbhandari.municipality.menu.MenuFragment;
 import com.nabinbhandari.municipality.staffs.StaffsFragment;
-import com.nabinbhandari.retrofit.ImageUtils;
-import com.nabinbhandari.retrofit.PhotoService;
-import com.nabinbhandari.retrofit.RetrofitUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MenuFragment.OnCategoryClickListener {
@@ -57,9 +54,6 @@ public class MainActivity extends AppCompatActivity
 
         initDrawer();
         initNavigationItems();
-
-        PhotoService service = RetrofitUtils.getRetrofit().create(PhotoService.class);
-        ImageUtils.init(this, service);
     }
 
     private void initDrawer() {
