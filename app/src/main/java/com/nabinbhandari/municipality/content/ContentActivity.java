@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.nabinbhandari.android.permissions.PermissionHandler;
 import com.nabinbhandari.android.permissions.Permissions;
 import com.nabinbhandari.downloader.FileDownloader;
 import com.nabinbhandari.downloader.LoadCallback;
+import com.nabinbhandari.municipality.CKEditorFragment;
 import com.nabinbhandari.municipality.R;
 import com.nabinbhandari.retrofit.Utils;
 
@@ -69,14 +71,19 @@ public class ContentActivity extends AppCompatActivity {
                     }
                 });
 
-        if (getIntent().hasExtra(EXTRA_CONTENT)) {
-            content = (Content) getIntent().getSerializableExtra(EXTRA_CONTENT);
-            start();
-        } else {
-            finish();
-        }
-        if (getSupportActionBar() != null) {
+        try {
+            if (getIntent().hasExtra(EXTRA_CONTENT)) {
+                content = (Content) getIntent().getSerializableExtra(EXTRA_CONTENT);
+                setTitle(content.title);
+                start();
+            } else throw new Exception("No content!");
+            //noinspection ConstantConditions
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch (Exception e) {
+            // will never happen.
+            e.printStackTrace();
+            Toast.makeText(this, "Unspecified Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
@@ -99,6 +106,9 @@ public class ContentActivity extends AppCompatActivity {
                 break;
             case "pdf":
                 handlePDF();
+                break;
+            case "html":
+                handleHTML();
                 break;
             default:
                 Toast.makeText(this, "Unsupported content type!", Toast.LENGTH_SHORT).show();
@@ -176,6 +186,14 @@ public class ContentActivity extends AppCompatActivity {
         } catch (IOException e) {
             Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void handleHTML() {
+        progressDialog.dismiss();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        CKEditorFragment fragment = CKEditorFragment.newInstance("tbl_uploaded_files/" +
+                content.key + "/content");
+        fragmentManager.beginTransaction().replace(R.id.content_holder, fragment).commit();
     }
 
     private void onResult(Throwable t, String message) {

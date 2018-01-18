@@ -213,10 +213,8 @@ public class MainActivity extends AppCompatActivity
             case 6:
             case 7:
             case 8:
-                setFragment(ContentFragment.newInstance(categoryId));
-                break;
             case 9:
-                setFragment(CKEditorFragment.newInstance("tbl_introduction/1/content"));
+                setFragment(ContentFragment.newInstance(categoryId));
                 break;
             case 10:
                 setFragment(StaffsFragment.newInstance());
@@ -227,11 +225,14 @@ public class MainActivity extends AppCompatActivity
             case 12:
                 setFragment(ImpContactsFragment.newInstance());
                 break;
+            case 13:
+                setFragment(CKEditorFragment.newInstance("tbl_introduction/1/content"));
+                break;
             case 14:
                 setFragment(ContactFragment.newInstance());
                 break;
             default:
-                Toast.makeText(this, "id: " + categoryId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Invalid id: " + categoryId, Toast.LENGTH_SHORT).show();
                 return;
         }
         if (title != null) setTitle(title);

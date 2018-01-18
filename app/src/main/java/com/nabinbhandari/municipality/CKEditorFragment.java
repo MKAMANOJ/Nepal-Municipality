@@ -78,7 +78,7 @@ public class CKEditorFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        reference.removeEventListener(listener);
+        if (reference != null) reference.removeEventListener(listener);
         super.onDestroy();
     }
 
