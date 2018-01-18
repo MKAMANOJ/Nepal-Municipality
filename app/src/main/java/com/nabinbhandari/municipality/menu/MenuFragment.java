@@ -1,7 +1,6 @@
 package com.nabinbhandari.municipality.menu;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,6 +21,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.nabinbhandari.firebaseutils.RemoteConfig;
 import com.nabinbhandari.municipality.R;
 
 import java.util.List;
@@ -71,9 +71,7 @@ public class MenuFragment extends Fragment {
         return view;
     }
 
-    private class CategoriesAdapter extends ArrayAdapter<Category> {
-
-        private static final int ICON_COLOR = Color.BLUE;
+    private static class CategoriesAdapter extends ArrayAdapter<Category> {
 
         private CategoriesAdapter(@NonNull Context context, @NonNull List<Category> categories) {
             super(context, R.layout.item_category, categories);
@@ -91,6 +89,7 @@ public class MenuFragment extends Fragment {
             Category category = getItem(position);
             if (category == null) return view;
             TextView nameTextView = view.findViewById(R.id.nameTextView);
+            nameTextView.setTextColor(RemoteConfig.getMenuTextColor());
             nameTextView.setText(category.toString());
             ImageView imageView = view.findViewById(R.id.imagePreview);
             Glide.with(imageView).load(category.resId).listener(new RequestListener<Drawable>() {
@@ -103,7 +102,7 @@ public class MenuFragment extends Fragment {
                 @Override
                 public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> t,
                                                DataSource dataSource, boolean isFirstResource) {
-                    resource.setColorFilter(ICON_COLOR, PorterDuff.Mode.SRC_IN);
+                    resource.setColorFilter(RemoteConfig.getMenuIconColor(), PorterDuff.Mode.SRC_IN);
                     return false;
                 }
             }).into(imageView);

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.nabinbhandari.LanguageHelper;
+import com.nabinbhandari.firebaseutils.RemoteConfig;
 import com.nabinbhandari.municipality.contact.ContactFragment;
 import com.nabinbhandari.municipality.content.ContentFragment;
 import com.nabinbhandari.municipality.gallery.GalleryFragment;
@@ -32,8 +33,6 @@ import com.nabinbhandari.municipality.staffs.StaffsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MenuFragment.OnCategoryClickListener {
-
-    private static final int NAV_ICON_COLOR = Color.BLUE;
 
     private FragmentManager fragmentManager;
     private long backPressedTime;
@@ -136,6 +135,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_home);
+        int NAV_ICON_COLOR = RemoteConfig.getMenuIconColor();
         if (drawable != null) drawable.setColorFilter(NAV_ICON_COLOR, PorterDuff.Mode.SRC_IN);
         menu.findItem(R.id.nav_home).setIcon(drawable);
         for (Category category : Category.getDummyList()) {

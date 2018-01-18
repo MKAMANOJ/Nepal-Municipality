@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.nabinbhandari.LanguageHelper;
+import com.nabinbhandari.firebaseutils.RemoteConfig;
 
 /**
  * Created at 9:01 PM on 1/3/2018.
@@ -40,6 +41,7 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RemoteConfig.start();
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

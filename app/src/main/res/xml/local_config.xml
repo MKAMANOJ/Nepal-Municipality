@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>menu_icon_color</key>
+        <value>#3F51B5</value>
+    </entry>
+    <entry>
+        <key>menu_text_color</key>
+        <value>#333333</value>
+    </entry>
+</defaultsMap>

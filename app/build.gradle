@@ -37,6 +37,7 @@ dependencies {
 
     implementation "com.google.firebase:firebase-database:$rootProject.ext.googleLibVersion"
     implementation "com.google.firebase:firebase-messaging:$rootProject.ext.googleLibVersion"
+    implementation "com.google.firebase:firebase-config:$rootProject.ext.googleLibVersion"
 
     compile 'com.balysv.materialmenu:material-menu:2.0.0'
     implementation 'com.github.bumptech.glide:glide:4.4.0'
