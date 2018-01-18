@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.nabinbhandari.LanguageHelper;
 
 /**
@@ -20,6 +22,8 @@ import com.nabinbhandari.LanguageHelper;
  */
 
 public class Splash extends AppCompatActivity {
+
+    public static final String KEY_MESSAGE = "message";
 
     static {
         try {
@@ -43,6 +47,12 @@ public class Splash extends AppCompatActivity {
         }
         LanguageHelper.refreshLanguage(this);
         setContentView(R.layout.layout_splash);
+
+        if (getIntent().hasExtra(KEY_MESSAGE)) {
+            String message = getIntent().getStringExtra(KEY_MESSAGE);
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        }
+        FirebaseMessaging.getInstance().subscribeToTopic(getPackageName());
     }
 
     @Override

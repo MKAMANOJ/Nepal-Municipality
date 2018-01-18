@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity
                     menu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
                 } else {
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                    ((NavigationView) (findViewById(R.id.nav_view))).setCheckedItem(R.id.nav_home);
                     menu.animateIconState(MaterialMenuDrawable.IconState.BURGER);
                 }
                 if (backStackEntryCount == 0) {
+                    ((NavigationView) (findViewById(R.id.nav_view))).setCheckedItem(R.id.nav_home);
                     setTitle(R.string.app_name);
                 }
                 invalidateOptionsMenu();
