@@ -3,10 +3,9 @@ package com.nabinbhandari.municipality.gallery;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
+import com.nabinbhandari.municipality.BaseFragment;
 import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ import static com.nabinbhandari.retrofit.Utils.getPlaceholderOptions;
  * @author bnabin51@gmail.com
  */
 
-public class GalleryFragment extends Fragment {
+public class GalleryFragment extends BaseFragment {
 
     private GalleryGroupAdapter adapter;
 
@@ -56,8 +56,7 @@ public class GalleryFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         final Context context = getContext() == null ? inflater.getContext() : getContext();
         final GridView gridView = new GridView(context);
         gridView.setBackgroundColor(Color.BLACK);
@@ -67,6 +66,7 @@ public class GalleryFragment extends Fragment {
         gridView.setAdapter(adapter);
 
         loadCategories();
+        setLoadingTextColor(ContextCompat.getColor(context, android.R.color.white));
 
         return gridView;
     }
@@ -82,6 +82,7 @@ public class GalleryFragment extends Fragment {
                     @Override
                     public void run() {
                         adapter.add(group);
+                        onLoad(adapter.getCount());
                     }
                 });
             }
@@ -91,6 +92,7 @@ public class GalleryFragment extends Fragment {
                 final GalleryCategory group = GalleryCategory.from(dataSnapshot);
                 if (group == null) return;
                 adapter.remove(group);
+                onLoad(adapter.getCount());
             }
 
             @Override
@@ -110,7 +112,7 @@ public class GalleryFragment extends Fragment {
                 });
             }
         };
-        dbReference.addChildEventListener(categoriesListener);
+        startLoading(dbReference, categoriesListener);
     }
 
     private void loadGroupPhotoUrl(final GalleryCategory group, final Runnable runnable) {

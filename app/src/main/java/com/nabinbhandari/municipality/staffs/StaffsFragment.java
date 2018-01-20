@@ -1,10 +1,8 @@
 package com.nabinbhandari.municipality.staffs;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.text.util.Linkify;
@@ -24,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
 import com.nabinbhandari.municipality.AppConstants;
 import com.nabinbhandari.municipality.AppUtils;
+import com.nabinbhandari.municipality.BaseFragment;
 import com.nabinbhandari.municipality.R;
 import com.nabinbhandari.retrofit.Utils;
 
@@ -35,7 +34,7 @@ import java.util.ArrayList;
  * @author bnabin51@gmail.com
  */
 
-public class StaffsFragment extends Fragment {
+public class StaffsFragment extends BaseFragment {
 
     private StaffsAdapter staffsAdapter;
     private DatabaseReference dbReference;
@@ -48,10 +47,8 @@ public class StaffsFragment extends Fragment {
         return new StaffsFragment();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         Context context = inflater.getContext();
         ListView listView = new ListView(context);
         int padding = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
@@ -71,6 +68,7 @@ public class StaffsFragment extends Fragment {
                 Staff staff = Staff.from(dataSnapshot);
                 if (staff == null) return;
                 staffsAdapter.add(staff);
+                onLoad(staffsAdapter.getCount());
             }
 
             @Override
@@ -87,9 +85,10 @@ public class StaffsFragment extends Fragment {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Staff staff = Staff.from(dataSnapshot);
                 staffsAdapter.remove(staff);
+                onLoad(staffsAdapter.getCount());
             }
         };
-        dbReference.addChildEventListener(staffsListener);
+        startLoading(dbReference, staffsListener);
     }
 
     @Override

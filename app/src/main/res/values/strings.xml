@@ -35,5 +35,7 @@
     <string name="contact_number_star">Contact Number *</string>
     <string name="address_star">Address *</string>
     <string name="full_name_star">Full Name *</string>
+    <string name="loading">Loading…</string>
+    <string name="available_soon">Content will be available soon.</string>
 
 </resources>

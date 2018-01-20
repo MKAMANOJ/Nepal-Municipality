@@ -2,10 +2,8 @@ package com.nabinbhandari.municipality.impcontacts;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
+import com.nabinbhandari.municipality.BaseFragment;
 import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
  * @author bnabin51@gmail.com
  */
 
-public class ImpContactsFragment extends Fragment {
+public class ImpContactsFragment extends BaseFragment {
 
     private DatabaseReference reference;
     private ChildEventAdapter listener;
@@ -41,10 +40,8 @@ public class ImpContactsFragment extends Fragment {
         return new ImpContactsFragment();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         View rootView = inflater.inflate(R.layout.fragment_imp_contacts, container, false);
         ListView categoriesListView = rootView.findViewById(R.id.contact_categories_list);
         final Context context = getContext() == null ? inflater.getContext() : getContext();
@@ -74,6 +71,7 @@ public class ImpContactsFragment extends Fragment {
                 ContactCategory category = ContactCategory.from(dataSnapshot);
                 if (category == null) return;
                 adapter.add(category);
+                onLoad(adapter.getCount());
             }
 
             @Override
@@ -81,6 +79,7 @@ public class ImpContactsFragment extends Fragment {
                 ContactCategory category = ContactCategory.from(dataSnapshot);
                 if (category == null) return;
                 adapter.remove(category);
+                onLoad(adapter.getCount());
             }
 
             @Override
@@ -96,12 +95,12 @@ public class ImpContactsFragment extends Fragment {
             }
         };
         reference = FirebaseDatabase.getInstance().getReference("tbl_important_contact_categories");
-        reference.addChildEventListener(listener);
+        startLoading(reference, listener);
     }
 
     @Override
     public void onDestroy() {
-        reference.removeEventListener(listener);
+        if (reference != null) reference.removeEventListener(listener);
         super.onDestroy();
     }
 

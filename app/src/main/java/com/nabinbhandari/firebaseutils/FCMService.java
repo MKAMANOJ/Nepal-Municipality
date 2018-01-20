@@ -64,6 +64,7 @@ public class FCMService extends FirebaseMessagingService {
                 .setSmallIcon(R.drawable.ic_notification)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true)
+                .setColor(getColor(R.color.colorPrimary))
                 .setOngoing(false)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setContentIntent(pendingIntent);

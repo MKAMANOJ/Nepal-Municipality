@@ -2,10 +2,8 @@ package com.nabinbhandari.municipality.content;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
+import com.nabinbhandari.firebaseutils.ValueEventAdapter;
+import com.nabinbhandari.municipality.BaseFragment;
 import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  * @author bnabin51@gmail.com
  */
 
-public class ContentFragment extends Fragment {
+public class ContentFragment extends BaseFragment {
 
     private int categoryId;
     private ContentAdapter contentAdapter;
@@ -45,10 +46,8 @@ public class ContentFragment extends Fragment {
         return contentFragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         Context context = getContext() == null ? inflater.getContext() : getContext();
         ListView listView = new ListView(context);
         listView.setSelector(android.R.color.transparent);
@@ -79,12 +78,14 @@ public class ContentFragment extends Fragment {
                 Content content = Content.from(dataSnapshot);
                 if (content == null) return;
                 contentAdapter.add(content);
+                onLoad(contentAdapter.getCount());
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Content content = Content.from(dataSnapshot);
                 contentAdapter.remove(content);
+                onLoad(contentAdapter.getCount());
             }
 
             @Override
@@ -99,7 +100,7 @@ public class ContentFragment extends Fragment {
                 contentAdapter.notifyDataSetChanged();
             }
         };
-        dbRef.addChildEventListener(listener);
+        startLoading(dbRef, listener);
     }
 
     @Override
