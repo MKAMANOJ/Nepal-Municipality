@@ -3,6 +3,7 @@ package com.nabinbhandari.municipality.content;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
@@ -24,9 +25,11 @@ import com.nabinbhandari.android.permissions.PermissionHandler;
 import com.nabinbhandari.android.permissions.Permissions;
 import com.nabinbhandari.downloader.FileDownloader;
 import com.nabinbhandari.downloader.LoadCallback;
-import com.nabinbhandari.municipality.CKEditorFragment;
-import com.nabinbhandari.municipality.R;
 import com.nabinbhandari.imageviewer.Utils;
+import com.nabinbhandari.municipality.AppUtils;
+import com.nabinbhandari.municipality.CKEditorFragment;
+import com.nabinbhandari.municipality.MainActivity;
+import com.nabinbhandari.municipality.R;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,7 +84,7 @@ public class ContentActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         } catch (Exception e) {
             // will never happen.
-            e.printStackTrace();
+            AppUtils.printStackTrace(e);
             Toast.makeText(this, "Unspecified Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -166,7 +169,7 @@ public class ContentActivity extends AppCompatActivity {
                                     .onError(new OnErrorListener() {
                                         @Override
                                         public void onError(Throwable t) {
-                                            t.printStackTrace();
+                                            AppUtils.printStackTrace(t);
                                             Utils.showToastOnUI(pdfView, t.getMessage());
                                         }
                                     })
@@ -199,10 +202,15 @@ public class ContentActivity extends AppCompatActivity {
     private void onResult(Throwable t, String message) {
         if (destroyed) return;
         progressDialog.hide();
-        if (message != null) Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        if (message != null) {
+            if (message.contains("internet connection")) {
+                message = getString(R.string.error_internet_problem);
+            }
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
         downloadButton.setVisibility(View.VISIBLE);
         if (t != null) {
-            new Exception(t).printStackTrace();
+            AppUtils.printStackTrace(new Exception(t));
             downloadButton.setImageResource(android.R.drawable.ic_menu_revert);
             downloadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -255,6 +263,14 @@ public class ContentActivity extends AppCompatActivity {
         progressDialog.dismiss();
         destroyed = true;
         super.onDestroy();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        if (MainActivity.isBackground) {
+            startActivity(new Intent(this, MainActivity.class));
+        }
     }
 
 }

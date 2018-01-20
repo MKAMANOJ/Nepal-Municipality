@@ -61,4 +61,12 @@ public class AppUtils {
         }
     }
 
+    public static void log(String message) {
+        if (BuildConfig.DEBUG) System.err.println(message);
+    }
+
+    public static void printStackTrace(Throwable t) {
+        if (BuildConfig.DEBUG) t.printStackTrace();
+    }
+
 }

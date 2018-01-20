@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseError;
+import com.nabinbhandari.municipality.BuildConfig;
 
 /**
  * Created at 7:46 PM on 12/31/2017.
@@ -20,7 +21,7 @@ public class Utils {
             message = "null";
         } else {
             message = error.getMessage() + "\n" + error.getCode() + ": " + error.getDetails();
-            error.toException().printStackTrace();
+            if (BuildConfig.DEBUG) error.toException().printStackTrace();
         }
         if (context == null) return;
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();

@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.nabinbhandari.municipality.BuildConfig;
 import com.nabinbhandari.municipality.R;
 
 import java.io.IOException;
@@ -44,26 +45,22 @@ public class Utils {
 
     @NonNull
     public static String getErrorMessage(Response response) {
-        System.err.println("Response: " + response.raw());
+        if (BuildConfig.DEBUG) System.err.println("Response: " + response.raw());
         ResponseBody responseBody = response.errorBody();
         try {
             String errorMessage;
             if (responseBody != null) {
                 String errorBody = responseBody.string();
-                System.err.println(errorBody);
+                if (BuildConfig.DEBUG) System.err.println(errorBody);
                 MyResponse myResponse = fromJson(errorBody,
                         MyResponse.class);
                 errorMessage = myResponse == null || myResponse.message == null ?
                         "Error " + response.code() + ": " + response.message() : myResponse.message;
             } else errorMessage = "No data received.";
-            try {
-                throw new Exception("trace");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            if (BuildConfig.DEBUG) new Exception("trace").printStackTrace();
             return errorMessage;
         } catch (JsonSyntaxException | IOException e) {
-            e.printStackTrace();
+            if (BuildConfig.DEBUG) e.printStackTrace();
             return "Error " + response.code() + ": " + e.getMessage();
         }
     }

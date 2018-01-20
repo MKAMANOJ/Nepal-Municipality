@@ -23,10 +23,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
-import com.nabinbhandari.municipality.R;
 import com.nabinbhandari.imageviewer.Image;
 import com.nabinbhandari.imageviewer.PreviewActivity;
 import com.nabinbhandari.imageviewer.Utils;
+import com.nabinbhandari.municipality.AppUtils;
+import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
 
@@ -75,7 +76,7 @@ public class CategoryActivity extends AppCompatActivity {
             loadPhotos();
 
         } catch (Throwable t) {
-            t.printStackTrace();
+            AppUtils.printStackTrace(t);
             Toast.makeText(this, t.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }

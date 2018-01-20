@@ -41,10 +41,10 @@ public class RemoteConfig {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            System.err.println("config fetched.");
+                            log("config fetched.");
                             remoteConfig.activateFetched();
                         } else {
-                            System.err.println("config fetch failed.");
+                            log("config fetch failed.");
                             Exception exception = task.getException();
                             if (exception != null) printStackTrace(exception);
                         }
@@ -77,6 +77,10 @@ public class RemoteConfig {
 
     private static void printStackTrace(Throwable t) {
         if (BuildConfig.DEBUG) t.printStackTrace();
+    }
+
+    private static void log(String message) {
+        if (BuildConfig.DEBUG) System.err.println(message);
     }
 
 }

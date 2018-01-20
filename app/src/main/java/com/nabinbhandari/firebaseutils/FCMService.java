@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
+import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.R;
 import com.nabinbhandari.municipality.content.Content;
 import com.nabinbhandari.municipality.content.ContentActivity;
@@ -54,7 +55,7 @@ public class FCMService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         Map<String, String> data = remoteMessage.getData();
-        System.err.println("Data: " + data.toString());
+        AppUtils.log("Data: " + data.toString());
 
         String title = "New Notification", text = "Click to open.", subText = null, key = null;
         if (data.containsKey(KEY_TITLE)) title = data.get(KEY_TITLE);
@@ -83,7 +84,7 @@ public class FCMService extends FirebaseMessagingService {
             }
             if (intent == null || key == null) throw new Exception();
         } catch (Exception e) {
-            e.printStackTrace();
+            AppUtils.printStackTrace(e);
             return;
         }
 

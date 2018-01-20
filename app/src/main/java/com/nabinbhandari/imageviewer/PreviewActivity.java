@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class PreviewActivity extends AppCompatActivity {
             index = Math.min(index, images.size() - 1);
             viewPager.setCurrentItem(index);
         } catch (Throwable t) {
-            t.printStackTrace();
+            AppUtils.printStackTrace(t);
             Toast.makeText(this, t.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }
