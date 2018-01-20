@@ -72,7 +72,8 @@ public class FCMService extends FirebaseMessagingService {
                 if (categoryId == 15) {
                     String reference = "tbl_push_notifications/" + key + "/message";
                     intent = new Intent(this, NotificationActivity.class)
-                            .putExtra(NotificationActivity.KEY_DB_LOCATION, reference);
+                            .putExtra(NotificationActivity.KEY_DB_LOCATION, reference)
+                            .putExtra(NotificationActivity.KEY_TITLE, title);
                 } else if (categoryId > 0 && categoryId < 10) {
                     Content content = new Gson().fromJson(data.get(KEY_CONTENT), Content.class);
                     content.key = key;

@@ -30,6 +30,7 @@ import com.nabinbhandari.municipality.impcontacts.ImpContactsFragment;
 import com.nabinbhandari.municipality.menu.Category;
 import com.nabinbhandari.municipality.menu.MenuFragment;
 import com.nabinbhandari.municipality.staffs.StaffsFragment;
+import com.nabinbhandari.notification.NotificationsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MenuFragment.OnCategoryClickListener {
@@ -184,6 +185,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, MainActivity.class));
         } else if (id == R.id.rateApp) {
             AppUtils.openPlayStore(this, getString(R.string.error_play_store_not_found));
+        } else if (id == R.id.notifications) {
+            setFragment(NotificationsFragment.newInstance());
         }
         return super.onOptionsItemSelected(item);
     }

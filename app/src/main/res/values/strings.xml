@@ -37,5 +37,6 @@
     <string name="error_internet_problem">There was a problem loading data. Please check your internet connection.</string>
     <string name="rate_app">Rate App</string>
     <string name="error_play_store_not_found">Play store not found.</string>
+    <string name="notifications">Notifications</string>
 
 </resources>

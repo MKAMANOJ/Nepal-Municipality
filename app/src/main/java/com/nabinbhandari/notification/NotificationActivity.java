@@ -17,6 +17,7 @@ import com.nabinbhandari.municipality.R;
 public class NotificationActivity extends AppCompatActivity {
 
     public static final String KEY_DB_LOCATION = "db_location";
+    public static final String KEY_TITLE = "title";
     String dbLocation;
 
     @Override
@@ -27,6 +28,8 @@ public class NotificationActivity extends AppCompatActivity {
             finish();
             return;
         }
+        if (getIntent().hasExtra(KEY_TITLE)) setTitle(getIntent().getStringExtra(KEY_TITLE));
+
         FrameLayout rootView = new FrameLayout(this);
         setContentView(rootView);
         rootView.setId(R.id.fragment_holder);
