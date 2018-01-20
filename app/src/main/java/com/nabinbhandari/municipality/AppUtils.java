@@ -1,5 +1,7 @@
 package com.nabinbhandari.municipality;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +13,7 @@ import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created at 11:59 PM on 1/11/2018.
@@ -43,6 +46,18 @@ public class AppUtils {
             editText.setMovementMethod(LinkMovementMethod.getInstance());
         } catch (Throwable t) {
             editText.setText(text);
+        }
+    }
+
+    static void openPlayStore(Context context, String errorMessage) {
+        Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
+
+        Intent playStoreIntent = new Intent(Intent.ACTION_VIEW, uri);
+        playStoreIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            context.startActivity(playStoreIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
         }
     }
 

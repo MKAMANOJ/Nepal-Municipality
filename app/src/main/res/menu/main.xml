@@ -14,4 +14,9 @@
         android:title="@string/nepali"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/rateApp"
+        android:title="@string/rate_app"
+        app:showAsAction="never" />
+
 </menu>

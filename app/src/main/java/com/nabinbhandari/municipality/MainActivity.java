@@ -164,10 +164,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            return super.onCreateOptionsMenu(menu);
+        }
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.nepali);
         item.setChecked(LanguageHelper.isNepali(this));
-        item.setVisible(fragmentManager.getBackStackEntryCount() == 0);
         return true;
     }
 
@@ -180,6 +182,8 @@ public class MainActivity extends AppCompatActivity
             LanguageHelper.refreshLanguage(this);
             finish();
             startActivity(new Intent(this, MainActivity.class));
+        } else if (id == R.id.rateApp) {
+            AppUtils.openPlayStore(this, getString(R.string.error_play_store_not_found));
         }
         return super.onOptionsItemSelected(item);
     }
