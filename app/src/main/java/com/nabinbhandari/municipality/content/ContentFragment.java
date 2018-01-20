@@ -12,12 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
-import com.nabinbhandari.firebaseutils.ValueEventAdapter;
 import com.nabinbhandari.municipality.BaseFragment;
 import com.nabinbhandari.municipality.R;
 
@@ -105,7 +103,7 @@ public class ContentFragment extends BaseFragment {
 
     @Override
     public void onDestroy() {
-        dbRef.removeEventListener(listener);
+        if (dbRef != null) dbRef.removeEventListener(listener);
         super.onDestroy();
     }
 

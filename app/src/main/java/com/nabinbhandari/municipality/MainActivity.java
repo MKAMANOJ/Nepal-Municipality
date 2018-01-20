@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         LanguageHelper.refreshLanguage(this);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.fragment_holder).setBackgroundColor(RemoteConfig.getMenuBackgroundColor());
 
         fragmentManager = getSupportFragmentManager();
         MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList(), this);

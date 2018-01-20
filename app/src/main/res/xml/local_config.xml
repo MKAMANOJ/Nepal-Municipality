@@ -2,10 +2,14 @@
 <defaultsMap>
     <entry>
         <key>menu_icon_color</key>
-        <value>#3F51B5</value>
+        <value>#009688</value>
     </entry>
     <entry>
         <key>menu_text_color</key>
         <value>#333333</value>
+    </entry>
+    <entry>
+        <key>menu_background_color</key>
+        <value>#f5f5f5</value>
     </entry>
 </defaultsMap>

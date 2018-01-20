@@ -29,6 +29,9 @@ public class CKEditorFragment extends Fragment {
     private DatabaseReference reference;
     private ValueEventListener listener;
 
+    private WebView rootView;
+    private Runnable noInternetRunnable;
+
     public CKEditorFragment() {
     }
 
@@ -45,7 +48,7 @@ public class CKEditorFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         Context context = getContext() == null ? inflater.getContext() : getContext();
-        WebView rootView = new WebView(context);
+        rootView = new WebView(context);
         int margin = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -54,14 +57,24 @@ public class CKEditorFragment extends Fragment {
         rootView.getSettings().setBuiltInZoomControls(true);
         rootView.getSettings().setDisplayZoomControls(false);
         rootView.getSettings().setJavaScriptEnabled(true);
-        loadData(context, rootView);
+        loadData(context);
         return rootView;
     }
 
-    private void loadData(Context context, final WebView webView) {
+    private void loadData(Context context) {
+        loadHTML(getString(R.string.loading));
+        noInternetRunnable = new Runnable() {
+            @Override
+            public void run() {
+                loadHTML(getString(R.string.error_internet_problem));
+            }
+        };
+        rootView.postDelayed(noInternetRunnable, 5000);
+
         listener = new ValueEventAdapter(context) {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                rootView.removeCallbacks(noInternetRunnable);
                 String data;
                 try {
                     data = dataSnapshot.getValue(String.class);
@@ -69,15 +82,21 @@ public class CKEditorFragment extends Fragment {
                     data = "<strong>Invalid data!</strong>";
                 }
                 if (data == null) data = "<strong>Data currently unavailable!</strong>";
-                webView.loadDataWithBaseURL(null, data, "text/html", "UTF-8", null);
+                loadHTML(data);
             }
         };
+
         reference = FirebaseDatabase.getInstance().getReference(dbLocation);
         reference.addValueEventListener(listener);
     }
 
+    private void loadHTML(String html) {
+        rootView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
+    }
+
     @Override
     public void onDestroy() {
+        if (rootView != null) rootView.removeCallbacks(noInternetRunnable);
         if (reference != null) reference.removeEventListener(listener);
         super.onDestroy();
     }

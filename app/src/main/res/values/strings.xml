@@ -37,5 +37,6 @@
     <string name="full_name_star">Full Name *</string>
     <string name="loading">Loading…</string>
     <string name="available_soon">Content will be available soon.</string>
+    <string name="error_internet_problem">There was a problem loading data. Please check your internet connection.</string>
 
 </resources>

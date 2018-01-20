@@ -53,24 +53,25 @@ public class RemoteConfig {
     }
 
     public static int getMenuIconColor() {
-        try {
-            String colorStr = FirebaseRemoteConfig.getInstance().getString("menu_icon_color");
-            if (TextUtils.isEmpty(colorStr)) throw new Exception();
-            return Color.parseColor(colorStr);
-        } catch (Throwable t) {
-            printStackTrace(t);
-            return 0x3F51B5;
-        }
+        return getColor("menu_icon_color", 0x009688);
     }
 
     public static int getMenuTextColor() {
+        return getColor("menu_text_color", 0x333333);
+    }
+
+    public static int getMenuBackgroundColor() {
+        return getColor("menu_background_color", 0xf5f5f5);
+    }
+
+    private static int getColor(String key, int defaultColor) {
         try {
-            String colorStr = FirebaseRemoteConfig.getInstance().getString("menu_text_color");
+            String colorStr = FirebaseRemoteConfig.getInstance().getString(key);
             if (TextUtils.isEmpty(colorStr)) throw new Exception();
             return Color.parseColor(colorStr);
         } catch (Throwable t) {
             printStackTrace(t);
-            return 0x333333;
+            return defaultColor;
         }
     }
 

@@ -93,8 +93,8 @@ public class StaffsFragment extends BaseFragment {
 
     @Override
     public void onDestroy() {
+        if (dbReference != null) dbReference.removeEventListener(staffsListener);
         super.onDestroy();
-        dbReference.removeEventListener(staffsListener);
     }
 
     private static class StaffsAdapter extends ArrayAdapter<Staff> {

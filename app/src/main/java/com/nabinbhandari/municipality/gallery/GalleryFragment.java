@@ -2,10 +2,8 @@ package com.nabinbhandari.municipality.gallery;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,8 +48,8 @@ public class GalleryFragment extends BaseFragment {
 
     @Override
     public void onDestroy() {
+        if (dbReference != null) dbReference.removeEventListener(categoriesListener);
         super.onDestroy();
-        dbReference.removeEventListener(categoriesListener);
     }
 
     @Nullable
@@ -59,14 +57,12 @@ public class GalleryFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         final Context context = getContext() == null ? inflater.getContext() : getContext();
         final GridView gridView = new GridView(context);
-        gridView.setBackgroundColor(Color.BLACK);
         gridView.setNumColumns(2);
 
         adapter = new GalleryGroupAdapter(context);
         gridView.setAdapter(adapter);
 
         loadCategories();
-        setLoadingTextColor(ContextCompat.getColor(context, android.R.color.white));
 
         return gridView;
     }

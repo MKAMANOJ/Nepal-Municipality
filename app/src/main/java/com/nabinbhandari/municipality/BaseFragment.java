@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.nabinbhandari.firebaseutils.ValueEventAdapter;
 
 /**
@@ -51,15 +52,34 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container);
 
+    private Runnable noInternetRunnable;
+    private ValueEventListener countListener;
+    private Query databaseReference;
+
     protected void startLoading(final Query databaseReference, final ChildEventListener listener) {
-        databaseReference.addListenerForSingleValueEvent(new ValueEventAdapter(getContext()) {
+        this.databaseReference = databaseReference;
+
+        noInternetRunnable = new Runnable() {
+            @Override
+            public void run() {
+                loadingProgress.setVisibility(View.GONE);
+                loadingMessageView.setText(R.string.error_internet_problem);
+                databaseReference.removeEventListener(countListener);
+            }
+        };
+
+        countListener = new ValueEventAdapter(getContext()) {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                loadingMessageView.removeCallbacks(noInternetRunnable);
                 long count = dataSnapshot.getChildrenCount();
                 onLoad(count);
                 databaseReference.addChildEventListener(listener);
             }
-        });
+        };
+
+        loadingMessageView.postDelayed(noInternetRunnable, 5000);
+        databaseReference.addListenerForSingleValueEvent(countListener);
     }
 
     protected void onLoad(long count) {
@@ -72,8 +92,13 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    protected void setLoadingTextColor(int textColor) {
-        loadingMessageView.setTextColor(textColor);
+    @Override
+    public void onDestroy() {
+        loadingMessageView.removeCallbacks(noInternetRunnable);
+        if (databaseReference != null) {
+            databaseReference.removeEventListener(countListener);
+        }
+        super.onDestroy();
     }
 
 }

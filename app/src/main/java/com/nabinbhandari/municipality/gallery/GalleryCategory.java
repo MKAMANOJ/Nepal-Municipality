@@ -4,7 +4,6 @@ import android.support.annotation.Nullable;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.IgnoreExtraProperties;
-import com.nabinbhandari.ErrorTracker;
 
 import java.io.Serializable;
 
@@ -51,7 +50,6 @@ public class GalleryCategory implements Serializable {
 
     public String getFirstPhotoUrl() {
         if (firstPhotoUrl == null) {
-            ErrorTracker.track();
             return "error.jpg";
         }
         return firstPhotoUrl;

@@ -18,6 +18,7 @@
 
         <activity
             android:name=".Splash"
+            android:configChanges="orientation|density|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,15 +28,19 @@
 
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|density|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".gallery.CategoryActivity" />
 
         <activity
             android:name=".content.ContentActivity"
+            android:configChanges="orientation|density|screenSize"
             android:hardwareAccelerated="false" />
 
-        <activity android:name=".impcontacts.ContactCategoryActivity" />
+        <activity
+            android:name=".impcontacts.ContactCategoryActivity"
+            android:configChanges="orientation|density|screenSize" />
 
         <service
             android:name="com.nabinbhandari.firebaseutils.FirebaseTokenService"
