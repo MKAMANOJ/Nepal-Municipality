@@ -42,6 +42,11 @@
             android:name=".impcontacts.ContactCategoryActivity"
             android:configChanges="orientation|density|screenSize" />
 
+        <activity
+            android:name="com.nabinbhandari.imageviewer.PreviewActivity"
+            android:configChanges="orientation|density|screenSize"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <service
             android:name="com.nabinbhandari.firebaseutils.FirebaseTokenService"
             android:exported="false">

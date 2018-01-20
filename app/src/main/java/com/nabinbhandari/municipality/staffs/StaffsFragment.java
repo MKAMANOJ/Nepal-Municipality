@@ -24,7 +24,7 @@ import com.nabinbhandari.municipality.AppConstants;
 import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.BaseFragment;
 import com.nabinbhandari.municipality.R;
-import com.nabinbhandari.retrofit.Utils;
+import com.nabinbhandari.imageviewer.Utils;
 
 import java.util.ArrayList;
 

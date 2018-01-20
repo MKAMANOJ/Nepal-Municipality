@@ -1,4 +1,4 @@
-package com.nabinbhandari.retrofit;
+package com.nabinbhandari.imageviewer;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.nabinbhandari.municipality.R;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

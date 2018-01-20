@@ -26,7 +26,7 @@ import com.nabinbhandari.downloader.FileDownloader;
 import com.nabinbhandari.downloader.LoadCallback;
 import com.nabinbhandari.municipality.CKEditorFragment;
 import com.nabinbhandari.municipality.R;
-import com.nabinbhandari.retrofit.Utils;
+import com.nabinbhandari.imageviewer.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;

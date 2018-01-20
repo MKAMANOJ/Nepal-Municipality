@@ -20,6 +20,8 @@ import com.nabinbhandari.municipality.BaseFragment;
 import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created at 11:02 PM on 1/8/2018.
@@ -52,7 +54,7 @@ public class ContentFragment extends BaseFragment {
         int padding = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         listView.setPadding(padding / 2, padding, padding / 2, padding);
         listView.setDivider(null);
-        contentAdapter = new ContentAdapter(context);
+        contentAdapter = new ContentAdapter(context, new ArrayList<Content>());
         listView.setAdapter(contentAdapter);
         loadContents();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -109,8 +111,11 @@ public class ContentFragment extends BaseFragment {
 
     private class ContentAdapter extends ArrayAdapter<Content> {
 
-        ContentAdapter(@NonNull Context context) {
-            super(context, R.layout.item_content, new ArrayList<Content>());
+        ArrayList<Content> contents;
+
+        ContentAdapter(@NonNull Context context, ArrayList<Content> contents) {
+            super(context, R.layout.item_content, contents);
+            this.contents = contents;
         }
 
         @NonNull
@@ -132,6 +137,17 @@ public class ContentFragment extends BaseFragment {
             descTextView.setText(content.description);
 
             return view;
+        }
+
+        @Override
+        public void notifyDataSetChanged() {
+            Collections.sort(contents, new Comparator<Content>() {
+                @Override
+                public int compare(Content c1, Content c2) {
+                    return c1.order - c2.order;
+                }
+            });
+            super.notifyDataSetChanged();
         }
 
     }

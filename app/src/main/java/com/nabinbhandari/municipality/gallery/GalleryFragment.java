@@ -24,7 +24,7 @@ import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
 
-import static com.nabinbhandari.retrofit.Utils.getPlaceholderOptions;
+import static com.nabinbhandari.imageviewer.Utils.getPlaceholderOptions;
 
 /**
  * Created at 7:15 PM on 12/26/2017.

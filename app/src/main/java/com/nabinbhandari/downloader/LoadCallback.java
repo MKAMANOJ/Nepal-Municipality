@@ -3,7 +3,7 @@ package com.nabinbhandari.downloader;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.nabinbhandari.retrofit.BuildConfig;
+import com.nabinbhandari.municipality.BuildConfig;
 
 /**
  * Created at 7:47 PM on 1/9/2018.
@@ -23,6 +23,7 @@ public abstract class LoadCallback<T> {
      * @param t       the Throwable which describes the problem regarding failure.
      * @param message information, if any.
      */
+    @SuppressWarnings("WeakerAccess")
     public void onError(@NonNull Throwable t, @Nullable String message) {
         if (BuildConfig.DEBUG) {
             t.printStackTrace();

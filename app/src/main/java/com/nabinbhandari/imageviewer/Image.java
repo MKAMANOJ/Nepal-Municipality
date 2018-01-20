@@ -1,4 +1,4 @@
-package com.nabinbhandari.retrofit;
+package com.nabinbhandari.imageviewer;
 
 import java.io.Serializable;
 

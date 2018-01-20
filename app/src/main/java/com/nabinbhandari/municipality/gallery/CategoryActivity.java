@@ -24,9 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
 import com.nabinbhandari.municipality.R;
-import com.nabinbhandari.retrofit.Image;
-import com.nabinbhandari.retrofit.PreviewActivity;
-import com.nabinbhandari.retrofit.Utils;
+import com.nabinbhandari.imageviewer.Image;
+import com.nabinbhandari.imageviewer.PreviewActivity;
+import com.nabinbhandari.imageviewer.Utils;
 
 import java.util.ArrayList;
 

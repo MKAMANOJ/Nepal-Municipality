@@ -1,4 +1,4 @@
-package com.nabinbhandari.retrofit;
+package com.nabinbhandari.imageviewer;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.nabinbhandari.municipality.R;
 
 /**
  * Created at 10:10 PM on 12/25/2017.

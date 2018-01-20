@@ -1,4 +1,4 @@
-package com.nabinbhandari.retrofit;
+package com.nabinbhandari.imageviewer;
 
 /**
  * @author bnabin51@gmail.com
