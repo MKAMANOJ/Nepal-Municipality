@@ -38,5 +38,6 @@
     <string name="rate_app">Rate App</string>
     <string name="error_play_store_not_found">Play store not found.</string>
     <string name="notifications">Notifications</string>
+    <string name="about_app">About App</string>
 
 </resources>

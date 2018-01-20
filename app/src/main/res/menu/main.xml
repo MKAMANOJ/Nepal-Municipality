@@ -15,13 +15,18 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/notifications"
+        android:title="@string/notifications"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/rateApp"
         android:title="@string/rate_app"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/notifications"
-        android:title="@string/notifications"
+        android:id="@+id/about_app"
+        android:title="@string/about_app"
         app:showAsAction="never" />
 
 </menu>

@@ -1,11 +1,14 @@
 package com.nabinbhandari.notification;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.nabinbhandari.municipality.CKEditorFragment;
+import com.nabinbhandari.municipality.MainActivity;
 import com.nabinbhandari.municipality.R;
 
 /**
@@ -28,7 +31,11 @@ public class NotificationActivity extends AppCompatActivity {
             finish();
             return;
         }
-        if (getIntent().hasExtra(KEY_TITLE)) setTitle(getIntent().getStringExtra(KEY_TITLE));
+        if (getIntent().hasExtra(KEY_TITLE)) {
+            setTitle(getIntent().getStringExtra(KEY_TITLE));
+            //noinspection ConstantConditions
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         FrameLayout rootView = new FrameLayout(this);
         setContentView(rootView);
@@ -36,6 +43,23 @@ public class NotificationActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder,
                 CKEditorFragment.newInstance(dbLocation)).commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (MainActivity.isBackground) {
+            startActivity(new Intent(this, MainActivity.class));
+        }
     }
 
 }

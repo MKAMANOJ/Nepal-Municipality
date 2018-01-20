@@ -35,6 +35,8 @@ import com.nabinbhandari.notification.NotificationsFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MenuFragment.OnCategoryClickListener {
 
+    public static boolean isBackground = true;
+
     private FragmentManager fragmentManager;
     private long backPressedTime;
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isBackground = false;
         LanguageHelper.refreshLanguage(this);
         setContentView(R.layout.activity_main);
         findViewById(R.id.fragment_holder).setBackgroundColor(RemoteConfig.getMenuBackgroundColor());
@@ -187,6 +190,10 @@ public class MainActivity extends AppCompatActivity
             AppUtils.openPlayStore(this, getString(R.string.error_play_store_not_found));
         } else if (id == R.id.notifications) {
             setFragment(NotificationsFragment.newInstance());
+            setTitle(R.string.notifications);
+        } else if (id == R.id.about_app) {
+            setFragment(CKEditorFragment.newInstance("tbl_introduction/2/content"));
+            setTitle(R.string.about_app);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -252,6 +259,12 @@ public class MainActivity extends AppCompatActivity
         }
         fragmentManager.beginTransaction().replace(R.id.fragment_holder, fragment)
                 .addToBackStack(null).commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        isBackground = true;
+        super.onDestroy();
     }
 
 }
