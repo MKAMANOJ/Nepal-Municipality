@@ -15,6 +15,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /**
  * Created at 11:59 PM on 1/11/2018.
  *
@@ -67,6 +72,23 @@ public class AppUtils {
 
     public static void printStackTrace(Throwable t) {
         if (BuildConfig.DEBUG) t.printStackTrace();
+    }
+
+    @SuppressWarnings({"WeakerAccess", "SameParameterValue"})
+    public static String readStringAsset(Context context, String fileName, String defValue) {
+        try {
+            InputStream inStream = context.getAssets().open(fileName);
+            StringBuilder builder = new StringBuilder();
+            BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
+            String line;
+            while ((line = in.readLine()) != null) {
+                builder.append(line).append("\n");
+            }
+            return builder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return defValue;
     }
 
 }

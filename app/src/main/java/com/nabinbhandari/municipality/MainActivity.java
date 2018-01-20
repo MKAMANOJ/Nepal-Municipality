@@ -194,6 +194,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.about_app) {
             setFragment(CKEditorFragment.newInstance("tbl_introduction/2/content"));
             setTitle(R.string.about_app);
+        } else if (id == R.id.licenses) {
+            setFragment(LicenseFragment.newInstance());
+            setTitle(R.string.license);
         }
         return super.onOptionsItemSelected(item);
     }

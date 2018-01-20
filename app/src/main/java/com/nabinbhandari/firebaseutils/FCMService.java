@@ -9,6 +9,8 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
@@ -72,12 +74,14 @@ public class FCMService extends FirebaseMessagingService {
                 notificationId = 1000 + categoryId;
                 if (categoryId == 15) {
                     String reference = "tbl_push_notifications/" + key + "/message";
+                    prepareData(reference);
                     intent = new Intent(this, NotificationActivity.class)
                             .putExtra(NotificationActivity.KEY_DB_LOCATION, reference)
                             .putExtra(NotificationActivity.KEY_TITLE, title);
                 } else if (categoryId > 0 && categoryId < 10) {
                     Content content = new Gson().fromJson(data.get(KEY_CONTENT), Content.class);
                     content.key = key;
+                    prepareData("tbl_uploaded_files/" + key + "/content");
                     intent = new Intent(this, ContentActivity.class)
                             .putExtra(ContentActivity.EXTRA_CONTENT, content);
                 }
@@ -121,6 +125,15 @@ public class FCMService extends FirebaseMessagingService {
             }
         }
         return R.mipmap.ic_launcher;
+    }
+
+    private void prepareData(String reference) {
+        FirebaseDatabase.getInstance().getReference(reference)
+                .addListenerForSingleValueEvent(new ValueEventAdapter(null) {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    }
+                });
     }
 
 }

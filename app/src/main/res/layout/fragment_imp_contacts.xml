@@ -1,29 +1,11 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_categories_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/activity_horizontal_margin">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/no_data"
-        android:textColor="@color/textPrimaryDark"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
-    <ListView
-        android:id="@+id/contact_categories_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:divider="@null"
-        android:horizontalSpacing="4dp"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none"
-        android:verticalSpacing="4dp" />
-
-</FrameLayout>
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:clipToPadding="false"
+    android:divider="@null"
+    android:horizontalSpacing="4dp"
+    android:listSelector="@android:color/transparent"
+    android:scrollbars="none"
+    android:verticalSpacing="4dp" />
