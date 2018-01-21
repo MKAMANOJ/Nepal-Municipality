@@ -33,7 +33,7 @@ abstract class FormValidator {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textInputLayout.setError(getError(s.toString()));
+                textInputLayout.setError(getError(s.toString().trim()));
                 validationListener.run();
             }
 
@@ -46,14 +46,14 @@ abstract class FormValidator {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    textInputLayout.setError(getError(editText.getText().toString()));
+                    textInputLayout.setError(getError(editText.getText().toString().trim()));
                 }
             }
         });
     }
 
     boolean isInvalid() {
-        return getError(editText.getText().toString()) != null;
+        return getError(editText.getText().toString().trim()) != null;
     }
 
     /**

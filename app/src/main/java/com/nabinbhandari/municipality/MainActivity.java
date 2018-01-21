@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private MaterialMenuDrawable menu;
     private boolean isDrawerOpened;
+    private boolean shouldShowBackArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +70,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 int backStackCount = fragmentManager.getBackStackEntryCount();
-                if (backStackCount <= 1) {
-                    drawer.openDrawer(Gravity.START);
-                } else {
+                if (shouldShowBackArrow || backStackCount > 1) {
                     fragmentManager.popBackStack();
+                } else {
+                    drawer.openDrawer(Gravity.START);
                 }
             }
         });
@@ -81,17 +82,19 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onBackStackChanged() {
                 int backStackEntryCount = fragmentManager.getBackStackEntryCount();
-                if (backStackEntryCount > 1) {
+                if (backStackEntryCount == 0) {
+                    ((NavigationView) (findViewById(R.id.nav_view))).setCheckedItem(R.id.nav_home);
+                    setTitle(R.string.app_name);
+                    shouldShowBackArrow = false;
+                }
+                if (shouldShowBackArrow || backStackEntryCount > 1) {
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     menu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
                 } else {
                     drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     menu.animateIconState(MaterialMenuDrawable.IconState.BURGER);
                 }
-                if (backStackEntryCount == 0) {
-                    ((NavigationView) (findViewById(R.id.nav_view))).setCheckedItem(R.id.nav_home);
-                    setTitle(R.string.app_name);
-                }
+
                 invalidateOptionsMenu();
             }
         });
@@ -191,12 +194,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.notifications) {
             setFragment(NotificationsFragment.newInstance());
             setTitle(R.string.notifications);
+            shouldShowBackArrow = true;
         } else if (id == R.id.about_app) {
             setFragment(CKEditorFragment.newInstance("tbl_introduction/2/content"));
             setTitle(R.string.about_app);
+            shouldShowBackArrow = true;
         } else if (id == R.id.licenses) {
             setFragment(LicenseFragment.newInstance());
             setTitle(R.string.license);
+            shouldShowBackArrow = true;
         }
         return super.onOptionsItemSelected(item);
     }

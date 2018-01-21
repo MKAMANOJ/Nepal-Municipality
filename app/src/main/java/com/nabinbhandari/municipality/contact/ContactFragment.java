@@ -181,7 +181,10 @@ public class ContactFragment extends Fragment implements Runnable {
         validators.add(new FormValidator((TextInputLayout) rootView.findViewById(R.id.numberInputLayout), this) {
             @Override
             String getError(String input) {
-                return input.equals("") ? "Enter your number." : null;
+                if (input.equals("")) return "Enter your number.";
+                else if (input.length() < 5) return "Enter at least 5 digits.";
+                else if (input.length() > 15) return "Enter at most 15 digits.";
+                else return null;
             }
         });
         validators.add(new FormValidator((TextInputLayout) rootView.findViewById(R.id.emailInputLayout), this) {
@@ -209,8 +212,8 @@ public class ContactFragment extends Fragment implements Runnable {
         String fullName = fullNameEditText.getText().toString().trim();
         String address = addressEditText.getText().toString().trim();
         String contactNumber = numberEditText.getText().toString().trim();
-        String email = emailEditText.getText().toString();
-        String message = messageEditText.getText().toString();
+        String email = emailEditText.getText().toString().trim();
+        String message = messageEditText.getText().toString().trim();
         addFeedback(fullName, address, contactNumber, email, message);
 
         fullNameEditText.getText().clear();

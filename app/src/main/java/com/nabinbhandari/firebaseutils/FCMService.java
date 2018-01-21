@@ -71,7 +71,7 @@ public class FCMService extends FirebaseMessagingService {
         try {
             if (data.containsKey(KEY_CATEGORY_ID)) {
                 categoryId = Integer.parseInt(data.get(KEY_CATEGORY_ID));
-                notificationId = 1000 + categoryId;
+                notificationId = (int) (1000 + Math.random() * 1000);
                 if (categoryId == 15) {
                     String reference = "tbl_push_notifications/" + key + "/message";
                     prepareData(reference);
