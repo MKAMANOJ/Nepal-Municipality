@@ -2,6 +2,7 @@ package com.nabinbhandari.municipality.content;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -31,6 +32,8 @@ import java.util.Comparator;
 
 public class ContentFragment extends BaseFragment {
 
+    private static final String KEY_CATEGORY_ID = "category_id";
+
     private int categoryId;
     private ContentAdapter contentAdapter;
 
@@ -41,13 +44,22 @@ public class ContentFragment extends BaseFragment {
     }
 
     public static ContentFragment newInstance(int categoryId) {
+        Bundle args = new Bundle();
+        args.putInt(KEY_CATEGORY_ID, categoryId);
         ContentFragment contentFragment = new ContentFragment();
-        contentFragment.categoryId = categoryId;
+        contentFragment.setArguments(args);
         return contentFragment;
+    }
+
+    private void readBundle(Bundle args) {
+        if (args != null) {
+            categoryId = args.getInt(KEY_CATEGORY_ID);
+        }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+        readBundle(getArguments());
         Context context = getContext() == null ? inflater.getContext() : getContext();
         ListView listView = new ListView(context);
         listView.setSelector(android.R.color.transparent);

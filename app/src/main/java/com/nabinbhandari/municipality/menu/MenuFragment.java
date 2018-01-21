@@ -35,29 +35,51 @@ import java.util.List;
 
 public class MenuFragment extends Fragment {
 
+    private static final String KEY_CATEGORIES = "categories";
+
     public interface OnCategoryClickListener {
         void onCategoryClick(@NonNull Category category);
     }
 
     private OnCategoryClickListener onCategoryClickListener;
 
-    private List<Category> categories = new ArrayList<>();
+    private ArrayList<Category> categories = new ArrayList<>();
 
     public MenuFragment() {
     }
 
-    public static MenuFragment newInstance(@NonNull List<Category> categories,
-                                           @NonNull OnCategoryClickListener categoryClickListener) {
+    public static MenuFragment newInstance(@NonNull ArrayList<Category> categories) {
+        Bundle args = new Bundle();
+        args.putSerializable(KEY_CATEGORIES, categories);
+
         MenuFragment fragment = new MenuFragment();
-        fragment.categories = categories;
-        fragment.onCategoryClickListener = categoryClickListener;
+        fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            onCategoryClickListener = (OnCategoryClickListener) context;
+        } catch (ClassCastException e) {
+            String errorMessage = context.getClass().getName() + " must implement OnCategoryClickListener!";
+            throw new RuntimeException(new ClassCastException(errorMessage));
+        }
+    }
+
+    private void readBundle(Bundle args) {
+        if (args != null) {
+            //noinspection unchecked
+            categories = (ArrayList<Category>) args.getSerializable(KEY_CATEGORIES);
+        }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        readBundle(getArguments());
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         GridView gridView = view.findViewById(R.id.gridView);
         gridView.setAdapter(new CategoriesAdapter(inflater.getContext(), categories));

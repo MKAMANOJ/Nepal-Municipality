@@ -37,7 +37,6 @@ public class ImageFragment extends Fragment {
         return imageFragment;
     }
 
-    @SuppressLint("StaticFieldLeak")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

@@ -5,8 +5,8 @@ import android.support.annotation.DrawableRes;
 import com.nabinbhandari.LanguageHelper;
 import com.nabinbhandari.municipality.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -16,7 +16,7 @@ import java.util.Locale;
  */
 
 @SuppressWarnings("WeakerAccess")
-public class Category {
+public class Category implements Serializable {
 
     public final int id;
     public final String title_en;
@@ -35,8 +35,8 @@ public class Category {
         return Locale.getDefault().equals(LanguageHelper.NP) ? title_np : title_en;
     }
 
-    public static List<Category> getDummyList() {
-        List<Category> categories = new ArrayList<>();
+    public static ArrayList<Category> getDummyList() {
+        ArrayList<Category> categories = new ArrayList<>();
         categories.add(new Category(13, "Introduction", "Introduction (N)", R.drawable.ic_introduction));
         categories.add(new Category(10, "Staff Details", "Staff Details (N)", R.drawable.ic_staffs));
         categories.add(new Category(11, "Gallery", "Gallery (N)", R.drawable.ic_gallery));

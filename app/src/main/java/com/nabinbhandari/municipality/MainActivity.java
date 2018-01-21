@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.fragment_holder).setBackgroundColor(RemoteConfig.getMenuBackgroundColor());
 
         fragmentManager = getSupportFragmentManager();
-        MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList(), this);
+        MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList());
         fragmentManager.beginTransaction().replace(R.id.fragment_holder, menuFragment).commit();
 
         initDrawer();

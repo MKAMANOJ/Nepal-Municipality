@@ -37,9 +37,18 @@ public class CKEditorFragment extends Fragment {
 
     @SuppressWarnings("SameParameterValue")
     public static CKEditorFragment newInstance(String dbLocation) {
+        Bundle args = new Bundle();
+        args.putString("dbLocation", dbLocation);
+
         CKEditorFragment fragment = new CKEditorFragment();
-        fragment.dbLocation = dbLocation;
+        fragment.setArguments(args);
         return fragment;
+    }
+
+    private void readBundle(Bundle bundle) {
+        if (bundle != null) {
+            dbLocation = bundle.getString("dbLocation");
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -47,6 +56,7 @@ public class CKEditorFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        readBundle(getArguments());
         Context context = getContext() == null ? inflater.getContext() : getContext();
         rootView = new WebView(context);
         int margin = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
