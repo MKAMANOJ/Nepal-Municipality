@@ -143,7 +143,7 @@ public class NotificationsFragment extends BaseFragment {
             Collections.sort(notifications, new Comparator<NotificationContent>() {
                 @Override
                 public int compare(NotificationContent o1, NotificationContent o2) {
-                    if (o2.updated_at == null) return 0;
+                    if (o1.updated_at == null || o2.updated_at == null) return 0;
                     return o2.updated_at.compareTo(o1.updated_at);
                 }
             });

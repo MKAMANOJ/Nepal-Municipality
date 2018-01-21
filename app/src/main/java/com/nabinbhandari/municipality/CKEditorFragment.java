@@ -66,7 +66,10 @@ public class CKEditorFragment extends Fragment {
         noInternetRunnable = new Runnable() {
             @Override
             public void run() {
-                loadHTML(getString(R.string.error_internet_problem));
+                try {
+                    loadHTML(getString(R.string.error_internet_problem));
+                } catch (Throwable ignored) {
+                }
             }
         };
         rootView.postDelayed(noInternetRunnable, 5000);

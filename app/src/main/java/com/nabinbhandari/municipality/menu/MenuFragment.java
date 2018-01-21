@@ -24,6 +24,7 @@ import com.bumptech.glide.request.target.Target;
 import com.nabinbhandari.firebaseutils.RemoteConfig;
 import com.nabinbhandari.municipality.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class MenuFragment extends Fragment {
 
     private OnCategoryClickListener onCategoryClickListener;
 
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<>();
 
     public MenuFragment() {
     }
