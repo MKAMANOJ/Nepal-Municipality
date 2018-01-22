@@ -109,4 +109,14 @@ public class Utils {
         return placeholderOpts;
     }
 
+    @SuppressLint("CheckResult")
+    public static RequestOptions getContactPlaceholderOptions() {
+        if (placeholderOpts == null) {
+            placeholderOpts = new RequestOptions();
+            placeholderOpts.placeholder(R.drawable.ic_contacts);
+            placeholderOpts.error(R.drawable.ic_contacts);
+        }
+        return placeholderOpts;
+    }
+
 }

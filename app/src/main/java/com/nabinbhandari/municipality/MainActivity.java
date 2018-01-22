@@ -1,6 +1,7 @@
 package com.nabinbhandari.municipality;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isBackground = false;
-        LanguageHelper.refreshLanguage(this);
         setContentView(R.layout.activity_main);
         findViewById(R.id.fragment_holder).setBackgroundColor(RemoteConfig.getMenuBackgroundColor());
 
@@ -57,8 +57,20 @@ public class MainActivity extends AppCompatActivity
         MenuFragment menuFragment = MenuFragment.newInstance(Category.getDummyList());
         fragmentManager.beginTransaction().replace(R.id.fragment_holder, menuFragment).commit();
 
+        refreshLanguage();
         initDrawer();
         initNavigationItems();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        refreshLanguage();
+        super.onConfigurationChanged(newConfig);
+    }
+
+    private void refreshLanguage() {
+        LanguageHelper.refreshLanguage(this);
+        if (fragmentManager.getBackStackEntryCount() == 0) setTitle(R.string.app_name);
     }
 
     private void initDrawer() {

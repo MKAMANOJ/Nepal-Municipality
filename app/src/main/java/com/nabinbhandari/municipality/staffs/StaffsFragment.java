@@ -138,9 +138,9 @@ public class StaffsFragment extends BaseFragment {
             ImageView imageView = view.findViewById(R.id.imagePreview);
             if (TextUtils.isEmpty(staff.image)) {
                 imageView.setImageDrawable(ContextCompat.getDrawable(context,
-                        R.drawable.placeholder_warning));
+                        R.drawable.ic_contacts));
             } else {
-                Glide.with(imageView).setDefaultRequestOptions(Utils.getPlaceholderOptions())
+                Glide.with(imageView).setDefaultRequestOptions(Utils.getContactPlaceholderOptions())
                         .load(AppConstants.BASE_URL + staff.image).into(imageView);
             }
 
