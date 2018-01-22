@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +22,6 @@ import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -214,17 +212,16 @@ public class ContactFragment extends Fragment implements Runnable {
         String contactNumber = numberEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
         String message = messageEditText.getText().toString().trim();
-        addFeedback(fullName, address, contactNumber, email, message);
+        EmailUtils.sendEmail(rootView.getContext(), fullName, address, contactNumber, email, message);
 
-        fullNameEditText.getText().clear();
+        /*fullNameEditText.getText().clear();
         addressEditText.getText().clear();
         emailEditText.getText().clear();
         numberEditText.getText().clear();
-        messageEditText.getText().clear();
-        Toast.makeText(getContext(), "Thank you for your feedback.", Toast.LENGTH_SHORT).show();
+        messageEditText.getText().clear();*/
     }
 
-    private void addFeedback(String fullName, String address, String contactNumber,
+    /*private void addFeedback(String fullName, String address, String contactNumber,
                              String email, String message) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("feedback");
         reference.keepSynced(true);
@@ -235,7 +232,7 @@ public class ContactFragment extends Fragment implements Runnable {
         feedback.put("email", email);
         feedback.put("message", message);
         reference.push().setValue(feedback);
-    }
+    }*/
 
     @Override
     public void run() {

@@ -3,6 +3,7 @@ package com.nabinbhandari.firebaseutils;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -50,6 +51,17 @@ public class RemoteConfig {
                         }
                     }
                 });
+    }
+
+    public static String getContactEmail() {
+        try {
+            String contactEmail = FirebaseRemoteConfig.getInstance().getString("contact_email");
+            if (Patterns.EMAIL_ADDRESS.matcher(contactEmail).matches()) {
+                return contactEmail;
+            }
+        } catch (Throwable ignored) {
+        }
+        return "mka@citizeninfotech.com.np";
     }
 
     public static int getMenuIconColor() {
