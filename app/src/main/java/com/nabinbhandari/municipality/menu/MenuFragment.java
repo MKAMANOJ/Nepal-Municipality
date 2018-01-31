@@ -1,7 +1,6 @@
 package com.nabinbhandari.municipality.menu;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -125,7 +124,7 @@ public class MenuFragment extends Fragment {
                 @Override
                 public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> t,
                                                DataSource dataSource, boolean isFirstResource) {
-                    resource.setColorFilter(RemoteConfig.getMenuIconColor(), PorterDuff.Mode.SRC_IN);
+                    // resource.setColorFilter(RemoteConfig.getMenuIconColor(), PorterDuff.Mode.SRC_IN);
                     return false;
                 }
             }).into(imageView);
