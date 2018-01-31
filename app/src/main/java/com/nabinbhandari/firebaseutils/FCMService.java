@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 import com.google.firebase.database.DataSnapshot;
@@ -84,6 +85,7 @@ public class FCMService extends FirebaseMessagingService {
                     prepareData("tbl_uploaded_files/" + key + "/content");
                     intent = new Intent(this, ContentActivity.class)
                             .putExtra(ContentActivity.EXTRA_CONTENT, content);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 }
             }
             if (intent == null || key == null) throw new Exception();
@@ -99,7 +101,7 @@ public class FCMService extends FirebaseMessagingService {
                 .setSmallIcon(R.drawable.ic_notification)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true)
-                .setColor(getColor(R.color.colorPrimary))
+                .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .setOngoing(false)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), getIconForCategory(categoryId)))
                 .setContentIntent(pendingIntent);

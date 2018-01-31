@@ -97,7 +97,7 @@ public class Utils {
         });
     }
 
-    private static RequestOptions placeholderOpts;
+    private static RequestOptions placeholderOpts, contactPlaceholderOpts;
 
     @SuppressLint("CheckResult")
     public static RequestOptions getPlaceholderOptions() {
@@ -111,12 +111,12 @@ public class Utils {
 
     @SuppressLint("CheckResult")
     public static RequestOptions getContactPlaceholderOptions() {
-        if (placeholderOpts == null) {
-            placeholderOpts = new RequestOptions();
-            placeholderOpts.placeholder(R.drawable.ic_contacts);
-            placeholderOpts.error(R.drawable.ic_contacts);
+        if (contactPlaceholderOpts == null) {
+            contactPlaceholderOpts = new RequestOptions();
+            contactPlaceholderOpts.placeholder(R.drawable.ic_contacts);
+            contactPlaceholderOpts.error(R.drawable.ic_contacts);
         }
-        return placeholderOpts;
+        return contactPlaceholderOpts;
     }
 
 }

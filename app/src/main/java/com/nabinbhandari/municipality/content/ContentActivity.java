@@ -74,9 +74,13 @@ public class ContentActivity extends AppCompatActivity {
                     }
                 });
 
+        handleIntent(getIntent());
+    }
+
+    private void handleIntent(Intent intent) {
         try {
-            if (getIntent().hasExtra(EXTRA_CONTENT)) {
-                content = (Content) getIntent().getSerializableExtra(EXTRA_CONTENT);
+            if (intent.hasExtra(EXTRA_CONTENT)) {
+                content = (Content) intent.getSerializableExtra(EXTRA_CONTENT);
                 setTitle(content.title);
                 start();
             } else throw new Exception("No content!");
@@ -88,6 +92,12 @@ public class ContentActivity extends AppCompatActivity {
             Toast.makeText(this, "Unspecified Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleIntent(intent);
     }
 
     @Override
@@ -192,7 +202,7 @@ public class ContentActivity extends AppCompatActivity {
     }
 
     private void handleHTML() {
-        progressDialog.dismiss();
+        progressDialog.hide();
         FragmentManager fragmentManager = getSupportFragmentManager();
         CKEditorFragment fragment = CKEditorFragment.newInstance("tbl_uploaded_files/" +
                 content.key + "/content");

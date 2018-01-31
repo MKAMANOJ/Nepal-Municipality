@@ -36,7 +36,8 @@
         <activity
             android:name=".content.ContentActivity"
             android:configChanges="orientation|density|screenSize"
-            android:hardwareAccelerated="false" />
+            android:hardwareAccelerated="false"
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".impcontacts.ContactCategoryActivity"

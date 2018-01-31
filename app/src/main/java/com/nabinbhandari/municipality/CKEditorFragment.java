@@ -31,6 +31,7 @@ public class CKEditorFragment extends Fragment {
 
     private WebView rootView;
     private Runnable noInternetRunnable;
+    private boolean dataLoaded = false;
 
     public CKEditorFragment() {
     }
@@ -58,7 +59,7 @@ public class CKEditorFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         readBundle(getArguments());
         Context context = getContext() == null ? inflater.getContext() : getContext();
-        rootView = new WebView(context);
+        if (rootView == null) rootView = new WebView(context);
         int margin = context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -72,10 +73,12 @@ public class CKEditorFragment extends Fragment {
     }
 
     private void loadData(Context context) {
+        rootView.removeCallbacks(noInternetRunnable);
         loadHTML(getString(R.string.loading));
         noInternetRunnable = new Runnable() {
             @Override
             public void run() {
+                if (dataLoaded) return;
                 try {
                     loadHTML(getString(R.string.error_internet_problem));
                 } catch (Throwable ignored) {
@@ -83,10 +86,11 @@ public class CKEditorFragment extends Fragment {
             }
         };
         rootView.postDelayed(noInternetRunnable, 5000);
-
+        dataLoaded = false;
         listener = new ValueEventAdapter(context) {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                dataLoaded = true;
                 rootView.removeCallbacks(noInternetRunnable);
                 String data;
                 try {
