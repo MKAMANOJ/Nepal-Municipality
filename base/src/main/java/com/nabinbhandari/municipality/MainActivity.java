@@ -157,21 +157,17 @@ public class MainActivity extends AppCompatActivity
 
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_home);
         boolean dynamicColor = getResources().getBoolean(R.bool.dynamic_color);
-        int iconColor = dynamicColor ? RemoteConfig.getMenuIconColor() : 0;
-        updateIcon(drawable, iconColor);
+        int iconColor = dynamicColor ? RemoteConfig.getMenuIconColor() :
+                ContextCompat.getColor(this, R.color.colorPrimary);
+        if (drawable != null) drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
         menu.findItem(R.id.nav_home).setIcon(drawable);
 
         for (Category category : Category.getDummyList()) {
             menu.add(R.id.menuGroup, category.id, Menu.FIRST, category.toString());
-            drawable = ContextCompat.getDrawable(this, category.resId);
-            updateIcon(drawable, iconColor);
+            drawable = ContextCompat.getDrawable(this, category.getNavIconColor());
+            if (drawable != null) drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
             menu.findItem(category.id).setCheckable(true).setIcon(drawable);
         }
-    }
-
-    private void updateIcon(Drawable drawable, int iconColor) {
-        if (drawable == null || iconColor == 0) return;
-        drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
     }
 
     @Override

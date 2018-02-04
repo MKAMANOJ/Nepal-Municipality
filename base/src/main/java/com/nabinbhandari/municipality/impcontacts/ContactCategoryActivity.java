@@ -23,10 +23,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
+import com.nabinbhandari.imageviewer.Utils;
 import com.nabinbhandari.municipality.AppConstants;
 import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.R;
-import com.nabinbhandari.imageviewer.Utils;
 
 import java.util.ArrayList;
 
@@ -164,7 +164,7 @@ public class ContactCategoryActivity extends AppCompatActivity {
             ImageView imageView = view.findViewById(R.id.imagePreview);
             if (TextUtils.isEmpty(contact.image)) {
                 imageView.setImageDrawable(ContextCompat.getDrawable(context,
-                        R.drawable.ic_contacts));
+                        R.drawable.ic_staffs));
             } else {
                 Glide.with(imageView).setDefaultRequestOptions(Utils.getContactPlaceholderOptions())
                         .load(AppConstants.BASE_URL + contact.image).into(imageView);

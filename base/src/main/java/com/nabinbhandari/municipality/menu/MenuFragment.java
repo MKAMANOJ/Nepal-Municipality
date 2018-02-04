@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,12 +96,11 @@ public class MenuFragment extends Fragment {
 
     private static class CategoriesAdapter extends ArrayAdapter<Category> {
 
-        private int iconColor;
+        private boolean dynamicColor;
 
         private CategoriesAdapter(@NonNull Context context, @NonNull List<Category> categories) {
             super(context, R.layout.item_category, categories);
-            boolean dynamicColor = context.getResources().getBoolean(R.bool.dynamic_color);
-            iconColor = dynamicColor ? RemoteConfig.getMenuIconColor() : 0;
+            dynamicColor = context.getResources().getBoolean(R.bool.dynamic_color);
         }
 
         @NonNull
@@ -120,7 +118,8 @@ public class MenuFragment extends Fragment {
             nameTextView.setTextColor(RemoteConfig.getMenuTextColor());
             nameTextView.setText(category.toString());
             ImageView imageView = view.findViewById(R.id.imagePreview);
-            Glide.with(imageView).load(category.resId).listener(new RequestListener<Drawable>() {
+
+            Glide.with(imageView).load(category.getMenuIconColor(dynamicColor)).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model,
                                             Target<Drawable> target, boolean isFirstResource) {
@@ -130,8 +129,8 @@ public class MenuFragment extends Fragment {
                 @Override
                 public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> t,
                                                DataSource dataSource, boolean isFirstResource) {
-                    if (resource != null && iconColor != 0) {
-                        resource.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
+                    if (dynamicColor && resource != null) {
+                        resource.setColorFilter(RemoteConfig.getMenuIconColor(), PorterDuff.Mode.SRC_IN);
                     }
                     return false;
                 }

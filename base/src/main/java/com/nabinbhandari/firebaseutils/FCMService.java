@@ -123,7 +123,7 @@ public class FCMService extends FirebaseMessagingService {
             List<Category> categories = Category.getDummyList();
             for (Category category : categories) {
                 if (categoryId == category.id) {
-                    return category.resId;
+                    return category.getMenuIconColor(getResources().getBoolean(R.bool.dynamic_color));
                 }
             }
         }
