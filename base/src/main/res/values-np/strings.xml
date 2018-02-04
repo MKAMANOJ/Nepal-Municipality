@@ -1,11 +1,46 @@
 <resources>
-    <string name="app_name">Nagarpalika</string>
+    <string name="app_name">भोटेकोशी गाउँपालिका</string>
+    <string name="app_name_title">भोटेकोशी गाउँपालिका</string>
+    <string name="splash_welcome_text">भोटेकोशी गाउँपालिकामा स्वागत छ।</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="splash_welcome_text">Nagarpalika ma swagat xa.</string>
-    <string name="no_data">Data xaina!</string>
-    <string name="introduction">Parichaye</string>
-    <string name="home">Ghar</string>
-    <string name="nepali">Nepalii</string>
+    <string name="nepal_government">नेपाल सरकार</string>
+    <string name="action_settings">सेटिङ्हरू</string>
+    <string name="introduction">परिचय</string>
+    <string name="home">घर</string>
+    <string name="nepali">नेपाली</string>
+    <string name="no_data">डाटा छैन</string>
+    <string name="press_back_again_to_exit">बाहिर निस्कन फेरि ब्याक थिच्नुहोस्।</string>
+
+    <string name="format_address">ठेगाना: %s</string>
+    <string name="format_email">इमेल: %s</string>
+    <string name="format_office_phone">कार्यालय फोन: %s</string>
+    <string name="format_personal_phone">व्यक्तिगत फोन: %s</string>
+    <string name="format_appointment_date">नियुक्ति मिति: %s</string>
+    <string name="format_phone">फोन: %s</string>
+    <string name="format_mobile">मोबाइल: %s</string>
+    <string name="format_fax">फ्याक्स: %s</string>
+    <string name="format_services">सेवाहरू: %s</string>
+    <string name="phone_label">फोन:</string>
+    <string name="fax_label">फ्याक्स:</string>
+    <string name="email_label">इमेल:</string>
+    <string name="website_label">वेबसाइट:</string>
+    <string name="facebook_label">फेसबूक्:</string>
+    <string name="google_plus_label">गुगल प्लस:</string>
+    <string name="twitter_label">ट्विटर:</string>
+    <string name="contact_form_header">कुनै सुझावहरूको लागि, तलको फारम भर्नुहोस्, हामी प्रतिक्रिया स्वीकार गर्न खुसी हुनेछौं।</string>
+    <string name="send">पठाउनुहोस्</string>
+    <string name="message_star">सन्देश *</string>
+    <string name="email_star">इमेल *</string>
+    <string name="contact_number_star">सम्पर्क नम्बर *</string>
+    <string name="address_star">ठेगाना *</string>
+    <string name="full_name_star">पुरा नाम *</string>
+    <string name="loading">लोड हुँदै …</string>
+    <string name="available_soon">चाँडै उपलब्ध हुनेछ।</string>
+    <string name="error_internet_problem">डाटा लोड गर्दा समस्या भयो। कृपया आफ्नो ईन्टरनेट जडान जाँच गर्नुहोस्।</string>
+    <string name="rate_app">एप मूल्याङ्कन गर्नुहोस्</string>
+    <string name="error_play_store_not_found">प्ले स्टोर फेला परेन। </string>
+    <string name="notifications">अधिसूचनाहरू</string>
+    <string name="about_app">एपको बारेमा</string>
+    <string name="license">खुला स्रोत इजाजत पत्र</string>
 
 </resources>

@@ -18,8 +18,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:alpha="0.6"
+        android:fontFamily="sans-serif"
         android:text="@string/loading"
         android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.Holo.Widget.Button"
         android:textColor="@color/textPrimaryDark"
         android:textSize="30sp"
         android:textStyle="bold" />

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Kath_mandu</string>
-    <string name="splash_welcome_text">Kathmandu Nagarpalika ma swagat xa.</string>
+    <string name="app_name_title">Kath_mandu_Mahanagarpalika</string>
+    <string name="splash_welcome_text">Kathmandu Maha-nagarpalika ma स्वागत छ।</string>
 </resources>

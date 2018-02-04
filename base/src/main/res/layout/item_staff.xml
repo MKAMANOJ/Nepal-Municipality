@@ -6,80 +6,52 @@
     android:foreground="?attr/selectableItemBackgroundBorderless"
     app:cardUseCompatPadding="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="@dimen/activity_horizontal_margin">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/nameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/imagePreview"
+            android:layout_toStartOf="@+id/imagePreview"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:padding="@dimen/drawable_padding"
+            android:text="Medium Text"
+            android:textColor="@color/textPrimaryDark"
+            android:textSize="18sp" />
 
-            <com.nabinbhandari.views.SquareImageViewByWidth
-                android:id="@+id/imagePreview"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_contacts" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/nameTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:maxLines="2"
-                    android:padding="4dp"
-                    android:text="Medium Text"
-                    android:textColor="@color/textPrimaryDark"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/designationTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:text="Small Text"
-                    android:textColor="@color/textPrimary" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/designationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/nameTextView"
+            android:layout_toLeftOf="@+id/imagePreview"
+            android:layout_toStartOf="@+id/imagePreview"
+            android:padding="4dp"
+            android:text="Small Text"
+            android:textColor="@color/textPrimary"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:id="@+id/detailsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/designationTextView"
+            android:layout_toLeftOf="@+id/imagePreview"
+            android:layout_toStartOf="@+id/imagePreview"
             android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin"
             android:visibility="visible">
-
-            <TextView
-                android:id="@+id/addressTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:text="@string/format_address"
-                android:textColor="@color/textPrimary" />
-
-            <TextView
-                android:id="@+id/emailTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:padding="4dp"
-                android:text="@string/format_email"
-                android:textColor="@color/textPrimary" />
 
             <TextView
                 android:id="@+id/officePhoneTextView"
@@ -88,7 +60,8 @@
                 android:background="?selectableItemBackground"
                 android:padding="4dp"
                 android:text="@string/format_office_phone"
-                android:textColor="@color/textPrimary" />
+                android:textColor="@color/textPrimary"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/personalPhoneTextView"
@@ -97,7 +70,27 @@
                 android:background="?selectableItemBackground"
                 android:padding="4dp"
                 android:text="@string/format_personal_phone"
-                android:textColor="@color/textPrimary" />
+                android:textColor="@color/textPrimary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/emailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:padding="4dp"
+                android:text="@string/format_email"
+                android:textColor="@color/textPrimary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/addressTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/format_address"
+                android:textColor="@color/textPrimary"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/appointmentDateTextView"
@@ -105,10 +98,24 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="@string/format_appointment_date"
-                android:textColor="@color/textPrimary" />
+                android:textColor="@color/textPrimary"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/imagePreview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:contentDescription="@string/contactimage"
+            android:maxHeight="300dp"
+            android:maxWidth="300dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_contacts" />
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

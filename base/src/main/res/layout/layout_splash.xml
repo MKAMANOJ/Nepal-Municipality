@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/activity_horizontal_margin"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/splashImageView"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:padding="@dimen/drawable_padding"
+        android:text="@string/app_name"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
 
     <ImageView
         android:id="@+id/splashImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/welcomeTextView"
+        android:layout_below="@+id/appName"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/activity_vertical_margin"
+        android:layout_weight="1"
         android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
         android:src="@drawable/emblem" />
@@ -18,12 +37,16 @@
     <TextView
         android:id="@+id/welcomeTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/activity_vertical_margin"
+        android:layout_below="@id/splashImageView"
+        android:layout_weight="2"
         android:gravity="center"
+        android:padding="@dimen/drawable_padding"
         android:text="@string/splash_welcome_text"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
         android:textColor="@android:color/black"
-        android:textSize="24sp" />
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-</RelativeLayout>
+</LinearLayout>

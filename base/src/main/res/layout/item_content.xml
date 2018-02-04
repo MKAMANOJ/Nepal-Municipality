@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackgroundBorderless"
+    android:padding="@dimen/drawable_padding"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="8dp">
 
@@ -16,21 +17,26 @@
             android:id="@+id/content_title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/default_margin"
             android:ellipsize="end"
+            android:fontFamily="sans-serif"
             android:gravity="center_vertical"
             android:maxLines="2"
-            android:text="Medium Text"
-            android:textColor="@color/textPrimaryDark"
-            android:textSize="18sp" />
+            android:text="Content Title"
+            android:textAppearance="@android:style/TextAppearance.Holo.Medium"
+            android:textColor="@color/textPrimaryDark" />
 
         <TextView
             android:id="@+id/content_desc_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:fontFamily="sans-serif"
             android:maxLines="5"
-            android:text="Small Text"
-            android:textColor="@color/textPrimary" />
+            android:text="Content Description"
+            android:textAppearance="@android:style/TextAppearance.Holo.Small"
+            android:textColor="@color/textPrimary"
+            android:textStyle="italic" />
 
     </LinearLayout>
 

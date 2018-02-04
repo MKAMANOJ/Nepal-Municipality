@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#009688</color>
-    <color name="colorPrimaryDark">#00796B</color>
-    <color name="colorAccent">#FF5722</color>
+    <color name="colorPrimaryDark">#00675b</color>
+    <color name="colorAccent">#52c7b8</color>
 
-    <color name="textPrimaryDark">#111</color>
-    <color name="textPrimary">#333</color>
-    <color name="textSecondary">#ccc</color>
-    <color name="textSecondaryLight">#eee</color>
+    <color name="textPrimaryDark">#000000</color>
+    <color name="textPrimary">#000000</color>
+    <color name="textSecondary">#000000</color>
+    <color name="textSecondaryLight">#000000</color>
+    <color name="singleGridBackgroundColor">#F6F6F4</color>
+    <color name="contentBackGroundColor">#FAFAFA</color>
 
     <bool name="dynamic_color">false</bool>
+
+    <!-- UseLess Colour For this App -->
+    <color name="secondaryColor">#4db6ac</color>
+    <color name="secondaryLightColor">#82e9de</color>
+    <color name="secondaryDarkColor">#00867d</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
 
 </resources>
