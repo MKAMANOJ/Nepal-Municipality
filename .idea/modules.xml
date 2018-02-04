@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Municipality.iml" filepath="$PROJECT_DIR$/Municipality.iml" />
       <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gadhimai/gadhimai.iml" filepath="$PROJECT_DIR$/gadhimai/gadhimai.iml" />
       <module fileurl="file://$PROJECT_DIR$/kathmandu/kathmandu.iml" filepath="$PROJECT_DIR$/kathmandu/kathmandu.iml" />
       <module fileurl="file://$PROJECT_DIR$/pokharalekhnath/pokharalekhnath.iml" filepath="$PROJECT_DIR$/pokharalekhnath/pokharalekhnath.iml" />
     </modules>
