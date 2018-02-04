@@ -1,0 +1,6 @@
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    package="np.gov.pokharalekhnath">
+
+    <application tools:ignore="GoogleAppIndexingWarning" />
+
+</manifest>

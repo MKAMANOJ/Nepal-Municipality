@@ -1,0 +1,155 @@
+{
+  "project_info": {
+    "project_number": "900184222270",
+    "firebase_url": "https://gsignin-51737.firebaseio.com",
+    "project_id": "gsignin-51737",
+    "storage_bucket": "gsignin-51737.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900184222270:android:b78890cf40db024c",
+        "android_client_info": {
+          "package_name": "com.nabinbhandari.realtimedatabase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900184222270-uqaaciiph1dl4hqd9q08krgjqpm950nb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nabinbhandari.realtimedatabase",
+            "certificate_hash": "5e7a1e5832647a8d753750c150c33b2a1ba2ae15"
+          }
+        },
+        {
+          "client_id": "900184222270-37ml3la19c3rm2dbo5v2sg127jpvi0ss.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "900184222270-q4r7hnbeld97k6v2q3pbed9scnmqslcl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCETlqD4kgPPR-usLvEHy3lU7926GSiFbI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900184222270-37ml3la19c3rm2dbo5v2sg127jpvi0ss.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900184222270:android:f3e06b5fc8f07882",
+        "android_client_info": {
+          "package_name": "com.nabinbhandari.firestoretest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900184222270-2o3j3kc1hd1pdok826qb4scf9m5l1t7c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nabinbhandari.firestoretest",
+            "certificate_hash": "5e7a1e5832647a8d753750c150c33b2a1ba2ae15"
+          }
+        },
+        {
+          "client_id": "900184222270-37ml3la19c3rm2dbo5v2sg127jpvi0ss.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "900184222270-q4r7hnbeld97k6v2q3pbed9scnmqslcl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCETlqD4kgPPR-usLvEHy3lU7926GSiFbI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900184222270-37ml3la19c3rm2dbo5v2sg127jpvi0ss.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900184222270:android:af59c29d7c75370f",
+        "android_client_info": {
+          "package_name": "np.gov.kathmandu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900184222270-2nmjh8uioivdcs2arumk4a6ge23lvdkg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "np.gov.kathmandu",
+            "certificate_hash": "5e7a1e5832647a8d753750c150c33b2a1ba2ae15"
+          }
+        },
+        {
+          "client_id": "900184222270-37ml3la19c3rm2dbo5v2sg127jpvi0ss.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "900184222270-q4r7hnbeld97k6v2q3pbed9scnmqslcl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCETlqD4kgPPR-usLvEHy3lU7926GSiFbI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900184222270-37ml3la19c3rm2dbo5v2sg127jpvi0ss.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
