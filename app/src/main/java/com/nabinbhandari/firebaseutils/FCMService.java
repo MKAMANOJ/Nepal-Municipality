@@ -82,7 +82,8 @@ public class FCMService extends FirebaseMessagingService {
                 } else if (categoryId > 0 && categoryId < 10) {
                     Content content = new Gson().fromJson(data.get(KEY_CONTENT), Content.class);
                     content.key = key;
-                    prepareData("tbl_uploaded_files/" + key + "/content");
+                    content.file_category_id = categoryId;
+                    prepareData(Category.findSlugById(categoryId) + "/" + key);
                     intent = new Intent(this, ContentActivity.class)
                             .putExtra(ContentActivity.EXTRA_CONTENT, content);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

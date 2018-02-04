@@ -19,6 +19,7 @@ import com.google.firebase.database.Query;
 import com.nabinbhandari.firebaseutils.ChildEventAdapter;
 import com.nabinbhandari.municipality.BaseFragment;
 import com.nabinbhandari.municipality.R;
+import com.nabinbhandari.municipality.menu.Category;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,6 +75,7 @@ public class ContentFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Content content = contentAdapter.getItem(position);
                 if (content == null) return;
+                content.file_category_id = categoryId;
                 startActivity(new Intent(parent.getContext(), ContentActivity.class)
                         .putExtra(ContentActivity.EXTRA_CONTENT, content));
             }
@@ -82,8 +84,8 @@ public class ContentFragment extends BaseFragment {
     }
 
     private void loadContents() {
-        dbRef = FirebaseDatabase.getInstance().getReference("tbl_uploaded_files")
-                .orderByChild("file_category_id").equalTo(categoryId);
+        String slug = Category.findSlugById(categoryId);
+        dbRef = FirebaseDatabase.getInstance().getReference(slug);
         listener = new ChildEventAdapter(getContext()) {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

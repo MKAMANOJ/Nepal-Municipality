@@ -30,6 +30,7 @@ import com.nabinbhandari.municipality.AppUtils;
 import com.nabinbhandari.municipality.CKEditorFragment;
 import com.nabinbhandari.municipality.MainActivity;
 import com.nabinbhandari.municipality.R;
+import com.nabinbhandari.municipality.menu.Category;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -113,6 +114,8 @@ public class ContentActivity extends AppCompatActivity {
         downloadButton.setVisibility(View.GONE);
         progressDialog.show();
         String type = content.content_type.toLowerCase();
+        FrameLayout contentHolder = findViewById(R.id.content_holder);
+        contentHolder.removeAllViews();
         switch (type) {
             case "image":
                 handleImage();
@@ -204,8 +207,8 @@ public class ContentActivity extends AppCompatActivity {
     private void handleHTML() {
         progressDialog.hide();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        CKEditorFragment fragment = CKEditorFragment.newInstance("tbl_uploaded_files/" +
-                content.key + "/content");
+        String reference = Category.findSlugById(content.file_category_id) + "/" + content.key + "/content";
+        CKEditorFragment fragment = CKEditorFragment.newInstance(reference);
         fragmentManager.beginTransaction().replace(R.id.content_holder, fragment).commit();
     }
 
