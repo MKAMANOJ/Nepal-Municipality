@@ -9,4 +9,6 @@
     <color name="textSecondary">#ccc</color>
     <color name="textSecondaryLight">#eee</color>
 
+    <bool name="dynamic_color">false</bool>
+
 </resources>

@@ -3,6 +3,7 @@ package com.nabinbhandari.municipality;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -153,16 +154,24 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
+
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_home);
-        // int NAV_ICON_COLOR = RemoteConfig.getMenuIconColor();
-        // if (drawable != null) drawable.setColorFilter(NAV_ICON_COLOR, PorterDuff.Mode.SRC_IN);
+        boolean dynamicColor = getResources().getBoolean(R.bool.dynamic_color);
+        int iconColor = dynamicColor ? RemoteConfig.getMenuIconColor() : 0;
+        updateIcon(drawable, iconColor);
         menu.findItem(R.id.nav_home).setIcon(drawable);
+
         for (Category category : Category.getDummyList()) {
             menu.add(R.id.menuGroup, category.id, Menu.FIRST, category.toString());
             drawable = ContextCompat.getDrawable(this, category.resId);
-            // if (drawable != null) drawable.setColorFilter(NAV_ICON_COLOR, PorterDuff.Mode.SRC_IN);
+            updateIcon(drawable, iconColor);
             menu.findItem(category.id).setCheckable(true).setIcon(drawable);
         }
+    }
+
+    private void updateIcon(Drawable drawable, int iconColor) {
+        if (drawable == null || iconColor == 0) return;
+        drawable.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
     }
 
     @Override

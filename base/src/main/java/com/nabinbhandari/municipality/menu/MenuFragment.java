@@ -1,11 +1,13 @@
 package com.nabinbhandari.municipality.menu;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,8 +97,12 @@ public class MenuFragment extends Fragment {
 
     private static class CategoriesAdapter extends ArrayAdapter<Category> {
 
+        private int iconColor;
+
         private CategoriesAdapter(@NonNull Context context, @NonNull List<Category> categories) {
             super(context, R.layout.item_category, categories);
+            boolean dynamicColor = context.getResources().getBoolean(R.bool.dynamic_color);
+            iconColor = dynamicColor ? RemoteConfig.getMenuIconColor() : 0;
         }
 
         @NonNull
@@ -124,7 +130,9 @@ public class MenuFragment extends Fragment {
                 @Override
                 public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> t,
                                                DataSource dataSource, boolean isFirstResource) {
-                    // resource.setColorFilter(RemoteConfig.getMenuIconColor(), PorterDuff.Mode.SRC_IN);
+                    if (resource != null && iconColor != 0) {
+                        resource.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
+                    }
                     return false;
                 }
             }).into(imageView);
