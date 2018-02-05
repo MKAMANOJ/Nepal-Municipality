@@ -2,4 +2,7 @@
     <string name="app_name">Pokhara Lekhnath</string>
     <string name="app_name_title">Pokhara Lekhnath Metropolitan City</string>
     <string name="splash_welcome_text">Welcome to Pokhara Lekhnath Metropolitan City</string>
+
+    <string name="base_url" translatable="false">http://palika.engineeringinnepal.com/palika/storage/</string>
+
 </resources>

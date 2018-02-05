@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
     private void refreshLanguage() {
         LanguageHelper.refreshLanguage(this);
-        if (fragmentManager.getBackStackEntryCount() == 0) setTitle(R.string.app_name);
+        if (fragmentManager.getBackStackEntryCount() == 0) setTitle(R.string.app_name_title);
     }
 
     private void initDrawer() {
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity
                 int backStackEntryCount = fragmentManager.getBackStackEntryCount();
                 if (backStackEntryCount == 0) {
                     ((NavigationView) (findViewById(R.id.nav_view))).setCheckedItem(R.id.nav_home);
-                    setTitle(R.string.app_name);
+                    setTitle(R.string.app_name_title);
                     shouldShowBackArrow = false;
                 }
                 if (shouldShowBackArrow || backStackEntryCount > 1) {

@@ -2,4 +2,7 @@
     <string name="app_name">Kathmandu</string>
     <string name="app_name_title">Kathmandu Metropolitan City</string>
     <string name="splash_welcome_text">Welcome to Kathmandu Metropolitan City</string>
+
+    <string name="base_url" translatable="false">http://palika.engineeringinnepal.com/palika/storage/</string>
+
 </resources>

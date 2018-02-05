@@ -3,6 +3,8 @@
     <string name="app_name_title">Bhote Koshi Rural Municipality</string>
     <string name="splash_welcome_text">Welcome to Municipality</string>
 
+    <string name="base_url" translatable="false">http://palika.engineeringinnepal.com/palika/storage/</string>
+
     <string name="nepal_government">Nepal Government</string>
     <string name="action_settings">Settings</string>
     <string name="introduction">Introduction</string>
