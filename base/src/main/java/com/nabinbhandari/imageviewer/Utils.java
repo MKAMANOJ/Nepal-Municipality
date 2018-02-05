@@ -113,8 +113,8 @@ public class Utils {
     public static RequestOptions getContactPlaceholderOptions() {
         if (contactPlaceholderOpts == null) {
             contactPlaceholderOpts = new RequestOptions();
-            contactPlaceholderOpts.placeholder(R.drawable.ic_staffs);
-            contactPlaceholderOpts.error(R.drawable.ic_staffs);
+            contactPlaceholderOpts.placeholder(R.drawable.ic_contacts_plain);
+            contactPlaceholderOpts.error(R.drawable.ic_contacts_plain);
         }
         return contactPlaceholderOpts;
     }

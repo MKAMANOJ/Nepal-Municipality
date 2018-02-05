@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">भोटेकोशी गाउँपालिका</string>
-    <string name="app_name_title">भोटेकोशी गाउँपालिका</string>
-    <string name="splash_welcome_text">भोटेकोशी गाउँपालिकामा स्वागत छ।</string>
+    <string name="app_name">Base गाउँपालिका</string>
+    <string name="app_name_title">Base गाउँपालिका</string>
+    <string name="splash_welcome_text">Base गाउँपालिकामा स्वागत छ।</string>
 
     <string name="nepal_government">नेपाल सरकार</string>
     <string name="action_settings">सेटिङ्हरू</string>
