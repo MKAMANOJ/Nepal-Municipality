@@ -1,9 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="np.gov.kathmandu">
-
-    <application
-        android:name="com.nabinbhandari.municipality.AppConstants"
-        tools:ignore="GoogleAppIndexingWarning" />
-
-</manifest>

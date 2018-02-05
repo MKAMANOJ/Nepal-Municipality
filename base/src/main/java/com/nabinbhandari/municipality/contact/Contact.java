@@ -2,6 +2,8 @@ package com.nabinbhandari.municipality.contact;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created at 10:41 PM on 1/11/2018.
  *
@@ -10,7 +12,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @SuppressWarnings("WeakerAccess")
 @IgnoreExtraProperties
-public class Contact {
+public class Contact implements Serializable {
 
     public String title;
     public String address;

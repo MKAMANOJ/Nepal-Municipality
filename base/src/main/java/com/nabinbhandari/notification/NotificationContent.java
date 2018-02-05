@@ -3,6 +3,8 @@ package com.nabinbhandari.notification;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created at 7:46 PM on 1/20/2018.
  *
@@ -11,7 +13,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 @SuppressWarnings("WeakerAccess")
-public class NotificationContent {
+public class NotificationContent implements Serializable {
 
     public int id;
     public String key;

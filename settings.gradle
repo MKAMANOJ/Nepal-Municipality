@@ -1,1 +1,1 @@
-include ':base', ':pokharalekhnath', ':kathmandu', ':gadhimai'
+include ':base', ':pokharalekhnath', ':gadhimai'

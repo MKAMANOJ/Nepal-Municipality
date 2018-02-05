@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created at 8:27 PM on 1/7/2018.
  * <p/>
@@ -15,7 +17,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @SuppressWarnings("WeakerAccess")
 @IgnoreExtraProperties
-public class ImpContact {
+public class ImpContact implements Serializable {
 
     public int id;
     public String name;
@@ -53,7 +55,7 @@ public class ImpContact {
         this.email = staff.email;
         this.image = staff.image;
         this.address = staff.address;
-        //this.selected = staff.selected;
+        //this.selected = staff.selected; // intentionally commented.
         this.designation = staff.designation;
         this.phone = staff.phone;
         this.mobile = staff.mobile;
