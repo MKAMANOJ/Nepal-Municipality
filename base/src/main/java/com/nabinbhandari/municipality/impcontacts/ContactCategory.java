@@ -3,6 +3,8 @@ package com.nabinbhandari.municipality.impcontacts;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created at 11:06 AM on 1/14/2018.
  *
@@ -11,7 +13,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @SuppressWarnings("WeakerAccess")
 @IgnoreExtraProperties
-public class ContactCategory {
+public class ContactCategory implements Serializable {
 
     public int id;
     public String name;
