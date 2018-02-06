@@ -88,14 +88,33 @@ public class ContactFragment extends Fragment implements Runnable {
         final View googlePlusHolder = rootView.findViewById(R.id.contact_google_plus_holder);
         final TextView googlePlusTextView = rootView.findViewById(R.id.contact_google_plus_text);
 
+        titleTextView.setVisibility(View.GONE);
+        addressTextView.setVisibility(View.GONE);
+        phoneHolder.setVisibility(View.GONE);
+        faxHolder.setVisibility(View.GONE);
+        emailHolder.setVisibility(View.GONE);
+        websiteHolder.setVisibility(View.GONE);
+        facebookHolder.setVisibility(View.GONE);
+        twitterHolder.setVisibility(View.GONE);
+        googlePlusHolder.setVisibility(View.GONE);
+
         listener = new ValueEventAdapter(getContext()) {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Contact contact = dataSnapshot.getValue(Contact.class);
                 if (contact == null) return;
 
-                titleTextView.setText(contact.title);
-                addressTextView.setText(contact.address);
+                if (contact.title == null) titleTextView.setVisibility(View.GONE);
+                else {
+                    titleTextView.setVisibility(View.VISIBLE);
+                    titleTextView.setText(contact.title);
+                }
+
+                if (contact.title == null) addressTextView.setVisibility(View.GONE);
+                else {
+                    addressTextView.setVisibility(View.VISIBLE);
+                    addressTextView.setText(contact.address);
+                }
 
                 if (contact.phone1 == null && contact.phone2 == null)
                     phoneHolder.setVisibility(View.GONE);
