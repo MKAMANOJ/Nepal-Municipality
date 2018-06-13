@@ -1,5 +1,6 @@
 package com.nabinbhandari.municipality.menu;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -72,6 +73,8 @@ public class MenuFragment extends Fragment {
         if (args != null) {
             //noinspection unchecked
             categories = (ArrayList<Category>) args.getSerializable(KEY_CATEGORIES);
+            boolean dynamicColor = getContext().getResources().getBoolean(R.bool.show_map);
+            if (!dynamicColor) categories.remove(categories.size() - 1 );
         }
     }
 

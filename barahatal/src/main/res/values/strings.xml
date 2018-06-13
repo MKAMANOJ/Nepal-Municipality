@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">बराहताल गाउँपालिका</string>
+    <string name="app_name_title">Barahatal Municipality</string>
+    <string name="splash_welcome_text">Welcome to Barahatal Municipality</string>
+
+    <string name="base_url" translatable="false">http://nepalmunicipality.com/barahatal/storage/</string>
+
+</resources>

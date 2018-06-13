@@ -5,12 +5,14 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Patterns;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.nabinbhandari.municipality.BuildConfig;
 import com.nabinbhandari.municipality.R;
+
 
 /**
  * Helper class for Firebase remote config.
@@ -84,6 +86,19 @@ public class RemoteConfig {
         } catch (Throwable t) {
             printStackTrace(t);
             return defaultColor;
+        }
+    }
+
+    public static LatLng getMunicipalityCoordinates() {
+        try {
+            String latitude = FirebaseRemoteConfig.getInstance().getString("municipality_latitude");
+            String longitude = FirebaseRemoteConfig.getInstance().getString("municipality_longitude");
+            if (TextUtils.isEmpty(latitude)) throw new Exception();
+            if (TextUtils.isEmpty(longitude)) throw new Exception();
+            return new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+        } catch (Throwable t) {
+            printStackTrace(t);
+            return new LatLng(27.698284,85.322504);
         }
     }
 

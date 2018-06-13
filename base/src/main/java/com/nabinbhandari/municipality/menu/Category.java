@@ -1,5 +1,6 @@
 package com.nabinbhandari.municipality.menu;
 
+import android.app.Application;
 import android.support.annotation.DrawableRes;
 
 import com.nabinbhandari.LanguageHelper;
@@ -36,6 +37,8 @@ public class Category implements Serializable {
         categories.add(new Category(12, "", "Important Contacts", "महत्त्वपूर्ण सम्पर्कहरू", R.drawable.ic_contacts, R.drawable.ic_contacts_plain));
         categories.add(new Category(9, "tbl_ward_profile", "Ward Profile", "वार्ड प्रोफाइल", R.drawable.ic_team, R.drawable.ic_team_plain));
         categories.add(new Category(14, "", "Office Contact", "कार्यालय सम्पर्क", R.drawable.ic_contact_us, R.drawable.ic_contact_us_plain));
+        categories.add(new Category(15, "", "Map", "नक्सा", R.drawable.ic_map, R.drawable.ic_map_plain));
+
     }
 
     public static String findSlugById(int id) {

@@ -98,7 +98,7 @@ public class FCMService extends FirebaseMessagingService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, notificationId, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default")
-                .setContentTitle(title)
+                .setContentTitle(getString(R.string.app_name))
                 .setSmallIcon(R.drawable.ic_notification)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true)
@@ -107,7 +107,7 @@ public class FCMService extends FirebaseMessagingService {
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), getIconForCategory(categoryId)))
                 .setContentIntent(pendingIntent);
 
-        if (!TextUtils.isEmpty(text)) builder.setContentText(text);
+        if (!TextUtils.isEmpty(title)) builder.setContentText(title);
         if (!TextUtils.isEmpty(subText)) builder.setSubText(subText);
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -117,16 +117,16 @@ public class FCMService extends FirebaseMessagingService {
     }
 
     private int getIconForCategory(int categoryId) {
-        if (categoryId < 1 || categoryId > 9) {
-            return R.mipmap.ic_launcher;
-        } else {
-            List<Category> categories = Category.getDummyList();
-            for (Category category : categories) {
-                if (categoryId == category.id) {
-                    return category.getMenuIconColor(getResources().getBoolean(R.bool.dynamic_color));
-                }
-            }
-        }
+//        if (categoryId < 1 || categoryId > 9) {
+//            return R.mipmap.ic_launcher;
+//        } else {
+//            List<Category> categories = Category.getDummyList();
+//            for (Category category : categories) {
+//                if (categoryId == category.id) {
+//                    return category.getMenuIconColor(getResources().getBoolean(R.bool.dynamic_color));
+//                }
+//            }
+//        }
         return R.mipmap.ic_launcher;
     }
 

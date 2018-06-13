@@ -28,6 +28,7 @@ import com.nabinbhandari.municipality.contact.ContactFragment;
 import com.nabinbhandari.municipality.content.ContentFragment;
 import com.nabinbhandari.municipality.gallery.GalleryFragment;
 import com.nabinbhandari.municipality.impcontacts.ImpContactsFragment;
+import com.nabinbhandari.municipality.map.MapFragment;
 import com.nabinbhandari.municipality.menu.Category;
 import com.nabinbhandari.municipality.menu.MenuFragment;
 import com.nabinbhandari.municipality.staffs.StaffsFragment;
@@ -270,6 +271,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case 14:
                 setFragment(ContactFragment.newInstance());
+                break;
+            case 15:
+                setFragment(MapFragment.newInstance());
                 break;
             default:
                 Toast.makeText(this, "Invalid id: " + categoryId, Toast.LENGTH_SHORT).show();

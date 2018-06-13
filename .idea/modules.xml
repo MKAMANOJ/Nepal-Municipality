@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CitizenInfotech Municipalities.iml" filepath="$PROJECT_DIR$/CitizenInfotech Municipalities.iml" />
-      <module fileurl="file://D:\Projects\CitizenInfotech Municipalities\Municipality.iml" filepath="D:\Projects\CitizenInfotech Municipalities\Municipality.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Nepal Municipality.iml" filepath="$PROJECT_DIR$/Nepal Municipality.iml" />
+      <module fileurl="file://$PROJECT_DIR$/badigad/badigad.iml" filepath="$PROJECT_DIR$/badigad/badigad.iml" />
       <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gadhimai/gadhimai.iml" filepath="$PROJECT_DIR$/gadhimai/gadhimai.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pokharalekhnath/pokharalekhnath.iml" filepath="$PROJECT_DIR$/pokharalekhnath/pokharalekhnath.iml" />
     </modules>
   </component>
 </project>

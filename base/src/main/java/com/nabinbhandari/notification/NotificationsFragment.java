@@ -132,8 +132,8 @@ public class NotificationsFragment extends BaseFragment {
             TextView titleTextView = rootView.findViewById(R.id.content_title_text);
             TextView descTextView = rootView.findViewById(R.id.content_desc_text);
 
-            titleTextView.setText(content.title);
-            descTextView.setText(content.description);
+            titleTextView.setText(getString(R.string.app_name));
+            descTextView.setText(content.title);
 
             return rootView;
         }

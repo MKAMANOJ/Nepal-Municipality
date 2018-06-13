@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="dynamic_color">false</bool>
+    <bool name="show_map">true</bool>
+</resources>

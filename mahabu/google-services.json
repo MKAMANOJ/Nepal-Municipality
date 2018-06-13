@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "647130683587",
+    "firebase_url": "https://mahabu-rural-municipality.firebaseio.com",
+    "project_id": "mahabu-rural-municipality",
+    "storage_bucket": "mahabu-rural-municipality.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647130683587:android:4c16d5aff325929f",
+        "android_client_info": {
+          "package_name": "com.nepalmunicipality.mahabuRuralMunicipality"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647130683587-7or7m7iasviq6v3nbaf4j4jcp6qpd86d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nepalmunicipality.mahabuRuralMunicipality",
+            "certificate_hash": "4aa881461e5b4608a8b121f33d7b22397a9ab7d4"
+          }
+        },
+        {
+          "client_id": "647130683587-h1bteeajhjuf8a8fbm8p5ljvp32odcu3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKW9fdqdE6Vp1hiew4-HBCyfFPCBPjMbY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647130683587-h1bteeajhjuf8a8fbm8p5ljvp32odcu3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

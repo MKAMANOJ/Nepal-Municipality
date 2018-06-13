@@ -164,7 +164,7 @@ public class ContactCategoryActivity extends AppCompatActivity {
             ImageView imageView = view.findViewById(R.id.imagePreview);
             if (TextUtils.isEmpty(contact.image)) {
                 imageView.setImageDrawable(ContextCompat.getDrawable(context,
-                        R.drawable.ic_contacts_plain));
+                        R.drawable.ic_staffs));
             } else {
                 Glide.with(imageView).setDefaultRequestOptions(Utils.getContactPlaceholderOptions())
                         .load(AppConstants.BASE_URL + contact.image).into(imageView);

@@ -14,6 +14,14 @@
     </entry>
     <entry>
         <key>contact_email</key>
-        <value>municipality@citizeninfotechnepal.com</value>
+        <value>contact@nepalmunicipality.com</value>
+    </entry>
+    <entry>
+        <key>municipality_latitude</key>
+        <value>27.698284</value>
+    </entry>
+    <entry>
+        <key>municipality_longitude</key>
+        <value>85.322504</value>
     </entry>
 </defaultsMap>

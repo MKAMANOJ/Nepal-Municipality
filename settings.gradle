@@ -1,1 +1,2 @@
-include ':base', ':pokharalekhnath', ':gadhimai'
+include ':base', ':badigad'
+//':barahatal', ':surkhet', ':badigad'

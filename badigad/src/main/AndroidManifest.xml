@@ -1,0 +1,23 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.nepalmunicipality.badigadRuralMunicipality"
+    android:installLocation="auto">
+
+    <application
+        android:name="com.nabinbhandari.municipality.AppConstants"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!--
+             The API key for Google Maps-based APIs.
+        -->
+        <meta-data
+            tools:replace="android:value"
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAomjGMBNCib_0rKj2kBgfrg-jld4ySsXQ" />
+    </application>
+
+</manifest>

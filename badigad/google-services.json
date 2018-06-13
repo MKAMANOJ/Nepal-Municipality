@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "1087414345666",
+    "firebase_url": "https://badigad-rural-municipality.firebaseio.com",
+    "project_id": "badigad-rural-municipality",
+    "storage_bucket": "badigad-rural-municipality.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087414345666:android:e23a2d5c058690e4",
+        "android_client_info": {
+          "package_name": "com.nepalmunicipality.badigadRuralMunicipality"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087414345666-ndnrb7fem7ibl1b9g6pff0viskjuesrd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nepalmunicipality.badigadRuralMunicipality",
+            "certificate_hash": "4aa881461e5b4608a8b121f33d7b22397a9ab7d4"
+          }
+        },
+        {
+          "client_id": "1087414345666-0jntgjqofig3tidh2qje7bbporamfmj6.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1087414345666-0jntgjqofig3tidh2qje7bbporamfmj6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAomjGMBNCib_0rKj2kBgfrg-jld4ySsXQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087414345666-0jntgjqofig3tidh2qje7bbporamfmj6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

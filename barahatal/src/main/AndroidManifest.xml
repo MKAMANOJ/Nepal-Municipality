@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="auto"
+    package="com.nepalmunicipality.barahatalMunicipality">
+
+    <application
+        android:name="com.nabinbhandari.municipality.AppConstants"
+        tools:ignore="GoogleAppIndexingWarning" />
+
+</manifest>

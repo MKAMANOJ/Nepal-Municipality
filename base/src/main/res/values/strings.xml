@@ -3,7 +3,7 @@
     <string name="app_name_title">Base Rural Municipality</string>
     <string name="splash_welcome_text">Welcome to Base Municipality</string>
 
-    <string name="base_url" translatable="false">http://palika.engineeringinnepal.com/palika/storage/</string>
+    <string name="base_url" translatable="false">http://sample.nepalmunicipality.com/storage/</string>
 
     <string name="nepal_government">Government of Nepal</string>
     <string name="action_settings">Settings</string>

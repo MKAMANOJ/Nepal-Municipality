@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "1006646151352",
+    "firebase_url": "https://barahatal-rural-municipality.firebaseio.com",
+    "project_id": "barahatal-rural-municipality",
+    "storage_bucket": "barahatal-rural-municipality.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006646151352:android:73a428c3772a6023",
+        "android_client_info": {
+          "package_name": "com.acedigital.barahatalRuralMunicipality"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006646151352-qldcqoih3eni9ceaj33pas2fjegrc13o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.acedigital.barahatalRuralMunicipality",
+            "certificate_hash": "4aa881461e5b4608a8b121f33d7b22397a9ab7d4"
+          }
+        },
+        {
+          "client_id": "1006646151352-glv8hr4k1onb371af9t0f8r14u2brgug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5_qGDumTZPqjJ-U8wkGuz-ixlhGPKdHw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006646151352-glv8hr4k1onb371af9t0f8r14u2brgug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006646151352:android:d9a27524e3ea8e25",
+        "android_client_info": {
+          "package_name": "com.nepalmunicipality.barahatalMunicipality"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006646151352-g99rhkn2n16kdddr91u037r77lui0cl0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nepalmunicipality.barahatalMunicipality",
+            "certificate_hash": "4aa881461e5b4608a8b121f33d7b22397a9ab7d4"
+          }
+        },
+        {
+          "client_id": "1006646151352-glv8hr4k1onb371af9t0f8r14u2brgug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5_qGDumTZPqjJ-U8wkGuz-ixlhGPKdHw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006646151352-glv8hr4k1onb371af9t0f8r14u2brgug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
